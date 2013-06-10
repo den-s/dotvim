@@ -169,8 +169,8 @@ set mousehide
 set laststatus=2 
 
 " Make tab in v mode work like I think it should (keep highlighting):
-vmap <tab> >gv
-vmap <s-tab> <gv
+"vmap <tab> >gv
+"vmap <s-tab> <gv
 
 inoremap <c-h> <Esc>:tabprevious<cr>
 map <c-h> :tabprevious<cr>
@@ -186,10 +186,15 @@ map <a-right> :diffput<cr>
 
 " zen-coding
 "map <leader>m <c-y>,
-"inoremap <tab> <Esc><c-y>,
-let g:user_zen_expandabbr_key='<c-f>'
+let g:user_zen_expandabbr_key='<c-y>'
 let g:user_zen_mode='a'
 " zen-coding
+
+
+"UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "Syntastic validate
 map <leader>c :SyntasticCheck<CR>
