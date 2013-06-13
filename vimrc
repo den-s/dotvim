@@ -186,7 +186,7 @@ map <a-right> :diffput<cr>
 
 " zen-coding
 "map <leader>m <c-y>,
-let g:user_zen_expandabbr_key='<c-y>'
+let g:user_zen_expandabbr_key='<c-\>'
 let g:user_zen_mode='a'
 " zen-coding
 
