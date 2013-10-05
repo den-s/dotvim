@@ -12,6 +12,10 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+" highlight cursor
+set cursorcolumn
+set cursorline
+
 " Be smart when using tabs ;)
 set smarttab
 
@@ -186,8 +190,8 @@ map <a-right> :diffput<cr>
 
 " zen-coding
 "map <leader>m <c-y>,
-let g:user_zen_expandabbr_key='<c-\>'
-let g:user_zen_mode='a'
+let g:user_emmet_expandabbr_key='<c-_>'
+let g:user_emmet_mode='a'
 " zen-coding
 
 
@@ -249,3 +253,8 @@ inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 map <leader>f :call JsBeautify()<cr>
+
+
+" filetypes
+au BufReadPost *.tpl set syntax=smarty
+au BufReadPost *.tpl.html set syntax=smarty

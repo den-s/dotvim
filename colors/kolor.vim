@@ -1,1 +1,0 @@
-/home/den/.vim/bundle/vim-kolor/colors/kolor.vim
