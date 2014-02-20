@@ -71,12 +71,12 @@ set t_vb=
 set tm=500
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+set foldcolumn=3
 
 " set lz
 
-"set listchars=tab:▸\ ,precedes:«,extends:»
-set listchars=tab:\|\ ,precedes:«,extends:»
+set listchars=tab:▸·,precedes:«,extends:»,trail:·
+"set listchars=tab:\|\ ,precedes:«,extends:»
 
 " Show  tab characters. Visual Whitespace.
 set list
@@ -94,7 +94,7 @@ let g:syntastic_warning_symbol='⚠'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_html_checkers=['tidy','w3']
 let g:syntastic_css_checkers=['csslint','prettycss']
-let g:syntastic_auto_jump=1
+let g:syntastic_auto_jump=0
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': ['css', 'php', 'js', 'ruby', 'vim', 'python', 'html', 'coffee'] }
@@ -129,9 +129,7 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
+set t_Co=256
 
 syntax enable
 
@@ -141,8 +139,7 @@ else
     set background=dark
 endif
 
-colorscheme jellybeans
-
+colorscheme lucius
 " Set utf8 as standard encoding and en_US as the standard
 set encoding=utf8
 
@@ -185,8 +182,8 @@ map <c-n> :tabnew<cr>
 map <F4> :NERDTreeToggle<cr>
 inoremap <F4> <Esc>:NERDTreeToggle<cr>
 
-map <a-left> :diffget<cr>
-map <a-right> :diffput<cr>
+"map <a-left> :diffget<cr>
+"map <a-right> :diffput<cr>
 
 " zen-coding
 "map <leader>m <c-y>,
@@ -226,12 +223,18 @@ execute pathogen#infect()
 " git clone https://github.com/klen/python-mode
 map <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enable_shortcuts = 1
-let g:pymode_rope_goto_def_newwin = "vnew"
+let g:pymode_rope = 1
+let g:pymode_warnings = 0
+let g:pymode_rope_goto_definition_cmd = "new"
 let g:pymode_rope_extended_complete = 1
-let g:pymode_breakpoint = 0
 let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 0
-let g:pymode_syntax_builtin_funcs = 0
+let g:pymode_syntax_builtin_objs = 1
+let g:pymode_syntax_builtin_funcs = 1
+let g:pymode_virtualenv = 1
+let g:pymode_doc = 1
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_on_fly = 1
+let g:pymode_lint_checker = 'pyflakes'
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
@@ -258,3 +261,50 @@ map <leader>f :call JsBeautify()<cr>
 " filetypes
 au BufReadPost *.tpl set syntax=smarty
 au BufReadPost *.tpl.html set syntax=smarty
+
+"ctags
+map <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+
+
+" svndiff
+"
+let g:svndiff_autoupdate = 1
+let g:svndiff_one_sign_delete = 1
+noremap <F5> :call Svndiff("prev")<CR>
+noremap <F6> :call Svndiff("next")<CR>
+"noremap <F7> :call Svndiff("clear")<CR> 
+
+nmap ]c <Plug>GitGutterNextHunk
+nmap [c <Plug>GitGutterPrevHunk
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+
+
+"Jedi
+
+"let g:jedi#goto_assignments_command = "<leader>a"
+"let g:jedi#goto_definitions_command = "<leader>g"
+"let g:jedi#documentation_command = "<leader>d"
+"let g:jedi#usages_command = "<leader>n"
+"let g:jedi#completions_command = "<C-Space>"
+"let g:jedi#rename_command = "<leader>r"
+"let g:jedi#show_call_signatures = "1"
+"
+
+
+
+" The Silver Searcher
+if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
+
+" bind f to grep word under cursor
+nnoremap <leader>f :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
