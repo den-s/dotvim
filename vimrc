@@ -84,21 +84,6 @@ set list
 set ffs=unix,dos,mac
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 
- "HTML validator
-"au FileType html compiler html
-"au QuickFixCmdPost make cwindow
-
-"Syntastic All validator
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_auto_loc_list=1
-let g:syntastic_html_checkers=['tidy','w3']
-let g:syntastic_css_checkers=['csslint','prettycss']
-let g:syntastic_auto_jump=0
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['css', 'php', 'js', 'ruby', 'vim', 'python', 'html', 'coffee'] }
-
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
