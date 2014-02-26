@@ -75,7 +75,7 @@ set foldcolumn=3
 
 " set lz
 
-set listchars=tab:▸·,precedes:«,extends:»,trail:·
+set listchars=tab:▸·,precedes:«,extends:»,trail:·,eol:¬
 "set listchars=tab:\|\ ,precedes:«,extends:»
 
 " Show  tab characters. Visual Whitespace.
