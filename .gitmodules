@@ -40,3 +40,12 @@
 [submodule "bundle/color-lucius"]
 	path = bundle/color-lucius
 	url = https://github.com/jonathanfilip/vim-lucius.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "bundle/ycm"]
+	path = bundle/ycm
+	url = https://github.com/Valloric/YouCompleteMe.git

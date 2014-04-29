@@ -75,7 +75,7 @@ set foldcolumn=3
 
 " set lz
 
-set listchars=tab:▸·,precedes:«,extends:»,trail:·,eol:¬
+set listchars=tab:▸·,precedes:«,extends:»,trail:·
 "set listchars=tab:\|\ ,precedes:«,extends:»
 
 " Show  tab characters. Visual Whitespace.
@@ -220,6 +220,7 @@ let g:pymode_doc = 1
 let g:pymode_lint_on_write = 0
 let g:pymode_lint_on_fly = 1
 let g:pymode_lint_checker = 'pyflakes'
+let g:ropevim_enable_autoimport = 1
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
@@ -265,20 +266,6 @@ nmap [c <Plug>GitGutterPrevHunk
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-
-"Jedi
-
-"let g:jedi#goto_assignments_command = "<leader>a"
-"let g:jedi#goto_definitions_command = "<leader>g"
-"let g:jedi#documentation_command = "<leader>d"
-"let g:jedi#usages_command = "<leader>n"
-"let g:jedi#completions_command = "<C-Space>"
-"let g:jedi#rename_command = "<leader>r"
-"let g:jedi#show_call_signatures = "1"
-"
-
-
-
 " The Silver Searcher
 if executable('ag')
     " Use ag over grep
@@ -293,3 +280,51 @@ endif
 
 " bind f to grep word under cursor
 nnoremap <leader>f :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" Statusline
+
+hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
+hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
+
+function! MyStatusLine(mode)
+    let statusline=""
+    if a:mode == 'Enter'
+        let statusline.="%#StatColor#"
+    endif
+    let statusline.="\(%n\)\ %f\ "
+    if a:mode == 'Enter'
+        let statusline.="%*"
+    endif
+    let statusline.="%#Modified#%m"
+    if a:mode == 'Leave'
+        let statusline.="%*%r"
+    elseif a:mode == 'Enter'
+        let statusline.="%r%*"
+    endif
+    let statusline .= "\ %{fugitive#statusline()} \%=% %y[%{&fileformat}:%{&encoding}][%l/%L(%P):%c]\ "
+    return statusline
+endfunction
+
+au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
+au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
+set statusline=%!MyStatusLine('Enter')
+
+function! InsertStatuslineColor(mode)
+    if a:mode == 'i'
+        hi StatColor guibg=orange ctermbg=lightblue
+    elseif a:mode == 'r'
+        hi StatColor guibg=#e454ba ctermbg=magenta
+    elseif a:mode == 'v'
+        hi StatColor guibg=#e454ba ctermbg=magenta
+    else
+        hi StatColor guibg=red ctermbg=red
+    endif
+endfunction 
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
+
+" Statusline END
