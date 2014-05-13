@@ -284,47 +284,18 @@ nnoremap <leader>f :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 
-" Statusline
+"vim-airline
 
-hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
-hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
+let g:airline_theme='bubblegum'
 
-function! MyStatusLine(mode)
-    let statusline=""
-    if a:mode == 'Enter'
-        let statusline.="%#StatColor#"
-    endif
-    let statusline.="\(%n\)\ %f\ "
-    if a:mode == 'Enter'
-        let statusline.="%*"
-    endif
-    let statusline.="%#Modified#%m"
-    if a:mode == 'Leave'
-        let statusline.="%*%r"
-    elseif a:mode == 'Enter'
-        let statusline.="%r%*"
-    endif
-    let statusline .= "\ %{fugitive#statusline()} \%=% %y[%{&fileformat}:%{&encoding}][%l/%L(%P):%c]\ "
-    return statusline
-endfunction
+let g:airline_powerline_fonts = 1
 
-au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-set statusline=%!MyStatusLine('Enter')
-
-function! InsertStatuslineColor(mode)
-    if a:mode == 'i'
-        hi StatColor guibg=orange ctermbg=lightblue
-    elseif a:mode == 'r'
-        hi StatColor guibg=#e454ba ctermbg=magenta
-    elseif a:mode == 'v'
-        hi StatColor guibg=#e454ba ctermbg=magenta
-    else
-        hi StatColor guibg=red ctermbg=red
-    endif
-endfunction 
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
-
-" Statusline END
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+if !exists('g:airline_symbols')
+    let g:airline_left_sep = '>'
+    let g:airline_right_sep = '<'
+    let g:airline_linecolumn_prefix = ':'
+    let g:airline_paste_symbol = 'ρ'
+endif
