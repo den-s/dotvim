@@ -131,7 +131,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "=> Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -176,19 +175,8 @@ let g:user_emmet_expandabbr_key='<c-_>'
 let g:user_emmet_mode='a'
 " zen-coding
 
-
-"UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 "Syntastic validate
 map <leader>c :SyntasticCheck<CR>
-
-" Tag list
-"noremap <silent> <F8> :TlistToggle<CR>
-"nnoremap <silent> <a-s-down> Yp<CR>
-" /Tag list
 
 "NERDTree options {{{ 
 
@@ -200,6 +188,12 @@ let NERDTreeChDirMode       =   2                                   "change work
 let NERDTreeShowBookmarks   =   0
 
 "}}}
+
+"UltiSnips
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 execute pathogen#infect()
 
@@ -243,7 +237,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 map <leader>f :call JsBeautify()<cr>
 
-
 " filetypes
 au BufReadPost *.tpl set syntax=smarty
 au BufReadPost *.tpl.html set syntax=smarty
@@ -251,15 +244,6 @@ au BufReadPost *.tpl.html set syntax=smarty
 "ctags
 map <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
-
-
-" svndiff
-"
-let g:svndiff_autoupdate = 1
-let g:svndiff_one_sign_delete = 1
-noremap <F5> :call Svndiff("prev")<CR>
-noremap <F6> :call Svndiff("next")<CR>
-"noremap <F7> :call Svndiff("clear")<CR> 
 
 nmap ]c <Plug>GitGutterNextHunk
 nmap [c <Plug>GitGutterPrevHunk
@@ -285,17 +269,12 @@ nnoremap <leader>f :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nmap <F8> :TagbarToggle<CR>
 
 "vim-airline
-
 let g:airline_theme='bubblegum'
+let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_powerline_fonts = 1
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-if !exists('g:airline_symbols')
-    let g:airline_left_sep = '>'
-    let g:airline_right_sep = '<'
-    let g:airline_linecolumn_prefix = ':'
-    let g:airline_paste_symbol = 'ρ'
-endif
+"let g:airline_left_sep = '>'
+"let g:airline_right_sep = '<'
+"let g:airline_linecolumn_prefix = ':'
+"let g:airline_paste_symbol = 'ρ'
