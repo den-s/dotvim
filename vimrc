@@ -204,7 +204,7 @@ map <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enable_shortcuts = 1
 let g:pymode_rope = 1
 let g:pymode_warnings = 0
-let g:pymode_rope_goto_definition_cmd = "new"
+let g:pymode_rope_goto_definition_cmd = "vnew"
 let g:pymode_rope_extended_complete = 1
 let g:pymode_syntax = 1
 let g:pymode_syntax_builtin_objs = 1
@@ -270,11 +270,21 @@ nmap <F8> :TagbarToggle<CR>
 
 "vim-airline
 let g:airline_theme='bubblegum'
-let g:airline#extensions#tabline#enabled = 1
 
-let g:airline_powerline_fonts = 1
+ "unicode symbols
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
-"let g:airline_left_sep = '>'
-"let g:airline_right_sep = '<'
-"let g:airline_linecolumn_prefix = ':'
-"let g:airline_paste_symbol = 'ρ'
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
