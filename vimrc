@@ -110,6 +110,8 @@ nmap <Right> <C-W><Right>
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
+    set guioptions-=L
+    set guioptions-=L
     set t_Co=256
     set guitablabel=%M\ %t
 endif
@@ -118,11 +120,12 @@ set t_Co=256
 
 syntax enable
 
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+"if has('gui_running')
+    "set background=light
+"else
+    "set background=dark
+"endif
+set background=dark
 
 colorscheme lucius
 " Set utf8 as standard encoding and en_US as the standard
