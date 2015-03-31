@@ -110,21 +110,19 @@ nmap <Right> <C-W><Right>
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
+    set guioptions-=m
     set guioptions-=L
-    set guioptions-=L
-    set t_Co=256
+    set guioptions-=r
+    set guioptions-=b
     set guitablabel=%M\ %t
+    set fuoptions=maxvert,maxhorz
+    au GUIEnter * set fullscreen
 endif
 
 set t_Co=256
 
 syntax enable
 
-"if has('gui_running')
-    "set background=light
-"else
-    "set background=dark
-"endif
 set background=dark
 
 colorscheme lucius
@@ -214,8 +212,8 @@ let g:pymode_syntax_builtin_objs = 1
 let g:pymode_syntax_builtin_funcs = 1
 let g:pymode_virtualenv = 1
 let g:pymode_doc = 1
-let g:pymode_lint_on_write = 0
-let g:pymode_lint_on_fly = 1
+let g:pymode_lint_write = 0
+let g:pymode_lint_fly = 0
 let g:pymode_lint_checker = 'pyflakes'
 let g:ropevim_enable_autoimport = 1
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
@@ -291,3 +289,23 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+let b:surround_{char2nr("v")} = "{{ \r }}"
+let b:surround_{char2nr("{")} = "{{ \r }}"
+let b:surround_{char2nr("%")} = "{% \r %}"
+let b:surround_{char2nr("b")} = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
+let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
+let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
+let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
+let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
