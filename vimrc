@@ -115,8 +115,6 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=b
     set guitablabel=%M\ %t
-    set fuoptions=maxvert,maxhorz
-    au GUIEnter * set fullscreen
 endif
 
 set t_Co=256
@@ -158,36 +156,26 @@ set laststatus=2
 "vmap <tab> >gv
 "vmap <s-tab> <gv
 
-inoremap <c-h> <Esc>:tabprevious<cr>
-map <c-h> :tabprevious<cr>
-inoremap <c-l> <Esc>:tabnext<cr>
-map <c-l> :tabnext<cr>
-map <c-n> :tabnew<cr>
+nmap <c-h> :tabprevious<cr>
+nmap <c-l> :tabnext<cr>
+nmap <c-n> :tabnew<cr>
 
-map <F4> :NERDTreeToggle<cr>
+nmap <F4> :NERDTreeToggle<cr>
 inoremap <F4> <Esc>:NERDTreeToggle<cr>
-
-"map <a-left> :diffget<cr>
-"map <a-right> :diffput<cr>
 
 " zen-coding
 "map <leader>m <c-y>,
-let g:user_emmet_expandabbr_key='<c-_>'
+let g:user_emmet_expandabbr_key='<c-v>'
 let g:user_emmet_mode='a'
 " zen-coding
 
-"Syntastic validate
-map <leader>c :SyntasticCheck<CR>
-
 "NERDTree options {{{ 
-
 let NERDTreeIgnore          =   ['\.pyc$','\.swp$']                 "ignore compiled python files
 let NERDTreeMouseMode       =   3                                   "single-click to open files/nodes
 let NERDTreeWinPos          =   'left'
 let NERDTreeSplitVertical   =   1                                   "and open as vsplit
 let NERDTreeChDirMode       =   2                                   "change working dir when I change root
 let NERDTreeShowBookmarks   =   0
-
 "}}}
 
 "UltiSnips
@@ -201,7 +189,7 @@ execute pathogen#infect()
 " Settings for python-mode
 " cd ~/.vim/bundle
 " git clone https://github.com/klen/python-mode
-map <Leader>g :call RopeGotoDefinition()<CR>
+nmap <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enable_shortcuts = 1
 let g:pymode_rope = 1
 let g:pymode_warnings = 0
@@ -216,7 +204,8 @@ let g:pymode_lint_write = 0
 let g:pymode_lint_fly = 0
 let g:pymode_lint_checker = 'pyflakes'
 let g:ropevim_enable_autoimport = 1
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+let g:pymode_run_bind = '<leader>R'
+"map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See
@@ -236,38 +225,20 @@ endfunction
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
-map <leader>f :call JsBeautify()<cr>
+nmap <leader>r :edit<CR>
 
 " filetypes
 au BufReadPost *.tpl set syntax=smarty
 au BufReadPost *.tpl.html set syntax=smarty
 
 "ctags
-map <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nmap <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
 nmap ]c <Plug>GitGutterNextHunk
 nmap [c <Plug>GitGutterPrevHunk
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-
-" The Silver Searcher
-if executable('ag')
-    " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
-
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-endif
-
-" bind f to grep word under cursor
-nnoremap <leader>f :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
-" Tagbar
-nmap <F8> :TagbarToggle<CR>
 
 "vim-airline
 let g:airline_theme='bubblegum'
