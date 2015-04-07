@@ -166,7 +166,7 @@ inoremap <F4> <Esc>:NERDTreeToggle<cr>
 " zen-coding
 "map <leader>m <c-y>,
 let g:user_emmet_expandabbr_key='<c-v>'
-let g:user_emmet_mode='a'
+let g:user_emmet_mode='i'
 " zen-coding
 
 "NERDTree options {{{ 
