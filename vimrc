@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 set nocompatible
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -75,8 +78,7 @@ set foldcolumn=3
 
 " set lz
 
-set listchars=tab:▸·,precedes:«,extends:»,trail:·
-"set listchars=tab:\|\ ,precedes:«,extends:»
+set listchars=tab:▸·,nbsp:␣,extends:…,precedes:«,extends:»,trail:·
 
 " Show  tab characters. Visual Whitespace.
 set list
@@ -165,7 +167,7 @@ inoremap <F4> <Esc>:NERDTreeToggle<cr>
 
 " zen-coding
 "map <leader>m <c-y>,
-let g:user_emmet_expandabbr_key='<c-v>'
+let g:user_emmet_expandabbr_key='<c-\>'
 let g:user_emmet_mode='i'
 " zen-coding
 
