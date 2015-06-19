@@ -126,8 +126,9 @@ syntax enable
 set background=dark
 
 colorscheme lucius
-" Set utf8 as standard encoding and en_US as the standard
-set encoding=utf8
+
+" Enable if vim don't colorize
+"colorscheme hybrid
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
