@@ -181,6 +181,9 @@ let NERDTreeChDirMode       =   2                                   "change work
 let NERDTreeShowBookmarks   =   0
 "}}}
 
+
+let NERDSpaceDelims = 1
+
 "UltiSnips
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<tab>"
