@@ -74,7 +74,7 @@ set t_vb=
 set tm=500
 
 " Add a bit extra margin to the left
-set foldcolumn=3
+set foldcolumn=5
 
 " set lz
 
@@ -125,10 +125,10 @@ syntax enable
 
 set background=dark
 
-colorscheme lucius
+" colorscheme lucius
 
 " Enable if vim don't colorize
-"colorscheme hybrid
+colorscheme hybrid
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -182,7 +182,7 @@ let NERDTreeShowBookmarks   =   0
 "}}}
 
 
-let NERDSpaceDelims = 1
+" let NERDSpaceDelims = 1
 
 "UltiSnips
 let g:UltiSnipsUsePythonVersion = 2
@@ -195,21 +195,10 @@ execute pathogen#infect()
 " Settings for python-mode
 " cd ~/.vim/bundle
 " git clone https://github.com/klen/python-mode
-nmap <Leader>g :call RopeGotoDefinition()<CR>
-let ropevim_enable_shortcuts = 1
-let g:pymode_rope = 1
+let g:pymode = 1
 let g:pymode_warnings = 0
-let g:pymode_rope_goto_definition_cmd = "vnew"
-let g:pymode_rope_extended_complete = 1
-let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 1
-let g:pymode_syntax_builtin_funcs = 1
-let g:pymode_virtualenv = 1
-let g:pymode_doc = 1
-let g:pymode_lint_write = 0
-let g:pymode_lint_fly = 0
-let g:pymode_lint_checker = 'pyflakes'
-let g:ropevim_enable_autoimport = 1
+let g:pymode_rope_goto_definition_cmd = "e"
+let g:pymode_lint_fly = 1
 let g:pymode_run_bind = '<leader>R'
 "map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
@@ -274,7 +263,9 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_ignore_case = 0
+let g:neocomplcache_enable_auto_select = 1
+
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
