@@ -36,7 +36,9 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 "set et
-set nowrap
+set wrap
+set linebreak
+set nolist
 set ai "Auto indent
 set si "Smart indent
 
@@ -74,11 +76,11 @@ set t_vb=
 set tm=500
 
 " Add a bit extra margin to the left
-set foldcolumn=5
+set foldcolumn=3
 
 " set lz
 
-set listchars=tab:▸·,nbsp:␣,extends:…,precedes:«,extends:»,trail:·
+set listchars=tab:▸·,nbsp:␣,extends:…,precedes:«,extends:»,trail:·,eol:¬
 
 " Show  tab characters. Visual Whitespace.
 set list
@@ -91,8 +93,12 @@ set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 let mapleader = ","
 let g:mapleader = ","
 
+set colorcolumn=80
+
 " Fast saving
 nmap <leader>w :w!<cr>
+
+:set numberwidth=4
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
@@ -117,6 +123,7 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=b
     set guitablabel=%M\ %t
+    set guifont=Menlo:h12
 endif
 
 set t_Co=256
@@ -151,7 +158,7 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
-set softtabstop=4               " when hitting tab or backspace, how many spaces 
+set softtabstop=3               " when hitting tab or backspace, how many spaces 
 set mousehide
 set laststatus=2 
 
@@ -198,8 +205,10 @@ execute pathogen#infect()
 let g:pymode = 1
 let g:pymode_warnings = 0
 let g:pymode_rope_goto_definition_cmd = "e"
-let g:pymode_lint_fly = 1
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
 let g:pymode_run_bind = '<leader>R'
+let g:ropevim_autoimport_modules = ["os", "json", "logging", "django", "shutil"]
 "map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
@@ -243,10 +252,8 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 let g:airline_symbols.linenr = '␊'
 let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
