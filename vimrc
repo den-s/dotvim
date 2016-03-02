@@ -54,7 +54,7 @@ set hlsearch
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Makes search act like search in modern browsers
@@ -123,7 +123,7 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=b
     set guitablabel=%M\ %t
-    set guifont=Menlo:h12
+    set guifont=Menlo\ for\ Powerline:h12
 endif
 
 set t_Co=256
@@ -158,9 +158,9 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
-set softtabstop=3               " when hitting tab or backspace, how many spaces 
+set softtabstop=3
 set mousehide
-set laststatus=2 
+set laststatus=2
 
 " Make tab in v mode work like I think it should (keep highlighting):
 "vmap <tab> >gv
@@ -179,7 +179,7 @@ let g:user_emmet_expandabbr_key='<c-\>'
 let g:user_emmet_mode='i'
 " zen-coding
 
-"NERDTree options {{{ 
+"NERDTree options {{{
 let NERDTreeIgnore          =   ['\.pyc$','\.swp$']                 "ignore compiled python files
 let NERDTreeMouseMode       =   3                                   "single-click to open files/nodes
 let NERDTreeWinPos          =   'left'
@@ -216,14 +216,14 @@ let g:ropevim_autoimport_modules = ["os", "json", "logging", "django", "shutil"]
 " http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
 function! OmniPopup(action)
-	if pumvisible()
-		if a:action == 'j'
-			return "\<C-N>"
-		elseif a:action == 'k'
-			return "\<C-P>"
-		endif
-	endif
-	return a:action
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-N>"
+        elseif a:action == 'k'
+            return "\<C-P>"
+        endif
+    endif
+    return a:action
 endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
@@ -245,7 +245,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 "vim-airline
-let g:airline_theme='bubblegum'
+let g:airline_theme='lucius'
 
  "unicode symbols
 if !exists('g:airline_symbols')
@@ -254,6 +254,7 @@ endif
 
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '␊'
 let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
@@ -262,6 +263,26 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+
+let g:used_javascript_libs = 'jquery,angularjs,angularui,angularuirouter,react'
+
+" easymotion
+
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+nmap s <Plug>(easymotion-overwin-f)
+nmap s <Plug>(easymotion-overwin-f2)
+
+let g:EasyMotion_smartcase = 1
+
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+" Ack
+nmap <leader>a :tab split<CR>:Ack ""<left>
+nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags

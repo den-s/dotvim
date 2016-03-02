@@ -25,9 +25,6 @@
 [submodule "bundle/color-lucius"]
 	path = bundle/color-lucius
 	url = https://github.com/jonathanfilip/vim-lucius.git
-[submodule "bundle/vim-airline"]
-	path = bundle/vim-airline
-	url = https://github.com/bling/vim-airline
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
@@ -46,3 +43,18 @@
 [submodule "bundle/vim-signature"]
 	path = bundle/vim-signature
 	url = https://github.com/kshenoy/vim-signature.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "bundle/vim-airline-themes"]
+	path = bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "bundle/javascript-libraries-syntax"]
+	path = bundle/javascript-libraries-syntax
+	url = https://github.com/othree/javascript-libraries-syntax.vim.git
+[submodule "bundle/vim-easymotion"]
+	path = bundle/vim-easymotion
+	url = https://github.com/easymotion/vim-easymotion.git
+[submodule "bundle/ack.vim"]
+	path = bundle/ack.vim
+	url = https://github.com/mileszs/ack.vim.git
