@@ -58,3 +58,57 @@
 [submodule "bundle/ack.vim"]
 	path = bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/vim-node"]
+	path = bundle/vim-node
+	url = https://github.com/moll/vim-node.git
+[submodule "bundle/vim-less"]
+	path = bundle/vim-less
+	url = https://github.com/groenewege/vim-less.git
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "bundle/yajs"]
+	path = bundle/yajs
+	url = https://github.com/othree/yajs.vim.git
+[submodule "bundle/es.next.syntax"]
+	path = bundle/es.next.syntax
+	url = https://github.com/othree/es.next.syntax.vim.git
+[submodule "bundle/vim-js-indent"]
+	path = bundle/vim-js-indent
+	url = https://github.com/gavocanov/vim-js-indent.git
+[submodule "bundle/syntastic-react"]
+	path = bundle/syntastic-react
+	url = https://github.com/jaxbot/syntastic-react.git
+[submodule "bundle/vim-jsx"]
+	path = bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx.git
+[submodule "bundle/vim-rest-console"]
+	path = bundle/vim-rest-console
+	url = https://github.com/diepm/vim-rest-console.git
+[submodule "bundle/solarized"]
+	path = bundle/solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/vim-hsftp"]
+	path = bundle/vim-hsftp
+	url = https://github.com/hesselbom/vim-hsftp.git
+[submodule "bundle/vim-sync"]
+	path = bundle/vim-sync
+	url = https://github.com/eshion/vim-sync.git
+[submodule "bundle/bundle/vim-indent-guides"]
+	path = bundle/bundle/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "bundle/vim-indent-guides"]
+	path = bundle/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "bundle/vim-pathogen"]
+	path = bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "bundle/neosnippet"]
+	path = bundle/neosnippet
+	url = https://github.com/Shougo/neosnippet.vim.git
+[submodule "bundle/neosnippet-shippets"]
+	path = bundle/neosnippet-shippets
+	url = https://github.com/Shougo/neosnippet-snippets.git

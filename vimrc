@@ -1,6 +1,9 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+set splitbelow
+set splitright
+
 set nocompatible
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -16,7 +19,7 @@ set shiftwidth=4
 set expandtab
 
 " highlight cursor
-set cursorcolumn
+" set cursorcolumn
 set cursorline
 
 " Be smart when using tabs ;)
@@ -38,7 +41,7 @@ set whichwrap+=<,>,h,l
 "set et
 set wrap
 set linebreak
-set nolist
+"set nolist
 set ai "Auto indent
 set si "Smart indent
 
@@ -100,19 +103,9 @@ nmap <leader>w :w!<cr>
 
 :set numberwidth=4
 
-" Powerline
-let g:Powerline_symbols = 'fancy'
-
-for prefix in ['n', 'v']
-  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    exe prefix . "noremap " . key . " <Nop>"
-  endfor
-endfor
-
-nmap <Up> <C-W><Up>
-nmap <Down> <C-W><Down>
-nmap <Left> <C-W><Left>
-nmap <Right> <C-W><Right>
+nmap <leader>6 :diffget LO<cr>
+nmap <leader>7 :diffget BA<cr>
+nmap <leader>8 :diffget RE<cr>
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -123,7 +116,7 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=b
     set guitablabel=%M\ %t
-    set guifont=Menlo\ for\ Powerline:h12
+    set guifont=Menlo:h12
 endif
 
 set t_Co=256
@@ -132,10 +125,15 @@ syntax enable
 
 set background=dark
 
-" colorscheme lucius
+"colorscheme lucius
 
 " Enable if vim don't colorize
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1 " Remove this line if using the default
 colorscheme hybrid
+
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -188,11 +186,10 @@ let NERDTreeChDirMode       =   2                                   "change work
 let NERDTreeShowBookmarks   =   0
 "}}}
 
-
 " let NERDSpaceDelims = 1
 
 "UltiSnips
-let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -200,15 +197,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 execute pathogen#infect()
 
 " Settings for python-mode
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
 let g:pymode = 1
 let g:pymode_warnings = 0
 let g:pymode_rope_goto_definition_cmd = "e"
 let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_run_bind = '<leader>R'
-let g:ropevim_autoimport_modules = ["os", "json", "logging", "django", "shutil"]
+"let g:ropevim_autoimport_modules = ["os", "json", "logging", "django", "shutil"]
 "map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
@@ -231,10 +226,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 nmap <leader>r :edit<CR>
 
-" filetypes
-au BufReadPost *.tpl set syntax=smarty
-au BufReadPost *.tpl.html set syntax=smarty
-
 "ctags
 nmap <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
@@ -245,7 +236,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 "vim-airline
-let g:airline_theme='lucius'
+let g:airline_theme='bubblegum'
 
  "unicode symbols
 if !exists('g:airline_symbols')
@@ -281,8 +272,26 @@ map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 
 " Ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
+
+"Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+" use jshint
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+
+let g:jsx_ext_required = 0
+" Node
+:set runtimepath^=~/.vim/bundle/vim-node
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -296,6 +305,24 @@ let g:neocomplcache_enable_auto_select = 1
 
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Plugin key-mappings.
+ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+ xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+"SuperTab like snippets behavior.
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+  endif"
 
 let b:surround_{char2nr("v")} = "{{ \r }}"
 let b:surround_{char2nr("{")} = "{{ \r }}"
