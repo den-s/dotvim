@@ -31,9 +31,6 @@
 [submodule "bundle/vim-snippets"]
 	path = bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
 [submodule "bundle/neocomplcache"]
 	path = bundle/neocomplcache
 	url = https://github.com/Shougo/neocomplcache.vim.git
@@ -109,6 +106,6 @@
 [submodule "bundle/neosnippet"]
 	path = bundle/neosnippet
 	url = https://github.com/Shougo/neosnippet.vim.git
-[submodule "bundle/neosnippet-shippets"]
-	path = bundle/neosnippet-shippets
+[submodule "bundle/neosnippet-snippets"]
+	path = bundle/neosnippet-snippets
 	url = https://github.com/Shougo/neosnippet-snippets.git

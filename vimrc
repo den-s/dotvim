@@ -20,7 +20,9 @@ set expandtab
 
 " highlight cursor
 " set cursorcolumn
-set cursorline
+" set cursorline
+
+set cul!
 
 " Be smart when using tabs ;)
 set smarttab
@@ -127,6 +129,9 @@ set background=dark
 
 "colorscheme lucius
 
+
+set ttyfast
+
 " Enable if vim don't colorize
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default
@@ -189,10 +194,16 @@ let NERDTreeShowBookmarks   =   0
 " let NERDSpaceDelims = 1
 
 "UltiSnips
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+"let g:UltiSnipsUsePythonVersion = 3
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 execute pathogen#infect()
 
