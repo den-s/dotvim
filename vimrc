@@ -127,16 +127,16 @@ syntax enable
 
 set background=dark
 
-"colorscheme lucius
-
-
 set ttyfast
 
 " Enable if vim don't colorize
-let g:hybrid_custom_term_colors = 1
+"let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default
 colorscheme hybrid
 
+"colorscheme lucius
+
+let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
@@ -173,6 +173,11 @@ nmap <c-h> :tabprevious<cr>
 nmap <c-l> :tabnext<cr>
 nmap <c-n> :tabnew<cr>
 
+nmap <Up> <C-W><Up>
+nmap <Down> <C-W><Down>
+nmap <Left> <C-W><Left>
+nmap <Right> <C-W><Right>
+
 nmap <F4> :NERDTreeToggle<cr>
 inoremap <F4> <Esc>:NERDTreeToggle<cr>
 
@@ -193,12 +198,6 @@ let NERDTreeShowBookmarks   =   0
 
 " let NERDSpaceDelims = 1
 
-"UltiSnips
-"let g:UltiSnipsUsePythonVersion = 3
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
 
@@ -214,6 +213,13 @@ let g:pymode_rope_goto_definition_cmd = "e"
 let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_run_bind = '<leader>R'
+let g:pymode_python = 'python3'
+let g:pymode_virtualenv_path = 'venv'
+let g:pymode_lint_message = 1
+let g:pymode_lint_cwindow = 1
+
+
+
 "let g:ropevim_autoimport_modules = ["os", "json", "logging", "django", "shutil"]
 "map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
@@ -248,6 +254,7 @@ let g:gitgutter_eager = 0
 
 "vim-airline
 let g:airline_theme='bubblegum'
+let g:airline#extensions#tabline#enabled = 1
 
  "unicode symbols
 if !exists('g:airline_symbols')
@@ -272,8 +279,8 @@ let g:used_javascript_libs = 'jquery,angularjs,angularui,angularuirouter,react'
 
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-nmap s <Plug>(easymotion-overwin-f)
-nmap s <Plug>(easymotion-overwin-f2)
+"nmap s <Plug>(easymotion-overwin-f)
+"nmap s <Plug>(easymotion-overwin-f2)
 
 let g:EasyMotion_smartcase = 1
 
@@ -296,9 +303,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+if &diff
+    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_wq = 0
+    let g:pymode = 0
+endif
 " use jshint
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+let g:syntastic_ignore_files = ['\.py$']
 
 let g:jsx_ext_required = 0
 " Node

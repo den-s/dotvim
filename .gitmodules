@@ -85,20 +85,11 @@
 [submodule "bundle/vim-rest-console"]
 	path = bundle/vim-rest-console
 	url = https://github.com/diepm/vim-rest-console.git
-[submodule "bundle/solarized"]
-	path = bundle/solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "bundle/vim-hsftp"]
 	path = bundle/vim-hsftp
 	url = https://github.com/hesselbom/vim-hsftp.git
-[submodule "bundle/vim-sync"]
-	path = bundle/vim-sync
-	url = https://github.com/eshion/vim-sync.git
 [submodule "bundle/bundle/vim-indent-guides"]
 	path = bundle/bundle/vim-indent-guides
-	url = https://github.com/nathanaelkane/vim-indent-guides.git
-[submodule "bundle/vim-indent-guides"]
-	path = bundle/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides.git
 [submodule "bundle/vim-pathogen"]
 	path = bundle/vim-pathogen
