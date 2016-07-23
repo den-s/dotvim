@@ -19,10 +19,8 @@ set shiftwidth=4
 set expandtab
 
 " highlight cursor
-" set cursorcolumn
-" set cursorline
-
-set cul!
+"set cursorcolumn
+"set cursorline
 
 " Be smart when using tabs ;)
 set smarttab
@@ -86,6 +84,9 @@ set foldcolumn=3
 " set lz
 
 set listchars=tab:▸·,nbsp:␣,extends:…,precedes:«,extends:»,trail:·,eol:¬
+
+let &showbreak = '↳ '
+"set cpo=n
 
 " Show  tab characters. Visual Whitespace.
 set list
@@ -298,6 +299,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_style_error_symbol = '✠'
+let g:syntastic_warning_symbol = '∆'
+let g:syntastic_style_warning_symbol = '≈'
 if &diff
     let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_wq = 0
