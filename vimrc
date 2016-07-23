@@ -209,7 +209,7 @@ let g:pymode_rope_goto_definition_cmd = "e"
 let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_run_bind = '<leader>R'
-let g:pymode_python = 'python3'
+"let g:pymode_python = 'python3'
 let g:pymode_virtualenv_path = 'venv'
 let g:pymode_lint_message = 1
 let g:pymode_lint_cwindow = 1
@@ -286,7 +286,6 @@ map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 
 " Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
