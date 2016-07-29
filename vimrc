@@ -205,8 +205,9 @@ execute pathogen#infect()
 
 " Settings for python-mode
 let g:pymode = 1
+let g:pymode_rope=0
 let g:pymode_warnings = 0
-let g:pymode_rope_goto_definition_cmd = "e"
+"let g:pymode_rope_goto_definition_cmd = "e"
 let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_run_bind = '<leader>R'
@@ -348,11 +349,10 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
   endif"
 
-let b:surround_{char2nr("v")} = "{{ \r }}"
-let b:surround_{char2nr("{")} = "{{ \r }}"
-let b:surround_{char2nr("%")} = "{% \r %}"
-let b:surround_{char2nr("b")} = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
-let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
-let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
-let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
-let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
+let b:surround_118 = "{{ \1variable: \1 }}\r"
+let b:surround_101 = "{% \1expression: \1 %}\r"
+let b:surround_98 = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
+let b:surround_105 = "{% if \1condition: \1 %}\r{% endif %}"
+let b:surround_102 = "{% for \1for loop: \1 %}\r{% endfor %}"
+let b:surround_99 = "{% comment %}\r{% endcomment %}"
+let b:surround_114 = "{{ _(\"\r\") }}"
