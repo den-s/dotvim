@@ -99,7 +99,7 @@ set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 let mapleader = ","
 let g:mapleader = ","
 
-set colorcolumn=80
+autocmd BufNewFile,BufRead *.py set colorcolumn=80
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -134,7 +134,6 @@ set ttyfast
 "let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default
 colorscheme hybrid
-
 "colorscheme lucius
 
 " Use Unix as the standard file type
@@ -151,7 +150,7 @@ set noswapfile
 runtime macros/matchit.vim
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc
+set wildignore=*.o,*~,*.pyc,node_modules,venv
 if has("win16") || has("win32")
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
