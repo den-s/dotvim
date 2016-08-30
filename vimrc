@@ -337,23 +337,23 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 " Plugin key-mappings.
- imap <C-k>     <Plug>(neosnippet_expand_or_jump)
- smap <C-k>     <Plug>(neosnippet_expand_or_jump)
- xmap <C-k>     <Plug>(neosnippet_expand_target)
- inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+ imap <TAB>     <Plug>(neosnippet_expand_or_jump)
+ smap <TAB>     <Plug>(neosnippet_expand_or_jump)
+ xmap <TAB>     <Plug>(neosnippet_expand_target)
+ "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
   endif"
 
-let b:surround_118 = "{{ \1variable: \1 }}\r"
-let b:surround_101 = "{% \1expression: \1 %}\r"
-let b:surround_98 = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
-let b:surround_105 = "{% if \1condition: \1 %}\r{% endif %}"
-let b:surround_102 = "{% for \1for loop: \1 %}\r{% endfor %}"
-let b:surround_99 = "{% comment %}\r{% endcomment %}"
-let b:surround_114 = "{{ _(\"\r\") }}"
+let b:surround_118 = "{{ \1variable: \1 }}\r" "v
+let b:surround_101 = "{% \1expression: \1 %}\r" "e
+let b:surround_98 = "{% block \1block name: \1 %}\r{% endblock \1\1 %}" "b
+let b:surround_105 = "{% if \1condition: \1 %}\r{% endif %}" "i
+let b:surround_102 = "{% for \1for loop: \1 %}\r{% endfor %}" "f
+let b:surround_99 = "{% comment %}\r{% endcomment %}" "c
+let b:surround_114 = "{{ _(\"\r\") }}" "r
 
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 2
