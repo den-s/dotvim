@@ -214,11 +214,9 @@ let g:pymode_run_bind = '<leader>R'
 let g:pymode_virtualenv_path = 'venv'
 let g:pymode_lint_message = 1
 let g:pymode_lint_cwindow = 1
-
-
-
-"let g:ropevim_autoimport_modules = ["os", "json", "logging", "django", "shutil"]
-"map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+nmap <C-c>c :PymodeLint<CR>
+let g:pymode_lint_ignore = "C901"
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pyflakes']
 
 " Better navigating through omnicomplete option list
 " See
@@ -337,9 +335,9 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 " Plugin key-mappings.
- imap <TAB>     <Plug>(neosnippet_expand_or_jump)
- smap <TAB>     <Plug>(neosnippet_expand_or_jump)
- xmap <TAB>     <Plug>(neosnippet_expand_target)
+imap <C-l>     <Plug>(neosnippet_expand_or_jump)
+smap <C-l>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-l>     <Plug>(neosnippet_expand_target)
  "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " For conceal markers.
@@ -357,3 +355,12 @@ let b:surround_114 = "{{ _(\"\r\") }}" "r
 
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 2
+
+nmap <C-c>k   :TernDoc<CR>
+nmap <C-c>t   :TernType<CR>
+nmap <C-c>g   :TernDef<CR>
+nmap <C-c>gp  :TernDefPreview<CR>
+nmap <C-c>gs  :TernDefSplit<CR>
+nmap <C-c>gt  :TernDefTab<CR>
+nmap <C-c>r   :TernRefs<CR>
+nmap <C-c>re  :TernRename<CR>
