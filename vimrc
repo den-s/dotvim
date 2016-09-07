@@ -99,8 +99,6 @@ set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 let mapleader = ","
 let g:mapleader = ","
 
-autocmd BufNewFile,BufRead *.py set colorcolumn=80
-
 " Fast saving
 nmap <leader>w :w!<cr>
 
@@ -244,7 +242,7 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
 nmap ]c <Plug>GitGutterNextHunk
 nmap [c <Plug>GitGutterPrevHunk
-let g:gitgutter_realtime = 0
+let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 0
 
 "vim-airline
@@ -255,7 +253,6 @@ let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.crypt = '🔒'
@@ -264,11 +261,31 @@ let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 
-let g:used_javascript_libs = 'jquery,angularjs,angularui,angularuirouter,react'
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ }
+
+let g:airline_inactive_collapse=1
+
+let g:airline#extensions#tabline#show_tab_nr=0
+let g:airline#extensions#tabline#show_tab_type=0
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#buffers_label = 'b'
+let g:airline#extensions#tabline#tabs_label = 't'
+
+let g:used_javascript_libs = 'jquery,angularjs,handlebars,react'
 
 " easymotion
 
@@ -354,7 +371,7 @@ let b:surround_99 = "{% comment %}\r{% endcomment %}" "c
 let b:surround_114 = "{{ _(\"\r\") }}" "r
 
 let delimitMate_expand_space = 1
-let delimitMate_expand_cr = 2
+let delimitMate_expand_cr = 1
 
 nmap <C-c>k   :TernDoc<CR>
 nmap <C-c>t   :TernType<CR>
@@ -364,3 +381,5 @@ nmap <C-c>gs  :TernDefSplit<CR>
 nmap <C-c>gt  :TernDefTab<CR>
 nmap <C-c>r   :TernRefs<CR>
 nmap <C-c>re  :TernRename<CR>
+
+let g:syntastic_html_tidy_ignore_errors=["<ion-", "discarding unexpected </ion-", " proprietary attribute \"ng-"]
