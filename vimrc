@@ -13,9 +13,9 @@ set undolevels=700
 filetype plugin on
 filetype indent on
 
-" 1 tab == 4 spaces
-set tabstop=4
-set shiftwidth=4
+" 1 tab == 2 spaces
+set tabstop=2
+set shiftwidth=2
 set expandtab
 
 " highlight cursor
@@ -175,6 +175,9 @@ nmap <Right> <C-W><Right>
 nmap <F4> :NERDTreeToggle<cr>
 inoremap <F4> <Esc>:NERDTreeToggle<cr>
 
+nmap <F5> :NERDTreeFind<cr>
+inoremap <F5> <Esc>:NERDTreeFind<cr>
+
 " zen-coding
 "map <leader>m <c-y>,
 let g:user_emmet_expandabbr_key='<c-\>'
@@ -190,7 +193,7 @@ let NERDTreeChDirMode       =   2                                   "change work
 let NERDTreeShowBookmarks   =   0
 "}}}
 
-" let NERDSpaceDelims = 1
+let NERDSpaceDelims = 1
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -242,7 +245,7 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
 nmap ]c <Plug>GitGutterNextHunk
 nmap [c <Plug>GitGutterPrevHunk
-let g:gitgutter_realtime = 1
+let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 "vim-airline
@@ -305,11 +308,6 @@ map <Leader>h <Plug>(easymotion-linebackward)
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
-"Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -324,7 +322,7 @@ if &diff
     let g:pymode = 0
 endif
 " use jshint
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
 let g:syntastic_ignore_files = ['\.py$']
 
