@@ -18,10 +18,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-" highlight cursor
-"set cursorcolumn
-"set cursorline
-
 " Be smart when using tabs ;)
 set smarttab
 
@@ -86,7 +82,6 @@ set foldcolumn=3
 set listchars=tab:▸·,nbsp:␣,extends:…,precedes:«,extends:»,trail:·,eol:¬
 
 let &showbreak = '↳ '
-"set cpo=n
 
 " Show  tab characters. Visual Whitespace.
 set list
@@ -160,8 +155,8 @@ set mousehide
 set laststatus=2
 
 " Make tab in v mode work like I think it should (keep highlighting):
-"vmap <tab> >gv
-"vmap <s-tab> <gv
+vmap <tab> >gv
+vmap <s-tab> <gv
 
 nmap <c-h> :tabprevious<cr>
 nmap <c-l> :tabnext<cr>
@@ -172,12 +167,6 @@ nmap <Down> <C-W><Down>
 nmap <Left> <C-W><Left>
 nmap <Right> <C-W><Right>
 
-nmap <F4> :NERDTreeToggle<cr>
-inoremap <F4> <Esc>:NERDTreeToggle<cr>
-
-nmap <F5> :NERDTreeFind<cr>
-inoremap <F5> <Esc>:NERDTreeFind<cr>
-
 " zen-coding
 "map <leader>m <c-y>,
 let g:user_emmet_expandabbr_key='<c-\>'
@@ -185,15 +174,21 @@ let g:user_emmet_mode='i'
 " zen-coding
 
 "NERDTree options {{{
+nmap <F4> :NERDTreeToggle<cr>
+inoremap <F4> <Esc>:NERDTreeToggle<cr>
+
+nmap <F5> :NERDTreeFind<cr>
+inoremap <F5> <Esc>:NERDTreeFind<cr>
+
 let NERDTreeIgnore          =   ['\.pyc$','\.swp$']                 "ignore compiled python files
 let NERDTreeMouseMode       =   3                                   "single-click to open files/nodes
 let NERDTreeWinPos          =   'left'
 let NERDTreeSplitVertical   =   1                                   "and open as vsplit
 let NERDTreeChDirMode       =   2                                   "change working dir when I change root
 let NERDTreeShowBookmarks   =   0
+let NERDSpaceDelims = 1
 "}}}
 
-let NERDSpaceDelims = 1
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -260,7 +255,6 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
@@ -291,12 +285,7 @@ let g:airline#extensions#tabline#tabs_label = 't'
 let g:used_javascript_libs = 'jquery,angularjs,handlebars,react'
 
 " easymotion
-
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-"nmap s <Plug>(easymotion-overwin-f)
-"nmap s <Plug>(easymotion-overwin-f2)
-
 let g:EasyMotion_smartcase = 1
 
 map <Leader>l <Plug>(easymotion-lineforward)
@@ -307,24 +296,6 @@ map <Leader>h <Plug>(easymotion-linebackward)
 " Ack
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_style_error_symbol = '✠'
-let g:syntastic_warning_symbol = '∆'
-let g:syntastic_style_warning_symbol = '≈'
-if &diff
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_check_on_wq = 0
-    let g:pymode = 0
-endif
-" use jshint
-let g:syntastic_javascript_checkers = ['jsxhint']
-let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-let g:syntastic_ignore_files = ['\.py$']
 
 let g:jsx_ext_required = 0
 " Node
@@ -380,4 +351,4 @@ nmap <C-c>gt  :TernDefTab<CR>
 nmap <C-c>r   :TernRefs<CR>
 nmap <C-c>re  :TernRename<CR>
 
-let g:syntastic_html_tidy_ignore_errors=["<ion-", "discarding unexpected </ion-", " proprietary attribute \"ng-"]
+let g:javascript_plugin_flow = 1

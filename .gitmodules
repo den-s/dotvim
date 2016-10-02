@@ -109,3 +109,12 @@
 [submodule "bundle/color-gotham"]
 	path = bundle/color-gotham
 	url = https://github.com/whatyouhide/vim-gotham.git
+[submodule "bundle/vim-javascript"]
+	path = bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "bundle/vim-js-context-coloring"]
+	path = bundle/vim-js-context-coloring
+	url = https://github.com/bigfish/vim-js-context-coloring.git
+[submodule "bundle/eslint-plugin-react"]
+	path = bundle/eslint-plugin-react
+	url = https://github.com/yannickcr/eslint-plugin-react.git
