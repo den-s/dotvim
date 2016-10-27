@@ -118,3 +118,6 @@
 [submodule "bundle/eslint-plugin-react"]
 	path = bundle/eslint-plugin-react
 	url = https://github.com/yannickcr/eslint-plugin-react.git
+[submodule "bundle/vim-multiple-cursors"]
+	path = bundle/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors.git

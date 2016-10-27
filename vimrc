@@ -95,7 +95,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :wa!<cr>
 
 :set numberwidth=4
 
@@ -112,7 +112,7 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=b
     set guitablabel=%M\ %t
-    set guifont=Menlo:h12
+    set guifont=Menlo:h14
 endif
 
 set t_Co=256
@@ -352,3 +352,8 @@ nmap <C-c>r   :TernRefs<CR>
 nmap <C-c>re  :TernRename<CR>
 
 let g:javascript_plugin_flow = 1
+
+let g:multi_cursor_next_key='<C-w>'
+let g:multi_cursor_prev_key='<C-b>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
