@@ -103,31 +103,31 @@ nmap <leader>6 :diffget LO<cr>
 nmap <leader>7 :diffget BA<cr>
 nmap <leader>8 :diffget RE<cr>
 
+set background=dark
+
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set guioptions-=m
-    set guioptions-=L
-    set guioptions-=r
-    set guioptions-=b
-    set guitablabel=%M\ %t
-    set guifont=Menlo:h14
+  set guioptions-=T
+  set guioptions-=e
+  set guioptions-=m
+  set guioptions-=L
+  set guioptions-=r
+  set guioptions-=b
+  set guitablabel=%M\ %t
+  set guifont=Menlo:h14
+  set background=light
 endif
 
 set t_Co=256
 
 syntax enable
 
-set background=dark
-
 set ttyfast
 
 " Enable if vim don't colorize
 "let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default
-colorscheme hybrid
-"colorscheme lucius
+colorscheme lucius
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -244,7 +244,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 "vim-airline
-let g:airline_theme='bubblegum'
+let g:airline_theme='lucius'
 let g:airline#extensions#tabline#enabled = 1
 
  "unicode symbols
@@ -255,11 +255,9 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline_mode_map = {
@@ -276,11 +274,15 @@ let g:airline_mode_map = {
 
 let g:airline_inactive_collapse=1
 
-let g:airline#extensions#tabline#show_tab_nr=0
+let g:airline#extensions#tabline#show_tab_nr=1
 let g:airline#extensions#tabline#show_tab_type=0
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#buffers_label = 'b'
 let g:airline#extensions#tabline#tabs_label = 't'
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 let g:used_javascript_libs = 'jquery,angularjs,handlebars,react'
 
@@ -357,3 +359,5 @@ let g:multi_cursor_next_key='<C-f>'
 let g:multi_cursor_prev_key='<C-b>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark"  )<CR>
