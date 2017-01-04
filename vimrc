@@ -361,3 +361,5 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark"  )<CR>
+
+let g:ackprg = 'rg -S --no-heading --vimgrep'
