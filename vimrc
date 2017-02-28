@@ -14,12 +14,12 @@ filetype plugin on
 filetype indent on
 
 " 1 tab == 2 spaces
-set tabstop=2
+set tabstop=4
 set shiftwidth=2
 set expandtab
 
 " Be smart when using tabs ;)
-set smarttab
+" set smarttab
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -75,11 +75,11 @@ set t_vb=
 set tm=500
 
 " Add a bit extra margin to the left
-set foldcolumn=3
+" set foldcolumn=3
 
 " set lz
 
-set listchars=tab:▸·,nbsp:␣,extends:…,precedes:«,extends:»,trail:·,eol:¬
+set listchars=tab:▸·,extends:…,precedes:«,extends:»,trail:·,eol:¬
 
 let &showbreak = '↳ '
 
@@ -103,8 +103,9 @@ nmap <leader>6 :diffget LO<cr>
 nmap <leader>7 :diffget BA<cr>
 nmap <leader>8 :diffget RE<cr>
 
-set background=dark
-
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 " Set extra options when running in GUI mode
 if has("gui_running")
   set guioptions-=T
@@ -114,9 +115,22 @@ if has("gui_running")
   set guioptions-=r
   set guioptions-=b
   set guitablabel=%M\ %t
-  set guifont=Menlo:h14
+  " set guifont=Menlo:h14
+  set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
   set background=light
+  colorscheme solarized
+else
+  set background=dark
+  colorscheme lucius
+  let g:airline_symbols.crypt = '🔒'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.spell = 'Ꞩ'
+  let g:airline_symbols.whitespace = 'Ξ'
 endif
+
+set ambiwidth="double"
 
 set t_Co=256
 
@@ -125,9 +139,8 @@ syntax enable
 set ttyfast
 
 " Enable if vim don't colorize
-"let g:hybrid_custom_term_colors = 1
-let g:hybrid_reduced_contrast = 1 " Remove this line if using the default
-colorscheme lucius
+" colorscheme hybrid
+" let g:gruvbox_improved_warnings=1
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -167,6 +180,8 @@ nmap <Down> <C-W><Down>
 nmap <Left> <C-W><Left>
 nmap <Right> <C-W><Right>
 
+set updatetime=250
+
 " zen-coding
 "map <leader>m <c-y>,
 let g:user_emmet_expandabbr_key='<c-\>'
@@ -199,20 +214,17 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 execute pathogen#infect()
 
 " Settings for python-mode
-let g:pymode = 1
-let g:pymode_rope=0
-let g:pymode_warnings = 0
-"let g:pymode_rope_goto_definition_cmd = "e"
-let g:pymode_lint = 1
-let g:pymode_lint_on_write = 1
 let g:pymode_run_bind = '<leader>R'
-"let g:pymode_python = 'python3'
-let g:pymode_virtualenv_path = 'venv'
-let g:pymode_lint_message = 1
-let g:pymode_lint_cwindow = 1
+let g:pymode_rope_autoimport = 1
+" let g:pymode_python = 'python3'
 nmap <C-c>c :PymodeLint<CR>
+let g:pymode_rope_goto_definition_bind = '<leader>g'
+let g:pymode_doc_bind = '<leader>d'
+let g:pymode_rope_autoimport_bind = '<leader>ra'
+let g:pymode_rope_organize_imports_bind = '<leader>ro'
 let g:pymode_lint_ignore = "C901"
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pyflakes']
+let g:pymode_rope_autoimport_modules = ['os', 'json', 'datetime']
 
 " Better navigating through omnicomplete option list
 " See
@@ -240,8 +252,6 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
 nmap ]c <Plug>GitGutterNextHunk
 nmap [c <Plug>GitGutterPrevHunk
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
 
 "vim-airline
 let g:airline_theme='lucius'
@@ -253,12 +263,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_powerline_fonts = 1
 
 let g:airline_mode_map = {
       \ '__' : '-',
@@ -284,7 +289,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-let g:used_javascript_libs = 'jquery,angularjs,handlebars,react'
+let g:used_javascript_libs = 'jquery,angularjs,handlebars,react,underscore,backbone'
 
 " easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -300,8 +305,6 @@ nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
 let g:jsx_ext_required = 0
-" Node
-:set runtimepath^=~/.vim/bundle/vim-node
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -344,15 +347,6 @@ let b:surround_114 = "{{ _(\"\r\") }}" "r
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
 
-nmap <C-c>k   :TernDoc<CR>
-nmap <C-c>t   :TernType<CR>
-nmap <C-c>g   :TernDef<CR>
-nmap <C-c>gp  :TernDefPreview<CR>
-nmap <C-c>gs  :TernDefSplit<CR>
-nmap <C-c>gt  :TernDefTab<CR>
-nmap <C-c>r   :TernRefs<CR>
-nmap <C-c>re  :TernRename<CR>
-
 let g:javascript_plugin_flow = 1
 
 let g:multi_cursor_next_key='<C-f>'
@@ -360,6 +354,33 @@ let g:multi_cursor_prev_key='<C-b>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark"  )<CR>
+" map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark"  )<CR>
+
+function! g:ToggleBackground()
+  if &background != 'dark'
+    colorscheme gotham
+    set background=dark
+  else
+    colorscheme solarized
+    set background=light
+  endif
+endfunction
+nnoremap <leader>bg :call g:ToggleBackground()<CR>
+
 
 let g:ackprg = 'rg -S --no-heading --vimgrep'
+
+nmap <silent> <C-s> <Plug>(jsdoc)
+lef g:jsdoc_enable_es6 = 1
+let g:javascript_plugin_jsdoc = 1
+let g:jsdoc_access_descriptions = 2
+let g:jsdoc_underscore_private = 1
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_input_description = 1
+
+let g:syntastic_javascript_checkers = ['eslint']
+
+let g:webdevicons_enable = 0
+let g:webdevicons_enable_ctrlp = 0
+let g:webdevicons_enable_nerdtree = 0
+let g:webdevicons_enable_airline_tabline = 0
