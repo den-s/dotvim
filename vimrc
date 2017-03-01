@@ -225,6 +225,7 @@ let g:pymode_rope_organize_imports_bind = '<leader>ro'
 let g:pymode_lint_ignore = "C901"
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pyflakes']
 let g:pymode_rope_autoimport_modules = ['os', 'json', 'datetime']
+let g:pymode_rope_goto_definition_cmd = 'vnew'
 
 " Better navigating through omnicomplete option list
 " See
@@ -384,3 +385,6 @@ let g:webdevicons_enable = 0
 let g:webdevicons_enable_ctrlp = 0
 let g:webdevicons_enable_nerdtree = 0
 let g:webdevicons_enable_airline_tabline = 0
+
+nmap <C-i> :CtrlPLine<CR>
+let g:ctrlp_user_command = 'rg --files %s'
