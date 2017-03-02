@@ -214,18 +214,17 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 execute pathogen#infect()
 
 " Settings for python-mode
-let g:pymode_run_bind = '<leader>R'
-let g:pymode_rope_autoimport = 1
 " let g:pymode_python = 'python3'
-nmap <C-c>c :PymodeLint<CR>
+let g:pymode_lint_ignore = "C901"
+let g:pymode_rope_goto_definition_cmd = 'vnew'
+
+let g:pymode_virtualenv_path = 'venv'
+let g:pymode_run_bind = '<leader>R'
 let g:pymode_rope_goto_definition_bind = '<leader>g'
 let g:pymode_doc_bind = '<leader>d'
 let g:pymode_rope_autoimport_bind = '<leader>ra'
 let g:pymode_rope_organize_imports_bind = '<leader>ro'
-let g:pymode_lint_ignore = "C901"
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pyflakes']
-let g:pymode_rope_autoimport_modules = ['os', 'json', 'datetime']
-let g:pymode_rope_goto_definition_cmd = 'vnew'
 
 " Better navigating through omnicomplete option list
 " See
@@ -314,12 +313,11 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_ignore_case = 0
-let g:neocomplcache_enable_auto_select = 1
 
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_ignore_case = 0
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
@@ -388,3 +386,14 @@ let g:webdevicons_enable_airline_tabline = 0
 
 nmap <C-i> :CtrlPLine<CR>
 let g:ctrlp_user_command = 'rg --files %s'
+
+set relativenumber
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
+  endif
+endfunc
+
+nnoremap <leader>t :call NumberToggle()<cr>
