@@ -136,3 +136,9 @@
 [submodule "bundle/vim-coffee-script"]
 	path = bundle/vim-coffee-script
 	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "bundle/color-two-firewatch"]
+	path = bundle/color-two-firewatch
+	url = https://github.com/rakr/vim-two-firewatch.git
+[submodule "bundle/color-one"]
+	path = bundle/color-one
+	url = https://github.com/rakr/vim-one.git
