@@ -117,18 +117,14 @@ if has("gui_running")
   set guitablabel=%M\ %t
   " set guifont=Menlo:h14
   set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
-  set background=light
-  colorscheme solarized
-else
-  set background=dark
-  colorscheme lucius
-  let g:airline_symbols.crypt = '🔒'
-  let g:airline_symbols.linenr = '␊'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.spell = 'Ꞩ'
-  let g:airline_symbols.whitespace = 'Ξ'
+  let g:webdevicons_enable = 0
+  let g:webdevicons_enable_ctrlp = 0
+  let g:webdevicons_enable_nerdtree = 0
+  let g:webdevicons_enable_airline_tabline = 0
 endif
+
+set background=light
+colorscheme solarized
 
 set ambiwidth="double"
 
@@ -219,12 +215,15 @@ let g:pymode_lint_ignore = "C901"
 let g:pymode_rope_goto_definition_cmd = 'vnew'
 
 let g:pymode_virtualenv_path = 'venv'
+" let g:pymode_rope = 0
+" let g:pymode_rope_lookup_project = 0
+" let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_autoimport = 0
+let g:pymode_rope_regenerate_on_write = 0
 let g:pymode_run_bind = '<leader>R'
 let g:pymode_rope_goto_definition_bind = '<leader>g'
 let g:pymode_doc_bind = '<leader>d'
-let g:pymode_rope_autoimport_bind = '<leader>ra'
 let g:pymode_rope_organize_imports_bind = '<leader>ro'
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pyflakes']
 
 " Better navigating through omnicomplete option list
 " See
@@ -321,8 +320,6 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 " Plugin key-mappings.
 imap <C-l>     <Plug>(neosnippet_expand_or_jump)
@@ -333,7 +330,7 @@ xmap <C-l>     <Plug>(neosnippet_expand_target)
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
-  endif"
+endif
 
 let b:surround_118 = "{{ \1variable: \1 }}\r" "v
 let b:surround_101 = "{% \1expression: \1 %}\r" "e
@@ -377,23 +374,42 @@ let g:jsdoc_underscore_private = 1
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_input_description = 1
 
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = []
+let g:syntastic_python_checkers = []
 
-let g:webdevicons_enable = 0
-let g:webdevicons_enable_ctrlp = 0
-let g:webdevicons_enable_nerdtree = 0
-let g:webdevicons_enable_airline_tabline = 0
-
-nmap <C-i> :CtrlPLine<CR>
+" nmap <C-i> :CtrlPLine<CR>
 let g:ctrlp_user_command = 'rg --files %s'
+nmap <C-b> :CtrlPBuffer<CR>
 
-set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set nornu
-  else
-    set rnu
-  endif
-endfunc
+" set relativenumber
+" function! NumberToggle()
+  " if(&relativenumber == 1)
+    " set nornu
+  " else
+    " set rnu
+  " endif
+" endfunc
 
-nnoremap <leader>t :call NumberToggle()<cr>
+" nnoremap <leader>t :call NumberToggle()<cr>
+
+function! Multiple_cursors_before()
+    exe 'NeoCompleteLock'
+endfunction
+
+function! Multiple_cursors_after()
+    exe 'NeoCompleteUnlock'
+endfunction
+
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'python': {
+  \       'highlight_builtins' : 1
+  \     },
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins' : 1
+  \     }
+  \   }
+  \ }
