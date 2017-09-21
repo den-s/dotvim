@@ -40,9 +40,6 @@
 [submodule "bundle/vim-airline-themes"]
 	path = bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
-[submodule "bundle/javascript-libraries-syntax"]
-	path = bundle/javascript-libraries-syntax
-	url = https://github.com/othree/javascript-libraries-syntax.vim.git
 [submodule "bundle/vim-easymotion"]
 	path = bundle/vim-easymotion
 	url = https://github.com/easymotion/vim-easymotion.git
@@ -115,9 +112,6 @@
 [submodule "bundle/color-solarized"]
 	path = bundle/color-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule "bundle/syntastic"]
-	path = bundle/syntastic
-	url = https://github.com/vim-syntastic/syntastic.git
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
@@ -136,9 +130,9 @@
 [submodule "bundle/vim-coffee-script"]
 	path = bundle/vim-coffee-script
 	url = https://github.com/kchmck/vim-coffee-script.git
-[submodule "bundle/color-two-firewatch"]
-	path = bundle/color-two-firewatch
-	url = https://github.com/rakr/vim-two-firewatch.git
-[submodule "bundle/color-one"]
-	path = bundle/color-one
-	url = https://github.com/rakr/vim-one.git
+[submodule "bundle/vim-css3-syntax"]
+	path = bundle/vim-css3-syntax
+	url = https://github.com/hail2u/vim-css3-syntax.git
+[submodule "bundle/ale"]
+	path = bundle/ale
+	url = https://github.com/w0rp/ale.git

@@ -75,7 +75,10 @@ set t_vb=
 set tm=500
 
 " Add a bit extra margin to the left
-" set foldcolumn=3
+set foldmethod=syntax
+set foldcolumn=3
+
+nnoremap <space> za
 
 " set lz
 
@@ -124,7 +127,7 @@ if has("gui_running")
 endif
 
 set background=light
-colorscheme solarized
+colorscheme lucius
 
 set ambiwidth="double"
 
@@ -244,6 +247,7 @@ inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 nmap <leader>r :edit<CR>
+nmap <leader>rr :syntax on<CR> :syntax sync fromstart<CR>:redraw!<CR>
 
 "ctags
 nmap <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -288,8 +292,6 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-let g:used_javascript_libs = 'jquery,angularjs,handlebars,react,underscore,backbone'
-
 " easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
@@ -308,6 +310,7 @@ let g:jsx_ext_required = 0
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
@@ -350,15 +353,15 @@ let g:multi_cursor_prev_key='<C-b>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-" map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark"  )<CR>
-
 function! g:ToggleBackground()
   if &background != 'dark'
     colorscheme gotham
     set background=dark
+    AirlineTheme gotham
   else
-    colorscheme solarized
+    colorscheme lucius
     set background=light
+    AirlineTheme lucius
   endif
 endfunction
 nnoremap <leader>bg :call g:ToggleBackground()<CR>
@@ -374,23 +377,21 @@ let g:jsdoc_underscore_private = 1
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_input_description = 1
 
-let g:syntastic_javascript_checkers = []
-let g:syntastic_python_checkers = []
+" let g:syntastic_javascript_checkers = ['eslint', 'standard']
+" let g:syntastic_javascript_standard_args = "--parser babel-eslint"
+" let g:syntastic_python_checkers = []
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+" nnoremap <leader>st :SyntasticToggleMode<CR>
+map <leader>st :ALEToggle<CR>
 
 " nmap <C-i> :CtrlPLine<CR>
 let g:ctrlp_user_command = 'rg --files %s'
 nmap <C-b> :CtrlPBuffer<CR>
-
-" set relativenumber
-" function! NumberToggle()
-  " if(&relativenumber == 1)
-    " set nornu
-  " else
-    " set rnu
-  " endif
-" endfunc
-
-" nnoremap <leader>t :call NumberToggle()<cr>
 
 function! Multiple_cursors_before()
     exe 'NeoCompleteLock'
@@ -400,16 +401,19 @@ function! Multiple_cursors_after()
     exe 'NeoCompleteUnlock'
 endfunction
 
-let g:PaperColor_Theme_Options = {
-  \   'language': {
-  \     'python': {
-  \       'highlight_builtins' : 1
-  \     },
-  \     'cpp': {
-  \       'highlight_standard_library': 1
-  \     },
-  \     'c': {
-  \       'highlight_builtins' : 1
-  \     }
-  \   }
-  \ }
+nnoremap <C-W>M <C-W>\| <C-W>_
+nnoremap <C-W>m <C-W>=
+
+nnoremap <leader>tt2 :set tabstop=2 shiftwidth=2 expandtab<CR>
+nnoremap <leader>tt4 :set tabstop=4 shiftwidth=4 expandtab<CR>
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'javascript.jsx': ['eslint'],
+\}
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
