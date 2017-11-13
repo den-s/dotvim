@@ -126,8 +126,8 @@ if has("gui_running")
   let g:webdevicons_enable_airline_tabline = 0
 endif
 
-set background=light
-colorscheme lucius
+set background=dark
+colorscheme gotham
 
 set ambiwidth="double"
 
@@ -155,7 +155,7 @@ set noswapfile
 runtime macros/matchit.vim
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc,node_modules,venv
+set wildignore=*.o,*~,*.pyc,node_modules,venv,bower_components
 if has("win16") || has("win32")
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
@@ -417,3 +417,4 @@ let g:ale_lint_on_enter = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
+let g:airline#extensions#ale#enabled = 1
