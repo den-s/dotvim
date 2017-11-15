@@ -46,21 +46,9 @@
 [submodule "bundle/ack.vim"]
 	path = bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
-[submodule "bundle/vim-node"]
-	path = bundle/vim-node
-	url = https://github.com/moll/vim-node.git
 [submodule "bundle/vim-less"]
 	path = bundle/vim-less
 	url = https://github.com/groenewege/vim-less.git
-[submodule "bundle/yajs"]
-	path = bundle/yajs
-	url = https://github.com/othree/yajs.vim.git
-[submodule "bundle/es.next.syntax"]
-	path = bundle/es.next.syntax
-	url = https://github.com/othree/es.next.syntax.vim.git
-[submodule "bundle/vim-js-indent"]
-	path = bundle/vim-js-indent
-	url = https://github.com/gavocanov/vim-js-indent.git
 [submodule "bundle/vim-jsx"]
 	path = bundle/vim-jsx
 	url = https://github.com/mxw/vim-jsx.git
@@ -70,9 +58,6 @@
 [submodule "bundle/vim-hsftp"]
 	path = bundle/vim-hsftp
 	url = https://github.com/hesselbom/vim-hsftp.git
-[submodule "bundle/bundle/vim-indent-guides"]
-	path = bundle/bundle/vim-indent-guides
-	url = https://github.com/nathanaelkane/vim-indent-guides.git
 [submodule "bundle/vim-pathogen"]
 	path = bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
@@ -94,15 +79,9 @@
 [submodule "bundle/vim-javascript"]
 	path = bundle/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
-[submodule "bundle/eslint-plugin-react"]
-	path = bundle/eslint-plugin-react
-	url = https://github.com/yannickcr/eslint-plugin-react.git
 [submodule "bundle/vim-multiple-cursors"]
 	path = bundle/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors.git
-[submodule "bundle/nerdtree-git-plugin"]
-	path = bundle/nerdtree-git-plugin
-	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
 [submodule "bundle/jsdoc"]
 	path = bundle/jsdoc
 	url = https://github.com/heavenshell/vim-jsdoc.git
@@ -115,9 +94,6 @@
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
-[submodule "bundle/devicons"]
-	path = bundle/devicons
-	url = https://github.com/ryanoasis/vim-devicons.git
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
@@ -127,9 +103,6 @@
 [submodule "bundle/vimproc.vim"]
 	path = bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule "bundle/vim-coffee-script"]
-	path = bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
 [submodule "bundle/vim-css3-syntax"]
 	path = bundle/vim-css3-syntax
 	url = https://github.com/hail2u/vim-css3-syntax.git
