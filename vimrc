@@ -335,7 +335,6 @@ let g:UltiSnipsJumpForwardTrigger="<C-l>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 
 let g:ycm_max_num_candidates = 10
-g:ycm_log_level='critical'
 
 " For conceal markers.
 if has('conceal')
