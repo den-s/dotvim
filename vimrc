@@ -307,28 +307,35 @@ nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
 let g:jsx_ext_required = 0
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-let g:acp_enableAtStartup = 0
+" let g:acp_enableAtStartup = 0
 
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_ignore_case = 0
-let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_ignore_case = 0
+" let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-" Plugin key-mappings.
-imap <C-l>     <Plug>(neosnippet_expand_or_jump)
-smap <C-l>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-l>     <Plug>(neosnippet_expand_target)
- "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" " Plugin key-mappings.
+" imap <C-l>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-l>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-l>     <Plug>(neosnippet_expand_target)
+ " "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+let g:UltiSnipsExpandTrigger="<C-l>"
+let g:UltiSnipsJumpForwardTrigger="<C-l>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+
+let g:ycm_max_num_candidates = 10
+g:ycm_log_level='critical'
 
 " For conceal markers.
 if has('conceal')
@@ -377,29 +384,12 @@ let g:jsdoc_underscore_private = 1
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_input_description = 1
 
-" let g:syntastic_javascript_checkers = ['eslint', 'standard']
-" let g:syntastic_javascript_standard_args = "--parser babel-eslint"
-" let g:syntastic_python_checkers = []
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
 " nnoremap <leader>st :SyntasticToggleMode<CR>
 map <leader>st :ALEToggle<CR>
 
 " nmap <C-i> :CtrlPLine<CR>
 let g:ctrlp_user_command = 'rg --files %s'
 nmap <C-b> :CtrlPBuffer<CR>
-
-function! Multiple_cursors_before()
-    exe 'NeoCompleteLock'
-endfunction
-
-function! Multiple_cursors_after()
-    exe 'NeoCompleteUnlock'
-endfunction
 
 nnoremap <C-W>M <C-W>\| <C-W>_
 nnoremap <C-W>m <C-W>=
@@ -412,9 +402,10 @@ let g:ale_linters = {
 \   'javascript.jsx': ['eslint'],
 \}
 
+let g:ale_history_enabled = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+let g:ale_linters_explicit = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
-let g:airline#extensions#ale#enabled = 1
