@@ -187,46 +187,7 @@ let g:user_emmet_expandabbr_key='<c-\>'
 let g:user_emmet_mode='i'
 " zen-coding
 
-"NERDTree options {{{
-nmap <F4> :NERDTreeToggle<cr>
-inoremap <F4> <Esc>:NERDTreeToggle<cr>
-
-nmap <F5> :NERDTreeFind<cr>
-inoremap <F5> <Esc>:NERDTreeFind<cr>
-
-let NERDTreeIgnore          =   ['\.pyc$','\.swp$']                 "ignore compiled python files
-let NERDTreeMouseMode       =   3                                   "single-click to open files/nodes
-let NERDTreeWinPos          =   'left'
-let NERDTreeSplitVertical   =   1                                   "and open as vsplit
-let NERDTreeChDirMode       =   2                                   "change working dir when I change root
-let NERDTreeShowBookmarks   =   0
-let NERDSpaceDelims = 1
-"}}}
-
-
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
 execute pathogen#infect()
-
-" Settings for python-mode
-" let g:pymode_python = 'python3'
-let g:pymode_lint_ignore = "C901"
-let g:pymode_rope_goto_definition_cmd = 'vnew'
-
-let g:pymode_virtualenv_path = 'venv'
-" let g:pymode_rope = 0
-" let g:pymode_rope_lookup_project = 0
-" let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_autoimport = 0
-let g:pymode_rope_regenerate_on_write = 0
-let g:pymode_run_bind = '<leader>R'
-let g:pymode_rope_goto_definition_bind = '<leader>g'
-let g:pymode_doc_bind = '<leader>d'
-let g:pymode_rope_organize_imports_bind = '<leader>ro'
 
 " Better navigating through omnicomplete option list
 " See
@@ -249,116 +210,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 nmap <leader>r :edit<CR>
 nmap <leader>rr :syntax on<CR> :syntax sync fromstart<CR>:redraw!<CR>
 
-"ctags
-nmap <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
-
-nmap ]c <Plug>GitGutterNextHunk
-nmap [c <Plug>GitGutterPrevHunk
-
-"vim-airline
-let g:airline_theme='lucius'
-let g:airline#extensions#tabline#enabled = 1
-
- "unicode symbols
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_powerline_fonts = 1
-
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ }
-
-let g:airline_inactive_collapse=1
-
-let g:airline#extensions#tabline#show_tab_nr=1
-let g:airline#extensions#tabline#show_tab_type=0
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#buffers_label = 'b'
-let g:airline#extensions#tabline#tabs_label = 't'
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-" easymotion
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-let g:EasyMotion_smartcase = 1
-
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-
-" Ack
-nmap <leader>a :tab split<CR>:Ack ""<left>
-nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
-
-let g:jsx_ext_required = 0
-
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" let g:acp_enableAtStartup = 0
-
-" let g:neocomplete#enable_at_startup = 1
-" let g:neocomplete#enable_ignore_case = 0
-" let g:neocomplete#enable_auto_select = 1
-" let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" inoremap <expr><C-g>     neocomplete#undo_completion()
-" inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" " Plugin key-mappings.
-" imap <C-l>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-l>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-l>     <Plug>(neosnippet_expand_target)
- " "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-let g:UltiSnipsExpandTrigger="<C-l>"
-let g:UltiSnipsJumpForwardTrigger="<C-l>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
-
-let g:ycm_max_num_candidates = 10
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-let b:surround_118 = "{{ \1variable: \1 }}\r" "v
-let b:surround_101 = "{% \1expression: \1 %}\r" "e
-let b:surround_98 = "{% block \1block name: \1 %}\r{% endblock \1\1 %}" "b
-let b:surround_105 = "{% if \1condition: \1 %}\r{% endif %}" "i
-let b:surround_102 = "{% for \1for loop: \1 %}\r{% endfor %}" "f
-let b:surround_99 = "{% comment %}\r{% endcomment %}" "c
-let b:surround_114 = "{{ _(\"\r\") }}" "r
-
-let delimitMate_expand_space = 1
-let delimitMate_expand_cr = 1
-
-let g:javascript_plugin_flow = 1
-
-let g:multi_cursor_next_key='<C-f>'
-let g:multi_cursor_prev_key='<C-b>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-
 function! g:ToggleBackground()
   if &background != 'dark'
     colorscheme gotham
@@ -372,39 +223,56 @@ function! g:ToggleBackground()
 endfunction
 nnoremap <leader>bg :call g:ToggleBackground()<CR>
 
-
-let g:ackprg = 'rg -S --no-heading --vimgrep'
-
-nmap <silent> <C-s> <Plug>(jsdoc)
-lef g:jsdoc_enable_es6 = 1
-let g:javascript_plugin_jsdoc = 1
-let g:jsdoc_access_descriptions = 2
-let g:jsdoc_underscore_private = 1
-let g:jsdoc_allow_input_prompt = 1
-let g:jsdoc_input_description = 1
-
-" nnoremap <leader>st :SyntasticToggleMode<CR>
-map <leader>st :ALEToggle<CR>
-
-" nmap <C-i> :CtrlPLine<CR>
-let g:ctrlp_user_command = 'rg --files %s'
-nmap <C-b> :CtrlPBuffer<CR>
-
 nnoremap <C-W>M <C-W>\| <C-W>_
 nnoremap <C-W>m <C-W>=
 
 nnoremap <leader>tt2 :set tabstop=2 shiftwidth=2 expandtab<CR>
 nnoremap <leader>tt4 :set tabstop=4 shiftwidth=4 expandtab<CR>
 
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'javascript.jsx': ['eslint'],
-\}
+augroup NAME_OF_GROUP
+  autocmd!
+  autocmd bufwritepost .vimrc source $MYVIMRC
+augroup end
 
-let g:ale_history_enabled = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_linters_explicit = 1
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%severity%][%linter%] %s'
+"ctags
+nmap <leader>] [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+
+" Ack
+nmap <leader>a :tab split<CR>:Ack ""<left>
+nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
+
+let g:jsx_ext_required = 0
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" nmap <C-i> :CtrlPLine<CR>
+let g:ctrlp_user_command = 'rg --files %s'
+nmap <C-b> :CtrlPBuffer<CR>
+
+let g:ackprg = 'rg -S --no-heading --vimgrep'
+
+source ~/.vim/conf/nerdtree.vim
+
+source ~/.vim/conf/pymode.vim
+
+source ~/.vim/conf/gitgutter.vim
+
+source ~/.vim/conf/airline.vim
+
+source ~/.vim/conf/easymotion.vim
+
+source ~/.vim/conf/youcompleteme.vim
+
+source ~/.vim/conf/surround.vim
+
+source ~/.vim/conf/delimmate.vim
+
+source ~/.vim/conf/multicursor.vim
+
+source ~/.vim/conf/vim-javascript.vim
+
+source ~/.vim/conf/ale.vim
