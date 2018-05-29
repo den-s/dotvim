@@ -1,2 +1,1 @@
-nmap ]c <Plug>GitGutterNextHunk
-nmap [c <Plug>GitGutterPrevHunk
+let g:gitgutter_eager = 0

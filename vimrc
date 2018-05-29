@@ -102,9 +102,9 @@ nmap <leader>w :wa!<cr>
 
 :set numberwidth=4
 
-nmap <leader>6 :diffget LO<cr>
-nmap <leader>7 :diffget BA<cr>
-nmap <leader>8 :diffget RE<cr>
+nmap <leader>6 :diffget LOCAL<cr>
+nmap <leader>7 :diffget BASE<cr>
+nmap <leader>8 :diffget REMOTE<cr>
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -118,12 +118,14 @@ if has("gui_running")
   set guioptions-=r
   set guioptions-=b
   set guitablabel=%M\ %t
-  " set guifont=Menlo:h14
-  set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
-  let g:webdevicons_enable = 0
-  let g:webdevicons_enable_ctrlp = 0
-  let g:webdevicons_enable_nerdtree = 0
-  let g:webdevicons_enable_airline_tabline = 0
+  set guifont=Menlo:h14
+  if has('mac')
+    if system("osascript -e 'tell application \"Finder\" to get bounds of window of desktop' | cut -d ' ' -f 4") > 900
+      set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h17
+    else
+      set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
+    endif
+  endif
 endif
 
 set background=dark
@@ -179,7 +181,7 @@ nmap <Down> <C-W><Down>
 nmap <Left> <C-W><Left>
 nmap <Right> <C-W><Right>
 
-set updatetime=250
+set updatetime=100
 
 " zen-coding
 "map <leader>m <c-y>,
@@ -222,9 +224,6 @@ function! g:ToggleBackground()
   endif
 endfunction
 nnoremap <leader>bg :call g:ToggleBackground()<CR>
-
-nnoremap <C-W>M <C-W>\| <C-W>_
-nnoremap <C-W>m <C-W>=
 
 nnoremap <leader>tt2 :set tabstop=2 shiftwidth=2 expandtab<CR>
 nnoremap <leader>tt4 :set tabstop=4 shiftwidth=4 expandtab<CR>
@@ -276,3 +275,9 @@ source ~/.vim/conf/multicursor.vim
 source ~/.vim/conf/vim-javascript.vim
 
 source ~/.vim/conf/ale.vim
+
+source ~/.vim/conf/lightline.vim
+
+source ~/.vim/conf/signify.vim
+
+source ~/.vim/conf/fzf.vim

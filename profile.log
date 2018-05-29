@@ -1,0 +1,1070 @@
+FUNCTION  LightlineFileformat()
+Called 48 times
+Total time:   0.000445
+ Self time:   0.000445
+
+count  total (s)   self (s)
+   48              0.000390   return winwidth(0) > 70 ? &fileformat : ''
+
+FUNCTION  <SNR>45_repo()
+Called 96 times
+Total time:   0.005096
+ Self time:   0.005096
+
+count  total (s)   self (s)
+   96              0.001885   let dir = a:0 ? a:1 : (exists('b:git_dir') && b:git_dir !=# '' ? b:git_dir : fugitive#extract_git_dir(expand('%:p')))
+   96              0.000228   if dir !=# ''
+   96              0.000422     if has_key(s:repos, dir)
+   96              0.000461       let repo = get(s:repos, dir)
+   96              0.000119     else
+                                  let repo = {'git_dir': dir}
+                                  let s:repos[dir] = repo
+                                endif
+   96              0.001088     return extend(extend(repo, s:repo_prototype, 'keep'), s:abstract_prototype, 'keep')
+                              endif
+                              call s:throw('not a git repository: '.expand('%:p'))
+
+FUNCTION  lightline#tab#filename()
+Called 24 times
+Total time:   0.001260
+ Self time:   0.001260
+
+count  total (s)   self (s)
+   24              0.000764   let buflist = tabpagebuflist(a:n)
+   24              0.000085   let winnr = tabpagewinnr(a:n)
+   24              0.000243   let _ = expand('#'.buflist[winnr - 1].':t')
+   24              0.000107   return _ !=# '' ? _ : '[No Name]'
+
+FUNCTION  <SNR>103_CreateCountDict()
+Called 16 times
+Total time:   0.000234
+ Self time:   0.000234
+
+count  total (s)   self (s)
+                                " Keys 0 and 1 are for backwards compatibility.
+                                " The count object used to be a List of [error_count, warning_count].
+   16              0.000185     return {   '0': 0,   '1': 0,   'error': 0,   'warning': 0,   'info': 0,   'style_error': 0,   'style_warning': 0,   'total': 0,}
+
+FUNCTION  ale#statusline#Count()
+Called 16 times
+Total time:   0.001055
+ Self time:   0.000427
+
+count  total (s)   self (s)
+                                " The Dictionary is copied here before exposing it to other plugins.
+   16   0.000955   0.000327     return copy(s:GetCounts(a:buffer))
+
+FUNCTION  sy#repo#get_diff_start()
+Called 2 times
+Total time:   0.033428
+ Self time:   0.031201
+
+count  total (s)   self (s)
+    2   0.000225   0.000028   call sy#verbose('get_diff_start()', a:vcs)
+                            
+    2              0.000019   let job_id = get(b:, 'sy_job_id_'.a:vcs)
+                              " Neovim
+    2              0.000015   if has('nvim')
+                                if job_id
+                                  silent! call jobstop(job_id)
+                                endif
+                            
+                                let [cmd, options] = s:initialize_job(a:vcs)
+                                let [cwd, chdir] = sy#util#chdir()
+                            
+                                call sy#verbose(printf('CMD: %s | CWD: %s', string(cmd), b:sy_info.dir), a:vcs)
+                                let b:sy_job_id_{a:vcs} = jobstart(cmd, extend(options, { 'cwd':       b:sy_info.dir, 'on_stdout': function('s:callback_nvim_stdout'), 'on_exit':   function('s:callback_nvim_exit'), }))
+                            
+                              " Newer Vim
+                              elseif has('patch-7.4.1967')
+    2              0.000011     if type(job_id) != type(0)
+                                  silent! call job_stop(job_id)
+                                endif
+                            
+    2   0.001702   0.000070     let [cmd, options] = s:initialize_job(a:vcs)
+    2   0.000394   0.000054     let [cwd, chdir] = sy#util#chdir()
+                            
+    2              0.000008     try
+    2              0.001772       execute chdir fnameescape(b:sy_info.dir)
+    2   0.001043   0.000985       call sy#verbose(printf('CMD: %s | CWD: %s', string(cmd), getcwd()), a:vcs)
+    2              0.000107       let opts = { 'in_io':    'null', 'out_cb':   function('s:callback_vim_stdout', options), 'close_cb': function('s:callback_vim_close', options), }
+    2              0.018485       let b:sy_job_id_{a:vcs} = job_start(cmd, opts)
+    2              0.000035     finally
+    2              0.008573       execute chdir fnameescape(cwd)
+    2              0.000017     endtry
+                            
+                              " Older Vim
+    2              0.000002   else
+                                let diff = split(s:run(a:vcs), '\n')
+                                call sy#repo#get_diff_{a:vcs}(b:sy, v:shell_error, diff)
+                              endif
+
+FUNCTION  LightlineReadonly()
+Called 32 times
+Total time:   0.000222
+ Self time:   0.000222
+
+count  total (s)   self (s)
+   32              0.000095   return &readonly ? '' : ''
+
+FUNCTION  sy#verbose()
+Called 16 times
+Total time:   0.000388
+ Self time:   0.000388
+
+count  total (s)   self (s)
+   16              0.000219   if &verbose
+                                echomsg printf('[sy%s] %s', (a:0 ? ':'.a:1 : ''), a:msg)
+                              endif
+
+FUNCTION  LightlineFugitive()
+Called 48 times
+Total time:   0.023869
+ Self time:   0.003978
+
+count  total (s)   self (s)
+   48              0.000100   try
+   48              0.002568     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+   48              0.000174       let mark = ''  " edit here for cool mark
+   48   0.020414   0.000523       let branch = fugitive#head()
+   48              0.000220       return branch !=# '' ? mark.branch : ''
+                                endif
+                              catch
+                              endtry
+                              return ''
+
+FUNCTION  sy#util#escape()
+Called 4 times
+Total time:   0.000204
+ Self time:   0.000204
+
+count  total (s)   self (s)
+    4              0.000023   if exists('+shellslash')
+                                let old_ssl = &shellslash
+                                if fnamemodify(&shell, ':t') == 'cmd.exe'
+                                  set noshellslash
+                                else
+                                  set shellslash
+                                endif
+                              endif
+                            
+    4              0.000050   let path = shellescape(a:path)
+                            
+    4              0.000032   if exists('old_ssl')
+                                let &shellslash = old_ssl
+                              endif
+                            
+    4              0.000009   return path
+
+FUNCTION  <SNR>103_GetCounts()
+Called 16 times
+Total time:   0.000628
+ Self time:   0.000394
+
+count  total (s)   self (s)
+   16              0.000197     if !exists('g:ale_buffer_info') || !has_key(g:ale_buffer_info, a:buffer)
+   16   0.000403   0.000169         return s:CreateCountDict()
+                                endif
+                            
+                                " Cache is cold, so manually ask for an update.
+                                if !has_key(g:ale_buffer_info[a:buffer], 'count')
+                                    call ale#statusline#Update(a:buffer, g:ale_buffer_info[a:buffer].loclist)
+                                endif
+                            
+                                return g:ale_buffer_info[a:buffer].count
+
+FUNCTION  <SNR>45_repo_head_ref()
+Called 48 times
+Total time:   0.007528
+ Self time:   0.006475
+
+count  total (s)   self (s)
+   48   0.003681   0.003064   if !filereadable(self.dir('HEAD'))
+                                return ''
+                              endif
+   48   0.003591   0.003155   return readfile(self.dir('HEAD'))[0]
+
+FUNCTION  <SNR>79_save()
+Called 4 times
+Total time:   0.000111
+ Self time:   0.000111
+
+count  total (s)   self (s)
+    4              0.000078   if exists('b:sy') && b:sy.active && &modified && &modifiable && ! &readonly
+                                write
+                              endif
+
+FUNCTION  LightlineFileencoding()
+Called 32 times
+Total time:   0.000515
+ Self time:   0.000515
+
+count  total (s)   self (s)
+   32              0.000477   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+
+FUNCTION  sy#sign#get_current_signs()
+Called 2 times
+Total time:   0.002752
+ Self time:   0.002752
+
+count  total (s)   self (s)
+    2              0.000166   let a:sy.internal = {}
+    2              0.000007   let a:sy.external = {}
+                            
+    2              0.000010   redir => signlist
+    2              0.000055     silent! execute 'sign place buffer='. a:sy.buffer
+    2              0.000010   redir END
+                            
+   32              0.000355   for signline in split(signlist, '\n')[2:]
+   30              0.000885     let tokens = matchlist(signline, '\v^\s+\S+\=(\d+)\s+\S+\=(\d+)\s+\S+\=(.*)$')
+   30              0.000151     let line   = str2nr(tokens[1])
+   30              0.000089     let id     = str2nr(tokens[2])
+   30              0.000075     let type   = tokens[3]
+                            
+   30              0.000197     if type =~# '^Signify'
+                                  " Handle ambiguous signs. Assume you have signs on line 3 and 4.
+                                  " Removing line 3 would lead to the second sign to be shifted up
+                                  " to line 3. Now there are still 2 signs, both one line 3.
+   30              0.000108       if has_key(a:sy.internal, line)
+                                    execute 'sign unplace' a:sy.internal[line].id 'buffer='.a:sy.buffer
+                                  endif
+   30              0.000220       let a:sy.internal[line] = { 'type': type, 'id': id }
+   30              0.000024     else
+                                  let a:sy.external[line] = id
+                                endif
+   30              0.000026   endfor
+
+FUNCTION  <SNR>45_sub()
+Called 48 times
+Total time:   0.002168
+ Self time:   0.002168
+
+count  total (s)   self (s)
+   48              0.001753   return substitute(a:str,'\v\C'.a:pat,a:rep,'')
+
+FUNCTION  lightline#link()
+Called 16 times
+Total time:   0.000583
+ Self time:   0.000583
+
+count  total (s)   self (s)
+   16              0.000399   let mode = get(s:lightline._mode_, a:0 ? a:1 : mode(), 'normal')
+   16              0.000077   if s:mode == mode
+   16              0.000035     return ''
+                              endif
+                              let s:mode = mode
+                              if !has_key(s:highlight, mode)
+                                call lightline#highlight(mode)
+                              endif
+                              let types = map(s:uniq(sort(filter(values(s:lightline.component_type), 'v:val !=# "raw"'))), '[v:val, 1]')
+                              for [p, l] in [['Left', len(s:lightline.active.left)], ['Right', len(s:lightline.active.right)]]
+                                for [i, t] in map(range(0, l), '[v:val, 0]') + types
+                                  if i != l
+                                    exec printf('hi link Lightline%s_active_%s Lightline%s_%s_%s', p, i, p, mode, i)
+                                  endif
+                                  for [j, s] in map(range(0, l), '[v:val, 0]') + types
+                                    if i + 1 == j || t || s && i != l
+                                      exec printf('hi link Lightline%s_active_%s_%s Lightline%s_%s_%s_%s', p, i, j, p, mode, i, j)
+                                    endif
+                                  endfor
+                                endfor
+                              endfor
+                              exec printf('hi link LightlineMiddle_active LightlineMiddle_%s', mode)
+                              return ''
+
+FUNCTION  <SNR>101_expand_cmd()
+Called 2 times
+Total time:   0.001322
+ Self time:   0.000493
+
+count  total (s)   self (s)
+    2              0.000031   let cmd = g:signify_vcs_cmds[a:vcs]
+    2   0.000828   0.000105   let cmd = s:replace(cmd, '%f', s:get_vcs_path(a:vcs))
+    2   0.000364   0.000296   let cmd = s:replace(cmd, '%d', s:difftool)
+    2   0.000072   0.000034   let cmd = s:replace(cmd, '%n', s:devnull)
+    2              0.000013   let b:sy_info.cmd = cmd
+    2              0.000005   return cmd
+
+FUNCTION  <SNR>101_replace()
+Called 6 times
+Total time:   0.000253
+ Self time:   0.000253
+
+count  total (s)   self (s)
+    6              0.000114   let parts = split(a:cmd, a:pat, 1)
+    6              0.000112   return join(parts, a:sub)
+
+FUNCTION  <SNR>101_initialize_job()
+Called 2 times
+Total time:   0.001632
+ Self time:   0.000310
+
+count  total (s)   self (s)
+    2   0.001369   0.000047   let vcs_cmd = s:expand_cmd(a:vcs)
+    2              0.000019   if has('win32')
+                                if has('nvim')
+                                  let cmd = &shell =~ 'cmd' ? vcs_cmd : ['sh', '-c', vcs_cmd]
+                                else
+                                  let cmd = join([&shell, &shellcmdflag, vcs_cmd])
+                                endif
+                              else
+    2              0.000009     let cmd = ['sh', '-c', vcs_cmd]
+    2              0.000002   endif
+    2              0.000176   let options = { 'stdoutbuf':   [], 'vcs':         a:vcs, 'bufnr':       bufnr('%'), }
+    2              0.000011   return [cmd, options]
+
+FUNCTION  LightlineHunks()
+Called 32 times
+Total time:   0.004148
+ Self time:   0.003550
+
+count  total (s)   self (s)
+   32              0.000212   let symbols = ['+', '-', '~']
+   32   0.000980   0.000382   let [added, modified, removed] = sy#repo#get_stats()
+   32              0.000169   let stats = [added, removed, modified]  " reorder
+   32              0.000093   let hunkline = ''
+                            
+  128              0.000495   for i in range(3)
+   96              0.000243     if stats[i] > 0
+   64              0.000573       let hunkline .= printf('%s%s ', symbols[i], stats[i])
+   64              0.000066     endif
+   96              0.000095   endfor
+                            
+   32              0.000096   if !empty(hunkline)
+   32              0.000184     let hunkline = printf('%s', hunkline[:-2])
+   32              0.000042   endif
+                            
+   32              0.000055   return hunkline
+
+FUNCTION  <SNR>45_repo_head()
+Called 48 times
+Total time:   0.016071
+ Self time:   0.003595
+
+count  total (s)   self (s)
+   48   0.011111   0.000803     let head = s:repo().head_ref()
+                            
+   48              0.001134     if head =~# '^ref: '
+   48   0.002817   0.000649       let branch = s:sub(head,'^ref: %(refs/%(heads/|remotes/|tags/)=)=','')
+   48              0.000124     elseif head =~# '^\x\{40\}$'
+                                  " truncate hash to a:1 characters if we're in detached head mode
+                                  let len = a:0 ? a:1 : 0
+                                  let branch = len ? head[0:len-1] : ''
+                                else
+                                  return ''
+                                endif
+                            
+   48              0.000151     return branch
+
+FUNCTION  sy#highlight#line_disable()
+Called 2 times
+Total time:   0.001330
+ Self time:   0.001330
+
+count  total (s)   self (s)
+    2              0.000193   execute 'sign define SignifyAdd text='. s:sign_add 'texthl=SignifySignAdd linehl='
+    2              0.000079   execute 'sign define SignifyChange text='. s:sign_change 'texthl=SignifySignChange linehl='
+    2              0.000209   execute 'sign define SignifyRemoveFirstLine text='. s:sign_delete_first_line 'texthl=SignifySignDeleteFirstLine linehl='
+                            
+    2              0.000006   if s:sign_show_count
+    2              0.000014     while strwidth(s:sign_changedelete) > 1
+                                  let s:sign_changedelete = substitute(s:sign_changedelete, '.', '', '')
+                                endwhile
+   20              0.000050     for n in range(1, 9)
+   18              0.000637       execute 'sign define SignifyChangeDelete'. n 'text='. s:sign_changedelete . n 'texthl=SignifySignChangeDelete linehl='
+   18              0.000025     endfor
+    2              0.000043     execute 'sign define SignifyChangeDeleteMore text='. s:sign_changedelete .'> texthl=SignifySignChangeDelete linehl='
+    2              0.000002   else
+                                for n in range(1, 9)
+                                  execute 'sign define SignifyChangeDelete'. n 'text='. s:sign_changedelete 'texthl=SignifySignChangeDelete linehl='
+                                endfor
+                                execute 'sign define SignifyChangeDeleteMore text='. s:sign_changedelete 'texthl=SignifySignChangeDelete linehl='
+                              endif
+                            
+    2              0.000009   let g:signify_line_highlight = 0
+
+FUNCTION  sy#start()
+Called 2 times
+Total time:   0.038751
+ Self time:   0.004509
+
+count  total (s)   self (s)
+    2              0.000020   if g:signify_locked
+                                call sy#verbose('Locked.')
+                                return
+                              endif
+                            
+    2              0.001256   let sy_path = resolve(expand('%:p'))
+                            
+    2   0.000930   0.000368   if s:skip(sy_path)
+                                call sy#verbose('Skip file.')
+                                if exists('b:sy')
+                                  call sy#sign#remove_all_signs(bufnr(''))
+                                  unlet! b:sy b:sy_info
+                                endif
+                                return
+                              endif
+                            
+                              " sy_info is used in autoload/sy/repo
+    2   0.000387   0.000183   let b:sy_info = { 'dir':   fnamemodify(sy_path, ':p:h'), 'path':  sy#util#escape(sy_path), 'file':  sy#util#escape(fnamemodify(sy_path, ':t')), }
+                            
+    2              0.000022   if !exists('b:sy') || b:sy.path != sy_path
+                                call sy#verbose('Register new file: '. sy_path)
+                                let b:sy = { 'path':       sy_path, 'buffer':     bufnr(''), 'active':     0, 'detecting':  0, 'vcs':        [], 'hunks':      [], 'signid':     0x100, 'updated_by': '', 'stats':      [-1, -1, -1] }
+                                if get(g:, 'signify_disable_by_default')
+                                  call sy#verbose('Disabled by default.')
+                                  return
+                                endif
+                                let b:sy.active = 1
+                                call sy#repo#detect()
+                              elseif has('vim_starting')
+                                call sy#verbose("Don't run Sy more than once during startup.")
+                                return
+                              elseif !b:sy.active
+                                call sy#verbose('Inactive buffer.')
+                                return
+                              elseif empty(b:sy.vcs)
+                                if get(b:sy, 'retry')
+                                  let b:sy.retry = 0
+                                  call sy#verbose('Redetecting VCS.')
+                                  call sy#repo#detect()
+                                else
+                                  if get(b:sy, 'detecting')
+                                    call sy#verbose('Detection is already in progress.')
+                                  else
+                                    call sy#verbose('No VCS found. Disabling.')
+                                    call sy#disable()
+                                  endif
+                                endif
+                              else
+    2              0.000009     let b:sy.updated_by = ''
+    4              0.000048     for vcs in b:sy.vcs
+    2              0.000013       let job_id = get(b:, 'sy_job_id_'. vcs)
+    2              0.000012       if type(job_id) != type(0) || job_id > 0
+                                    call sy#verbose('Update is already in progress.', vcs)
+                                  else
+    2   0.000083   0.000035         call sy#verbose('Updating signs.', vcs)
+    2   0.035377   0.001949         call sy#repo#get_diff_start(vcs)
+    2              0.000050       endif
+    2              0.000011     endfor
+    2              0.000011   endif
+
+FUNCTION  <SNR>101_callback_vim_stdout()
+Called 44 times
+Total time:   0.000768
+ Self time:   0.000768
+
+count  total (s)   self (s)
+   44              0.000739   let self.stdoutbuf += [a:data]
+
+FUNCTION  sy#util#chdir()
+Called 2 times
+Total time:   0.000340
+ Self time:   0.000340
+
+count  total (s)   self (s)
+    2              0.000041   let chdir = haslocaldir() ? 'lcd' : (exists(':tcd') && haslocaldir(-1, 0)) ? 'tcd' : 'cd'
+    2              0.000293   return [getcwd(), chdir]
+
+FUNCTION  sy#repo#get_diff_git()
+Called 2 times
+Total time:   0.020166
+ Self time:   0.000063
+
+count  total (s)   self (s)
+    2   0.000042   0.000023   call sy#verbose('get_diff_git()', 'git')
+    2              0.000012   let [found_diff, diff] = a:exitval ? [0, []] : [1, a:diff]
+    2   0.020109   0.000025   call s:get_diff_end(a:sy, found_diff, 'git', diff)
+
+FUNCTION  lightline#tab#tabnum()
+Called 24 times
+Total time:   0.000079
+ Self time:   0.000079
+
+count  total (s)   self (s)
+   24              0.000063   return a:n
+
+FUNCTION  sy#set_signs()
+Called 2 times
+Total time:   0.019974
+ Self time:   0.000360
+
+count  total (s)   self (s)
+    2   0.000031   0.000018   call sy#verbose('set_signs()', a:vcs)
+                            
+    2              0.000010   if a:sy.stats == [-1, -1, -1]
+                                let a:sy.stats = [0, 0, 0]
+                              endif
+                            
+    2              0.000005   if empty(a:diff)
+                                call sy#verbose('No changes found.', a:vcs)
+                                let a:sy.stats = [0, 0, 0]
+                                call sy#sign#remove_all_signs(a:sy.buffer)
+                                return
+                              endif
+                            
+    2              0.000011   if get(g:, 'signify_line_highlight')
+                                call sy#highlight#line_enable()
+                              else
+    2   0.001413   0.000083     call sy#highlight#line_disable()
+    2              0.000001   endif
+                            
+    2   0.018339   0.000068   call sy#sign#process_diff(a:sy, a:vcs, a:diff)
+                            
+    2              0.000018   if exists('#User#Signify')
+                                execute 'doautocmd' (s:has_doau_modeline ? '<nomodeline>' : '') 'User Signify'
+                              endif
+
+FUNCTION  <SNR>101_get_vcs_path()
+Called 2 times
+Total time:   0.000576
+ Self time:   0.000576
+
+count  total (s)   self (s)
+    2              0.000572   return (a:vcs =~# '\v(git|cvs|accurev|tfs)') ? b:sy_info.file : b:sy_info.path
+
+FUNCTION  lightline#mode()
+Called 32 times
+Total time:   0.000336
+ Self time:   0.000336
+
+count  total (s)   self (s)
+   32              0.000308   return get(s:lightline.mode_map, mode(), '')
+
+FUNCTION  <SNR>101_job_exit()
+Called 2 times
+Total time:   0.020645
+ Self time:   0.000457
+
+count  total (s)   self (s)
+    2   0.000187   0.000165   call sy#verbose('job_exit()', a:vcs)
+    2              0.000019   let sy = getbufvar(a:bufnr, 'sy')
+    2              0.000007   if empty(sy)
+                                call sy#verbose(printf('No b:sy found for %s', bufname(a:bufnr)), a:vcs)
+                                return
+                              elseif !empty(sy.updated_by)
+                                call sy#verbose(printf('Signs already got updated by %s.', sy.updated_by), a:vcs)
+                                return
+                              elseif empty(sy.vcs) && sy.active
+                                let sy.detecting -= 1
+                              endif
+    2   0.020226   0.000060   call sy#repo#get_diff_{a:vcs}(sy, a:exitval, a:diff)
+    2              0.000015   call setbufvar(a:bufnr, 'sy_job_id_'.a:vcs, 0)
+
+FUNCTION  lightline#tabline()
+Called 4 times
+Total time:   0.000306
+ Self time:   0.000306
+
+count  total (s)   self (s)
+    4              0.000053   if !has_key(s:highlight, 'tabline')
+                                call lightline#highlight('tabline')
+                              endif
+    4              0.000049   if s:lightline.tabline_configured || s:tabnr != tabpagenr() || s:tabcnt != tabpagenr('$')
+                                let s:tabnr = tabpagenr()
+                                let s:tabcnt = tabpagenr('$')
+                                let s:tabline = s:line(1, 0)
+                              endif
+    4              0.000052   return s:tabline
+
+FUNCTION  sy#repo#get_stats()
+Called 32 times
+Total time:   0.000598
+ Self time:   0.000598
+
+count  total (s)   self (s)
+   32              0.000285   if !exists('b:sy') || !has_key(b:sy, 'stats')
+                                return [-1, -1, -1]
+                              endif
+                            
+   32              0.000066   return b:sy.stats
+
+FUNCTION  LightlineFilename()
+Called 32 times
+Total time:   0.004546
+ Self time:   0.003608
+
+count  total (s)   self (s)
+   32              0.000457   let fname = expand('%:t')
+   32   0.003723   0.002785   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item : fname == '__Tagbar__' ? g:lightline.fname : fname =~ '__Gundo\|NERD_tree' ? '' : &ft == 'vimfiler' ? vimfiler#get_status_string() : &ft == 'unite' ? unite#get_status_string() : &ft == 'vimshell' ? vimshell#get_status_string() : ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') . ('' != fname ? expand('%') : '[No Name]') . ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+
+FUNCTION  sy#sign#process_diff()
+Called 2 times
+Total time:   0.018271
+ Self time:   0.011731
+
+count  total (s)   self (s)
+    2              0.000322   let a:sy.signtable             = {}
+    2              0.000656   let a:sy.hunks                 = []
+    2              0.000013   let [added, modified, deleted] = [0, 0, 0]
+                            
+    2   0.002805   0.000053   call sy#sign#get_current_signs(a:sy)
+                            
+                              " Determine where we have to put our signs.
+    6              0.000470   for line in filter(a:diff, 'v:val =~ "^@@ "')
+    4              0.000144     let a:sy.lines = []
+    4              0.000010     let ids        = []
+                            
+    4              0.004605     let tokens = matchlist(line, '^@@ -\v(\d+),?(\d*) \+(\d+),?(\d*)')
+                            
+    4              0.000082     let old_line = str2nr(tokens[1])
+    4              0.000022     let new_line = str2nr(tokens[3])
+                            
+    4              0.000027     let old_count = empty(tokens[2]) ? 1 : str2nr(tokens[2])
+    4              0.000026     let new_count = empty(tokens[4]) ? 1 : str2nr(tokens[4])
+                            
+                                " 2 lines added:
+                            
+                                " @@ -5,0 +6,2 @@ this is line 5
+                                " +this is line 5
+                                " +this is line 5
+    4              0.000025     if (old_count == 0) && (new_count >= 1)
+    2              0.000006       let added += new_count
+    2              0.000024       let offset = 0
+    6              0.000035       while offset < new_count
+    4              0.000019         let line    = new_line + offset
+    4              0.000015         let offset += 1
+    4   0.000313   0.000136         if s:external_sign_present(a:sy, line) | continue | endif
+    4   0.000274   0.000100         call add(ids, s:add_sign(a:sy, line, 'SignifyAdd'))
+    4              0.000007       endwhile
+                            
+                                " 2 lines removed:
+                            
+                                " @@ -6,2 +5,0 @@ this is line 5
+                                " -this is line 6
+                                " -this is line 7
+    2              0.000005     elseif (old_count >= 1) && (new_count == 0)
+                                  if s:external_sign_present(a:sy, new_line) | continue | endif
+                                  let deleted += old_count
+                                  if new_line == 0
+                                    call add(ids, s:add_sign(a:sy, 1, 'SignifyRemoveFirstLine'))
+                                  elseif s:sign_show_count
+                                    let text = s:sign_delete . (old_count <= 99 ? old_count : '>')
+                                    while strwidth(text) > 2
+                                      let text = substitute(text, '.', '', '')
+                                    endwhile
+                                    call add(ids, s:add_sign(a:sy, new_line, 'SignifyDelete'. old_count, text))
+                                  else
+                                    call add(ids, s:add_sign(a:sy, new_line, 'SignifyDeleteMore', s:sign_delete))
+                                  endif
+                            
+                                " 2 lines changed:
+                            
+                                " @@ -5,2 +5,2 @@ this is line 4
+                                " -this is line 5
+                                " -this is line 6
+                                " +this os line 5
+                                " +this os line 6
+                                elseif old_count == new_count
+                                  let modified += old_count
+                                  let offset    = 0
+                                  while offset < new_count
+                                    let line    = new_line + offset
+                                    let offset += 1
+                                    if s:external_sign_present(a:sy, line) | continue | endif
+                                    call add(ids, s:add_sign(a:sy, line, 'SignifyChange'))
+                                  endwhile
+                                else
+                            
+                                  " 2 lines changed; 2 lines removed:
+                            
+                                  " @@ -5,4 +5,2 @@ this is line 4
+                                  " -this is line 5
+                                  " -this is line 6
+                                  " -this is line 7
+                                  " -this is line 8
+                                  " +this os line 5
+                                  " +this os line 6
+    2              0.000003       if old_count > new_count
+                                    let modified += new_count
+                                    let removed   = old_count - new_count
+                                    let deleted  += removed
+                                    let offset    = 0
+                                    while offset < new_count - 1
+                                      let line    = new_line + offset
+                                      let offset += 1
+                                      if s:external_sign_present(a:sy, line) | continue | endif
+                                      call add(ids, s:add_sign(a:sy, line, 'SignifyChange'))
+                                    endwhile
+                                    let line = new_line + offset
+                                    if s:external_sign_present(a:sy, line) | continue | endif
+                                    call add(ids, s:add_sign(a:sy, line, (removed > 9) ? 'SignifyChangeDeleteMore' : 'SignifyChangeDelete'. removed))
+                            
+                                  " lines changed and added:
+                            
+                                  " @@ -5 +5,3 @@ this is line 4
+                                  " -this is line 5
+                                  " +this os line 5
+                                  " +this is line 42
+                                  " +this is line 666
+                                  else
+    2              0.000006         let modified += old_count
+    2              0.000004         let offset    = 0
+    4              0.000008         while offset < old_count
+    2              0.000008           let line    = new_line + offset
+    2              0.000004           let offset += 1
+    2   0.003601   0.001290           if s:external_sign_present(a:sy, line) | continue | endif
+    2   0.000410   0.000244           call add(ids, s:add_sign(a:sy, line, 'SignifyChange'))
+    2              0.000008           let added += 1
+    2              0.000003         endwhile
+   26              0.000045         while offset < new_count
+   24              0.000054           let line    = new_line + offset
+   24              0.000037           let offset += 1
+   24   0.000475   0.000138           if s:external_sign_present(a:sy, line) | continue | endif
+   24   0.000777   0.000168           call add(ids, s:add_sign(a:sy, line, 'SignifyAdd'))
+   24              0.000058         endwhile
+    2              0.000003       endif
+    2              0.000001     endif
+                            
+    4              0.000016     if !empty(ids)
+    4              0.000083       call add(a:sy.hunks, { 'ids'  : ids, 'start': a:sy.lines[0], 'end'  : a:sy.lines[-1] })
+    4              0.000004     endif
+    4              0.000004   endfor
+                            
+                              " Remove obsoleted signs.
+    2              0.000123   for line in filter(keys(a:sy.internal), '!has_key(a:sy.signtable, v:val)')
+                                execute 'sign unplace' a:sy.internal[line].id 'buffer='.a:sy.buffer
+                              endfor
+                            
+    2              0.000022   if has('gui_macvim') && has('gui_running') && mode() == 'n'
+                                " MacVim needs an extra kick in the butt, when setting signs from the
+                                " exit handler. :redraw would trigger a "hanging cursor" issue.
+    2              0.000012     call feedkeys("\<c-l>", 'n')
+    2              0.000003   endif
+                            
+    2   0.000029   0.000015   call sy#verbose('Signs updated.', a:vcs)
+    2              0.000012   let a:sy.updated_by = a:vcs
+    2              0.000008   if len(a:sy.vcs) > 1
+                                call sy#verbose('Disable all other VCS.', a:vcs)
+                                let a:sy.vcs = [a:vcs]
+                              endif
+                            
+    2              0.000153   let a:sy.stats = [added, modified, deleted]
+
+FUNCTION  lightline#tab#modified()
+Called 24 times
+Total time:   0.000658
+ Self time:   0.000658
+
+count  total (s)   self (s)
+   24              0.000111   let winnr = tabpagewinnr(a:n)
+   24              0.000427   return gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
+
+FUNCTION  sy#util#refresh_windows()
+Called 2 times
+Total time:   0.057704
+ Self time:   0.018953
+
+count  total (s)   self (s)
+    2              0.000016   if exists('*win_getid')
+    2              0.000046     let winid = win_getid()
+    2              0.000004   else
+                                let winnr = winnr()
+                              endif
+                            
+    2              0.000010   if !get(g:, 'signify_cmdwin_active')
+    2   0.057529   0.018778     windo if exists('b:sy') | call sy#start() | endif
+    2              0.000008   endif
+                            
+    2              0.000012   if exists('winid')
+    2              0.000015     call win_gotoid(winid)
+    2              0.000002   else
+                                execute winnr .'wincmd w'
+                              endif
+
+FUNCTION  <SNR>141_external_sign_present()
+Called 30 times
+Total time:   0.002825
+ Self time:   0.002825
+
+count  total (s)   self (s)
+   30              0.002377   if has_key(a:sy.external, a:line)
+                                if has_key(a:sy.internal, a:line)
+                                  " Remove Sy signs from lines with other signs.
+                                  execute 'sign unplace' a:sy.internal[a:line].id 'buffer='.a:sy.buffer
+                                endif
+                                return 1
+                              endif
+
+FUNCTION  LightlineModified()
+Called 32 times
+Total time:   0.000716
+ Self time:   0.000716
+
+count  total (s)   self (s)
+   32              0.000238   return winwidth(0) > 70 ? (&modified > 0 ? '+' : '') : ''
+
+FUNCTION  LightlineAle()
+Called 16 times
+Total time:   0.001808
+ Self time:   0.000753
+
+count  total (s)   self (s)
+   16   0.001500   0.000445   let counts = ale#statusline#Count(bufnr(''))
+   16              0.000095   let errors = counts.error > 0 ? ''.counts.error : ''
+   16              0.000082   let warnings = counts.warning > 0 ? (errors !=# '' ? ' '.counts.warning : ''.counts.warning) : ''
+   16              0.000048   return errors.warnings
+
+FUNCTION  <SNR>141_add_sign()
+Called 30 times
+Total time:   0.000949
+ Self time:   0.000949
+
+count  total (s)   self (s)
+   30              0.000109   call add(a:sy.lines, a:line)
+   30              0.000129   let a:sy.signtable[a:line] = 1
+                            
+   30              0.000177   if has_key(a:sy.internal, a:line)
+                                " There is a sign on this line already.
+   30              0.000139     if a:type == a:sy.internal[a:line].type
+                                  " Keep current sign since the new one is of the same type.
+   30              0.000252       return a:sy.internal[a:line].id
+                                else
+                                  " Update sign by overwriting the ID of the current sign.
+                                  let id = a:sy.internal[a:line].id
+                                endif
+                              endif
+                            
+                              if !exists('id')
+                                let id = sy#sign#id_next(a:sy)
+                              endif
+                            
+                              if a:type =~# 'SignifyDelete'
+                                execute printf('sign define %s text=%s texthl=SignifySignDelete linehl=%s', a:type, a:1, s:delete_highlight[g:signify_line_highlight])
+                              endif
+                              execute printf('sign place %d line=%d name=%s buffer=%s', id, a:line, a:type, a:sy.buffer)
+                            
+                              return id
+
+FUNCTION  LightlineFiletype()
+Called 32 times
+Total time:   0.000443
+ Self time:   0.000443
+
+count  total (s)   self (s)
+   32              0.000404   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+
+FUNCTION  lightline#onetab()
+Called 24 times
+Total time:   0.006372
+ Self time:   0.004375
+
+count  total (s)   self (s)
+   24              0.000129   let _ = []
+   96              0.000302   for name in a:active ? s:lightline.tab.active : s:lightline.tab.inactive
+   72              0.000450     if has_key(s:lightline.tab_component_function, name)
+   72   0.003191   0.001194       call add(_, call(s:lightline.tab_component_function[name], [a:n]))
+   72              0.000086     else
+                                  call add(_, get(s:lightline.tab_component, name, ''))
+                                endif
+   72              0.000070   endfor
+   24              0.001310   return join(filter(_, 'v:val !=# ""'), ' ')
+
+FUNCTION  LightLineGitversion()
+Called 32 times
+Total time:   0.002325
+ Self time:   0.002325
+
+count  total (s)   self (s)
+   32              0.000390   let fullname = expand('%')
+   32              0.000069   let gitversion = ''
+   32              0.000654   if fullname =~? 'fugitive://.*/\.git//0/.*'
+                                let gitversion = 'git index'
+                              elseif fullname =~? 'fugitive://.*/\.git//2/.*'
+                                let gitversion = 'git target'
+                              elseif fullname =~? 'fugitive://.*/\.git//3/.*'
+                                let gitversion = 'git merge'
+                              elseif &diff == 1
+                                let gitversion = 'working copy'
+                              endif
+   32              0.000067   return gitversion
+
+FUNCTION  fugitive#head()
+Called 48 times
+Total time:   0.019891
+ Self time:   0.001504
+
+count  total (s)   self (s)
+   48              0.000251   if !exists('b:git_dir')
+                                return ''
+                              endif
+                            
+   48   0.019288   0.000901   return s:repo().head(a:0 ? a:1 : 0)
+
+FUNCTION  <SNR>101_callback_vim_close()
+Called 2 times
+Total time:   0.021292
+ Self time:   0.000647
+
+count  total (s)   self (s)
+    2              0.000105   let job = ch_getjob(a:channel)
+    2              0.000014   while 1
+    2              0.000093     if job_status(job) == 'dead'
+    2              0.000312       let exitval = job_info(job).exitval
+    2              0.000006       break
+                                endif
+                                sleep 10m
+                              endwhile
+    2   0.020697   0.000052   call s:job_exit(self.bufnr, self.vcs, exitval, self.stdoutbuf)
+
+FUNCTION  fugitive#reload_status()
+Called 2 times
+Total time:   0.002594
+ Self time:   0.002594
+
+count  total (s)   self (s)
+    2              0.000029   if exists('s:reloading_status')
+                                return
+                              endif
+    2              0.000004   try
+    2              0.000024     let s:reloading_status = 1
+    2              0.000014     let mytab = tabpagenr()
+   16              0.000070     for tab in [mytab] + range(1,tabpagenr('$'))
+   28              0.000179       for winnr in range(1,tabpagewinnr(tab,'$'))
+   14              0.000180         if getbufvar(tabpagebuflist(tab)[winnr-1],'fugitive_type') ==# 'index'
+                                      execute 'tabnext '.tab
+                                      if winnr != winnr()
+                                        execute winnr.'wincmd w'
+                                        let restorewinnr = 1
+                                      endif
+                                      try
+                                        if !&modified
+                                          call s:BufReadIndex()
+                                        endif
+                                      finally
+                                        if exists('restorewinnr')
+                                          wincmd p
+                                        endif
+                                        execute 'tabnext '.mytab
+                                      endtry
+                                    endif
+   14              0.000022       endfor
+   14              0.000030     endfor
+    2              0.000005   finally
+    2              0.000008     unlet! s:reloading_status
+    2              0.000003   endtry
+
+FUNCTION  <SNR>140_skip()
+Called 2 times
+Total time:   0.000562
+ Self time:   0.000562
+
+count  total (s)   self (s)
+    2              0.000220   if &diff || !filereadable(a:path)
+                                return 1
+                              endif
+                            
+    2              0.000023   if exists('g:signify_skip_filetype')
+                                if has_key(g:signify_skip_filetype, &filetype)
+                                  return 1
+                                elseif has_key(g:signify_skip_filetype, 'help') && (&buftype == 'help')
+                                  return 1
+                                endif
+                              endif
+                            
+    2              0.000021   if exists('g:signify_skip_filename') && has_key(g:signify_skip_filename, a:path)
+                                return 1
+                              endif
+                            
+    2              0.000009   if exists('g:signify_skip_filename_pattern')
+                                for pattern in g:signify_skip_filename_pattern
+                                  if a:path =~ pattern
+                                    return 1
+                                  endif
+                                endfor
+                              endif
+                            
+    2              0.000004   return 0
+
+FUNCTION  LightlineMode()
+Called 32 times
+Total time:   0.002208
+ Self time:   0.001872
+
+count  total (s)   self (s)
+   32              0.000354   let fname = expand('%:t')
+   32   0.001787   0.001451   return fname == '__Tagbar__' ? 'Tagbar' : fname == 'ControlP' ? 'CtrlP' : fname == '__Gundo__' ? 'Gundo' : fname == '__Gundo_Preview__' ? 'Gundo Preview' : fname =~ 'NERD_tree' ? 'NERDTree' : &ft == 'unite' ? 'Unite' : &ft == 'vimfiler' ? 'VimFiler' : &ft == 'vimshell' ? 'VimShell' : winwidth(0) > 60 ? lightline#mode() : ''
+
+FUNCTION  CtrlPMark()
+Called 32 times
+Total time:   0.000819
+ Self time:   0.000819
+
+count  total (s)   self (s)
+   32              0.000426   if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
+                                call lightline#link('iR'[g:lightline.ctrlp_regex])
+                                return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item , g:lightline.ctrlp_next], 0)
+                              else
+   32              0.000047     return ''
+                              endif
+
+FUNCTION  <SNR>101_get_diff_end()
+Called 2 times
+Total time:   0.020084
+ Self time:   0.000093
+
+count  total (s)   self (s)
+    2   0.000047   0.000030   call sy#verbose('get_diff_end()', a:vcs)
+    2              0.000002   if a:found_diff
+    2              0.000009     if index(a:sy.vcs, a:vcs) == -1
+                                  let a:sy.vcs += [a:vcs]
+                                endif
+    2   0.020003   0.000029     call sy#set_signs(a:sy, a:vcs, a:diff)
+    2              0.000002   else
+                                call sy#verbose('No valid diff found. Disabling this VCS.', a:vcs)
+                              endif
+
+FUNCTION  <SNR>45_repo_dir()
+Called 96 times
+Total time:   0.001053
+ Self time:   0.001053
+
+count  total (s)   self (s)
+   96              0.000964   return join([self.git_dir]+a:000,'/')
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+    2   0.057704   0.018953  sy#util#refresh_windows()
+    2   0.038751   0.004509  sy#start()
+    2   0.033428   0.031201  sy#repo#get_diff_start()
+   48   0.023869   0.003978  LightlineFugitive()
+    2   0.021292   0.000647  <SNR>101_callback_vim_close()
+    2   0.020645   0.000457  <SNR>101_job_exit()
+    2   0.020166   0.000063  sy#repo#get_diff_git()
+    2   0.020084   0.000093  <SNR>101_get_diff_end()
+    2   0.019974   0.000360  sy#set_signs()
+   48   0.019891   0.001504  fugitive#head()
+    2   0.018271   0.011731  sy#sign#process_diff()
+   48   0.016071   0.003595  <SNR>45_repo_head()
+   48   0.007528   0.006475  <SNR>45_repo_head_ref()
+   24   0.006372   0.004375  lightline#onetab()
+   96   0.005096             <SNR>45_repo()
+   32   0.004546   0.003608  LightlineFilename()
+   32   0.004148   0.003550  LightlineHunks()
+   30   0.002825             <SNR>141_external_sign_present()
+    2   0.002752             sy#sign#get_current_signs()
+    2   0.002594             fugitive#reload_status()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+    2   0.033428   0.031201  sy#repo#get_diff_start()
+    2   0.057704   0.018953  sy#util#refresh_windows()
+    2   0.018271   0.011731  sy#sign#process_diff()
+   48   0.007528   0.006475  <SNR>45_repo_head_ref()
+   96              0.005096  <SNR>45_repo()
+    2   0.038751   0.004509  sy#start()
+   24   0.006372   0.004375  lightline#onetab()
+   48   0.023869   0.003978  LightlineFugitive()
+   32   0.004546   0.003608  LightlineFilename()
+   48   0.016071   0.003595  <SNR>45_repo_head()
+   32   0.004148   0.003550  LightlineHunks()
+   30              0.002825  <SNR>141_external_sign_present()
+    2              0.002752  sy#sign#get_current_signs()
+    2              0.002594  fugitive#reload_status()
+   32              0.002325  LightLineGitversion()
+   48              0.002168  <SNR>45_sub()
+   32   0.002208   0.001872  LightlineMode()
+   48   0.019891   0.001504  fugitive#head()
+    2              0.001330  sy#highlight#line_disable()
+   24              0.001260  lightline#tab#filename()
+
