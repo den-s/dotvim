@@ -79,6 +79,7 @@ set foldmethod=syntax
 set foldcolumn=3
 
 nnoremap <space> za
+nnoremap <s-space> zA
 
 " set lz
 
@@ -91,6 +92,9 @@ set list
 
 set ffs=unix,dos,mac
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
+
+" Disable add a new lane at the end of the file
+set nofixendofline
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file

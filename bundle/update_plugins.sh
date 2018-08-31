@@ -11,3 +11,8 @@ for i in * ; do
     fi
   fi
 done
+
+cd youcompleteme/
+git pull
+git submodule update --init --recursive
+./install.py
