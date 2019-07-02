@@ -68,6 +68,10 @@ set autoread
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
+set synmaxcol=128
+syntax sync minlines=256
+" set foldminlines=7
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -77,6 +81,7 @@ set tm=500
 " Add a bit extra margin to the left
 set foldmethod=syntax
 set foldcolumn=3
+let javaScript_fold=1
 
 nnoremap <space> za
 nnoremap <s-space> zA
@@ -110,9 +115,6 @@ nmap <leader>6 :diffget LOCAL<cr>
 nmap <leader>7 :diffget BASE<cr>
 nmap <leader>8 :diffget REMOTE<cr>
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
 " Set extra options when running in GUI mode
 if has("gui_running")
   set guioptions-=T
@@ -169,8 +171,10 @@ else
 endif
 
 set softtabstop=3
-set mousehide
+" set mousehide
 set laststatus=2
+
+" set relativenumber
 
 " Make tab in v mode work like I think it should (keep highlighting):
 vmap <tab> >gv
@@ -192,8 +196,6 @@ set updatetime=100
 let g:user_emmet_expandabbr_key='<c-\>'
 let g:user_emmet_mode='i'
 " zen-coding
-
-execute pathogen#infect()
 
 " Better navigating through omnicomplete option list
 " See
@@ -220,11 +222,9 @@ function! g:ToggleBackground()
   if &background != 'dark'
     colorscheme gotham
     set background=dark
-    AirlineTheme gotham
   else
     colorscheme lucius
     set background=light
-    AirlineTheme lucius
   endif
 endfunction
 nnoremap <leader>bg :call g:ToggleBackground()<CR>
@@ -232,7 +232,7 @@ nnoremap <leader>bg :call g:ToggleBackground()<CR>
 nnoremap <leader>tt2 :set tabstop=2 shiftwidth=2 expandtab<CR>
 nnoremap <leader>tt4 :set tabstop=4 shiftwidth=4 expandtab<CR>
 
-augroup NAME_OF_GROUP
+augroup vimrc
   autocmd!
   autocmd bufwritepost .vimrc source $MYVIMRC
 augroup end
@@ -244,6 +244,10 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " Ack
 nmap <leader>a :tab split<CR>:Ack ""<left>
 nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
+
+" Grepper
+" nmap <leader>a :tab split<CR>:GrepperRg ""<left>
+" nmap <leader>A :tab split<CR>:GrepperRg <C-r><C-w><CR>
 
 let g:jsx_ext_required = 0
 
@@ -258,13 +262,72 @@ nmap <C-b> :CtrlPBuffer<CR>
 
 let g:ackprg = 'rg -S --no-heading --vimgrep'
 
+let g:vrc_show_command = 1
+
+" set pyxversion=3
+
+call plug#begin('~/.vim/vim-plug')
+
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'tpope/vim-unimpaired'
+Plug 'honza/vim-snippets'
+Plug 'w0ng/vim-hybrid'
+Plug 'easymotion/vim-easymotion'
+Plug 'mileszs/ack.vim'
+Plug 'groenewege/vim-less'
+Plug 'mxw/vim-jsx'
+Plug 'diepm/vim-rest-console'
+Plug 'hesselbom/vim-hsftp'
+Plug 'tpope/vim-repeat'
+Plug 'Raimondi/delimitMate'
+Plug 'whatyouhide/vim-gotham'
+Plug 'pangloss/vim-javascript'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'tpope/vim-sleuth'
+Plug 'altercation/vim-colors-solarized'
+Plug 'plasticboy/vim-markdown'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+" Plug 'python-mode/python-mode'
+Plug 'ap/vim-css-color'
+" Plug 'luochen1990/rainbow'
+" Plug 'mhinz/vim-grepper'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+Plug 'carlitux/deoplete-ternjs'
+Plug 'Yggdroot/indentLine'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'tmhedberg/SimpylFold'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+call plug#end()
+
+let g:rainbow_active = 1
+
 source ~/.vim/conf/nerdtree.vim
 
 source ~/.vim/conf/pymode.vim
 
 source ~/.vim/conf/gitgutter.vim
-
-source ~/.vim/conf/airline.vim
 
 source ~/.vim/conf/easymotion.vim
 
@@ -285,3 +348,7 @@ source ~/.vim/conf/lightline.vim
 source ~/.vim/conf/signify.vim
 
 source ~/.vim/conf/fzf.vim
+
+source ~/.vim/conf/nerdcommenter.vim
+
+source ~/.vim/conf/deoplete.vim

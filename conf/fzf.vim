@@ -13,4 +13,8 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-map ; :Files<CR>
+let g:fzf_buffers_jump = 1
+
+map ; :FZF<CR>
+
+let g:fzf_launcher = $HOME . '/.vim/conf/iTerm4fzf.sh %s'

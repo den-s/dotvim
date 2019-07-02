@@ -1,1 +1,1 @@
-../bundle/color-gotham/colors/gotham.vim
+../vim-plug/vim-gotham/colors/gotham.vim

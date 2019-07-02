@@ -1,1 +1,1 @@
-../bundle/vim-hybrid/colors/hybrid.vim
+../vim-plug/vim-hybrid/colors/hybrid.vim

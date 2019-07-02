@@ -1,0 +1,1 @@
+../vim-plug/vim-gotham/colors/gotham256.vim
