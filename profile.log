@@ -1,1234 +1,1059 @@
 FUNCTION  LightlineFileformat()
-Called 24 times
-Total time:   0.000104
- Self time:   0.000104
+    Defined: ~/.vim/conf/lightline.vim:128
+Called 33 times
+Total time:   0.000191
+ Self time:   0.000191
 
 count  total (s)   self (s)
-   24              0.000072   return winwidth(0) > 160 ? &fileformat : ''
+   33              0.000165   return winwidth(0) > 160 ? &fileformat : ''
 
-FUNCTION  <SNR>143_is_modified_and_added()
+FUNCTION  <SNR>78_has_any()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:223
 Called 4 times
-Total time:   0.000014
- Self time:   0.000014
+Total time:   0.000179
+ Self time:   0.000179
 
 count  total (s)   self (s)
-    4              0.000012   return a:from_count > 0 && a:to_count > 0 && a:from_count < a:to_count
+   18              0.000038   for key in a:keys
+   14              0.000055     if has_key(a:dict, key)
+                                  return 1
+   14              0.000010     endif
+   18              0.000020   endfor
+    4              0.000006   return 0
 
-FUNCTION  <SNR>107_has_fresh_changes()
+FUNCTION  <SNR>119_get_git_root()
+    Defined: ~/.vim/vim-plug/fzf.vim/autoload/fzf/vim.vim:531
 Called 2 times
-Total time:   0.000103
- Self time:   0.000050
+Total time:   0.046102
+ Self time:   0.000822
 
 count  total (s)   self (s)
-    2   0.000101   0.000048   return getbufvar(a:bufnr, 'changedtick') != gitgutter#utility#getbufvar(a:bufnr, 'tick')
+    2   0.046075   0.000795   let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
+    2              0.000019   return v:shell_error ? '' : root
 
-FUNCTION  <SNR>102_reset_summary()
+FUNCTION  <SNR>119_merge_opts()
+    Defined: ~/.vim/vim-plug/fzf.vim/autoload/fzf/vim.vim:69
 Called 2 times
-Total time:   0.000065
- Self time:   0.000025
+Total time:   0.000106
+ Self time:   0.000082
 
 count  total (s)   self (s)
-    2   0.000064   0.000024   call gitgutter#utility#setbufvar(a:bufnr, 'summary', [0,0,0])
+    2   0.000101   0.000077   return s:extend_opts(a:dict, a:eopts, 0)
 
-FUNCTION  <SNR>143_save_last_seen_change()
-Called 2 times
-Total time:   0.000057
- Self time:   0.000022
-
-count  total (s)   self (s)
-    2   0.000055   0.000020   call gitgutter#utility#setbufvar(a:bufnr, 'tick', getbufvar(a:bufnr, 'changedtick'))
-
-FUNCTION  <SNR>103_GetCounts()
-Called 8 times
-Total time:   0.000292
- Self time:   0.000292
+FUNCTION  sy#verbose()
+    Defined: ~/.vim/vim-plug/vim-signify/autoload/sy.vim:126
+Called 3 times
+Total time:   0.000087
+ Self time:   0.000087
 
 count  total (s)   self (s)
-    8              0.000104     if !exists('g:ale_buffer_info') || !has_key(g:ale_buffer_info, a:buffer)
-                                    return s:CreateCountDict()
+    3              0.000009   if &verbose
+                                if type(a:msg) == type([])
+                                  for msg in a:msg
+                                    echomsg printf('[sy%s] %s', (a:0 ? ':'.a:1 : ''), msg)
+                                  endfor
+                                else
+                                  echomsg printf('[sy%s] %s', (a:0 ? ':'.a:1 : ''), a:msg)
                                 endif
-                            
-                                " Cache is cold, so manually ask for an update.
-    8              0.000046     if !has_key(g:ale_buffer_info[a:buffer], 'count')
-                                    call ale#statusline#Update(a:buffer, g:ale_buffer_info[a:buffer].loclist)
-                                endif
-                            
-    8              0.000033     return g:ale_buffer_info[a:buffer].count
+    3              0.000003   endif
 
-FUNCTION  gitgutter#hunk#increment_lines_added()
-Called 14 times
-Total time:   0.001318
- Self time:   0.000303
-
-count  total (s)   self (s)
-   14   0.000911   0.000132   let summary = gitgutter#hunk#summary(a:bufnr)
-   14              0.000039   let summary[0] += a:count
-   14   0.000358   0.000122   call gitgutter#utility#setbufvar(a:bufnr, 'summary', summary)
-
-FUNCTION  gitgutter#utility#cd_cmd()
+FUNCTION  <SNR>78_upgrade()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:197
 Called 2 times
-Total time:   0.001775
- Self time:   0.000115
+Total time:   0.000079
+ Self time:   0.000079
 
 count  total (s)   self (s)
-    2   0.001187   0.000078   let cd = s:unc_path(a:bufnr) ? 'pushd' : (gitgutter#utility#windows() ? 'cd /d' : 'cd')
-    2   0.000583   0.000032   return cd.' '.s:dir(a:bufnr).' && '.a:cmd
+    2              0.000025   let copy = copy(a:dict)
+    2              0.000009   if has_key(copy, 'tmux')
+                                let copy.down = remove(copy, 'tmux')
+    2              0.000002   endif
+    2              0.000009   if has_key(copy, 'tmux_height')
+                                let copy.down = remove(copy, 'tmux_height')
+    2              0.000002   endif
+    2              0.000009   if has_key(copy, 'tmux_width')
+                                let copy.right = remove(copy, 'tmux_width')
+    2              0.000002   endif
+    2              0.000003   return copy
 
-FUNCTION  <SNR>141_build_command()
+FUNCTION  LightlineFileencoding()
+    Defined: ~/.vim/conf/lightline.vim:136
+Called 22 times
+Total time:   0.000319
+ Self time:   0.000319
+
+count  total (s)   self (s)
+   22              0.000297   return winwidth(0) > 160 ? (&fenc !=# '' ? &fenc : &enc) : ''
+
+FUNCTION  <SNR>78_validate_layout()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:296
 Called 2 times
-Total time:   0.000034
- Self time:   0.000034
+Total time:   0.000053
+ Self time:   0.000053
 
 count  total (s)   self (s)
-    2              0.000007   if has('unix')
-    2              0.000011     return ['sh', '-c', a:cmd]
+    4              0.000013   for key in keys(a:layout)
+    2              0.000007     if index(s:layout_keys, key) < 0
+                                  throw printf('Invalid entry in g:fzf_layout: %s (allowed: %s)%s', key, join(s:layout_keys, ', '), key == 'options' ? '. Use $FZF_DEFAULT_OPTS.' : '')
+    2              0.000002     endif
+    4              0.000004   endfor
+    2              0.000002   return a:layout
+
+FUNCTION  <SNR>78_present()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:461
+Called 4 times
+Total time:   0.000121
+ Self time:   0.000121
+
+count  total (s)   self (s)
+   12              0.000030   for key in a:000
+   10              0.000050     if !empty(get(a:dict, key, ''))
+    2              0.000003       return 1
+    8              0.000005     endif
+   10              0.000007   endfor
+    2              0.000002   return 0
+
+FUNCTION  lightline#link()
+    Defined: ~/.vim/vim-plug/lightline.vim/autoload/lightline.vim:217
+Called 11 times
+Total time:   0.001357
+ Self time:   0.001357
+
+count  total (s)   self (s)
+   11              0.000214   let mode = get(s:lightline._mode_, a:0 ? a:1 : mode(), 'normal')
+   11              0.000044   if s:mode ==# mode
+   10              0.000022     return ''
+    1              0.000001   endif
+    1              0.000002   let s:mode = mode
+    1              0.000003   if !has_key(s:highlight, mode)
+                                call lightline#highlight(mode)
+    1              0.000001   endif
+    1              0.000018   let types = map(s:uniq(sort(filter(values(s:lightline.component_type), 'v:val !=# "raw"'))), '[v:val, 1]')
+    3              0.000012   for [p, l] in [['Left', len(s:lightline.active.left)], ['Right', len(s:lightline.active.right)]]
+   13              0.000035     for [i, t] in map(range(0, l), '[v:val, 0]') + types
+   11              0.000012       if i != l
+    9              0.000081         exec printf('hi link Lightline%s_active_%s Lightline%s_%s_%s', p, i, p, mode, i)
+   11              0.000007       endif
+   72              0.000191       for [j, s] in map(range(0, l), '[v:val, 0]') + types
+   61              0.000119         if i + 1 == j || t || s && i != l
+   25              0.000235           exec printf('hi link Lightline%s_active_%s_%s Lightline%s_%s_%s_%s', p, i, j, p, mode, i, j)
+   61              0.000045         endif
+   72              0.000050       endfor
+   13              0.000008     endfor
+    3              0.000004   endfor
+    1              0.000007   exec printf('hi link LightlineMiddle_active LightlineMiddle_%s', mode)
+    1              0.000002   return ''
+
+FUNCTION  <SNR>109_skip()
+    Defined: ~/.vim/vim-plug/vim-signify/autoload/sy.vim:148
+Called 3 times
+Total time:   0.000231
+ Self time:   0.000231
+
+count  total (s)   self (s)
+    3              0.000206   if getbufvar(a:bufnr, '&diff') || !filereadable(a:path)
+    3              0.000015     return 1
                               endif
                             
-                              if has('win32')
-                                return has('nvim') ? ['cmd.exe', '/c', a:cmd] : 'cmd.exe /c '.a:cmd
+                              if exists('g:signify_skip_filetype')
+                                if has_key(g:signify_skip_filetype, getbufvar(a:bufnr, '&filetype'))
+                                  return 1
+                                elseif has_key(g:signify_skip_filetype, 'help') && getbufvar(a:bufnr, '&buftype') == 'help'
+                                  return 1
+                                endif
                               endif
                             
-                              throw 'unknown os'
+                              if exists('g:signify_skip_filename') && has_key(g:signify_skip_filename, a:path)
+                                return 1
+                              endif
+                            
+                              " DEPRECATED: Use g:signify_skip.pattern instead.
+                              if exists('g:signify_skip_filename_pattern')
+                                for pattern in g:signify_skip_filename_pattern
+                                  if a:path =~ pattern
+                                    return 1
+                                  endif
+                                endfor
+                              endif
+                            
+                              if exists('g:signify_skip')
+                                if has_key(g:signify_skip, 'pattern')
+                                  for pattern in g:signify_skip.pattern
+                                    if a:path =~ pattern
+                                      return 1
+                                    endif
+                                  endfor
+                                endif
+                              endif
+                            
+                              return 0
 
-FUNCTION  gitgutter#diff#parse_diff()
-Called 2 times
-Total time:   0.001296
- Self time:   0.000504
+FUNCTION  LightlineHunks()
+    Defined: ~/.vim/conf/lightline.vim:164
+Called 22 times
+Total time:   0.002171
+ Self time:   0.001721
 
 count  total (s)   self (s)
-    2              0.000010   let hunks = []
-   22              0.000107   for line in split(a:diff, '\n')
-   20   0.001035   0.000243     let hunk_info = gitgutter#diff#parse_hunk(line)
-   20              0.000038     if len(hunk_info) == 4
-   20              0.000047       call add(hunks, hunk_info)
-   20              0.000012     endif
-   20              0.000012   endfor
-    2              0.000003   return hunks
+   22              0.000169   let symbols = ['+', '-', '~']
+   22   0.001103   0.000653   let [added, modified, removed] = sy#repo#get_stats()
+   22              0.000201   let stats = [added, removed, modified]  " reorder
+   22              0.000067   let hunkline = ''
+                            
+   22              0.000093   if stats != [-1, -1, -1]
+                                for i in range(3)
+                                  let hunkline .= printf('%s%s ', symbols[i], stats[i])
+                                endfor
+                                return winwidth(0) > 70 ? (hunkline) : ''
+   22              0.000028   endif
+                            
+   22              0.000031   return ''
+
+FUNCTION  <SNR>109_get_path()
+    Defined: ~/.vim/vim-plug/vim-signify/autoload/sy.vim:139
+Called 3 times
+Total time:   0.000783
+ Self time:   0.000783
+
+count  total (s)   self (s)
+    3              0.000680   let path = resolve(fnamemodify(bufname(a:bufnr), ':p'))
+    3              0.000042   if has('win32')
+                                let path = substitute(path, '\v^(\w):\\\\', '\1:\\', '')
+    3              0.000007   endif
+    3              0.000020   return path
+
+FUNCTION  sy#start()
+    Defined: ~/.vim/vim-plug/vim-signify/autoload/sy.vim:7
+Called 3 times
+Total time:   0.001640
+ Self time:   0.000539
+
+count  total (s)   self (s)
+    3              0.000012   if g:signify_locked
+                                call sy#verbose('Locked.')
+                                return
+    3              0.000006   endif
+                            
+    3              0.000037   let bufnr = a:0 && has_key(a:1, 'bufnr') ? a:1.bufnr : bufnr('')
+    3              0.000026   let sy = getbufvar(bufnr, 'sy')
+                            
+    3              0.000011   if empty(sy)
+    3   0.000920   0.000137     let path = s:get_path(bufnr)
+    3   0.000384   0.000153     if s:skip(bufnr, path)
+    3   0.000188   0.000101       call sy#verbose('Skip file: '. path)
+    3              0.000004       return
+                                endif
+                                call sy#verbose('Register new file: '. path)
+                                let new_sy = { 'path':       path, 'buffer':     bufnr, 'active':     0, 'detecting':  0, 'vcs':        [], 'hunks':      [], 'signid':     0x100, 'updated_by': '', 'stats':      [-1, -1, -1], 'info':       {    'dir':  fnamemodify(path, ':p:h'),    'path': sy#util#escape(path),    'file': sy#util#escape(fnamemodify(path, ':t')) }}
+                                call setbufvar(bufnr, 'sy', new_sy)
+                                if get(g:, 'signify_disable_by_default')
+                                  call sy#verbose('Disabled by default.')
+                                  return
+                                endif
+                                let new_sy.active = 1
+                                call setbufvar(bufnr, 'sy', new_sy)
+                                call sy#repo#detect(bufnr)
+                              elseif has('vim_starting')
+                                call sy#verbose("Don't run Sy more than once during startup.")
+                                return
+                              elseif !sy.active
+                                call sy#verbose('Inactive buffer.')
+                                return
+                              elseif empty(sy.vcs)
+                                if get(sy, 'retry')
+                                  let sy.retry = 0
+                                  call sy#verbose('Redetecting VCS.')
+                                  call sy#repo#detect(sy.buffer)
+                                else
+                                  if get(sy, 'detecting')
+                                    call sy#verbose('Detection is already in progress.')
+                                  else
+                                    call sy#verbose('No VCS found. Disabling.')
+                                    call sy#disable(sy.buffer)
+                                  endif
+                                endif
+                              else
+                                for vcs in sy.vcs
+                                  let job_id = getbufvar(sy.buffer, 'sy_job_id_'. vcs, 0)
+                                  if type(job_id) != type(0) || job_id > 0
+                                    call sy#verbose('Update is already in progress.', vcs)
+                                  else
+                                    call sy#verbose('Updating signs.', vcs)
+                                    call sy#repo#get_diff(sy.buffer, vcs, function('sy#sign#set_signs'))
+                                  endif
+                                endfor
+                              endif
+
+FUNCTION  <SNR>119_fzf()
+    Defined: ~/.vim/vim-plug/fzf.vim/autoload/fzf/vim.vim:200
+Called 2 times
+Total time:   1.961416
+ Self time:   0.000406
+
+count  total (s)   self (s)
+    2              0.000016   let [extra, bang] = [{}, 0]
+    2              0.000008   if len(a:extra) <= 1
+    2              0.000014     let first = get(a:extra, 0, 0)
+    2              0.000020     if type(first) == s:TYPE.dict
+                                  let extra = first
+    2              0.000003     else
+    2              0.000004       let bang = first
+    2              0.000002     endif
+                              elseif len(a:extra) == 2
+                                let [extra, bang] = a:extra
+                              else
+                                throw 'invalid number of arguments'
+    2              0.000003   endif
+                            
+    2              0.000014   let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
+    2              0.000015   let merged = extend(copy(a:opts), extra)
+    2   0.000192   0.000086   call s:merge_opts(merged, eopts)
+    2   1.961087   0.000183   return fzf#run(s:wrap(a:name, merged, bang))
+
+FUNCTION  <SNR>105_GetCounts()
+    Defined: ~/.vim/vim-plug/ale/autoload/ale/statusline.vim:97
+Called 11 times
+Total time:   0.000945
+ Self time:   0.000601
+
+count  total (s)   self (s)
+   11   0.000498   0.000322     if !s:BufferCacheExists(a:buffer)
+   11   0.000430   0.000262         return s:CreateCountDict()
+                                endif
+                            
+                                call s:UpdateCacheIfNecessary(a:buffer)
+                            
+                                return g:ale_buffer_info[a:buffer].count
 
 FUNCTION  ale#statusline#Count()
-Called 8 times
-Total time:   0.000505
- Self time:   0.000213
+    Defined: ~/.vim/vim-plug/ale/autoload/ale/statusline.vim:119
+Called 11 times
+Total time:   0.001364
+ Self time:   0.000419
 
 count  total (s)   self (s)
                                 " The Dictionary is copied here before exposing it to other plugins.
-    8   0.000476   0.000184     return copy(s:GetCounts(a:buffer))
+   11   0.001340   0.000395     return copy(s:GetCounts(a:buffer))
 
-FUNCTION  gitgutter#utility#extension()
+FUNCTION  <SNR>119_wrap()
+    Defined: ~/.vim/vim-plug/fzf.vim/autoload/fzf/vim.vim:118
 Called 2 times
-Total time:   0.000267
- Self time:   0.000022
+Total time:   0.006305
+ Self time:   0.000180
 
 count  total (s)   self (s)
-    2   0.000266   0.000021   return fnamemodify(s:abs_path(a:bufnr, 0), ':e')
+                              " fzf#wrap does not append --expect if sink or sink* is found
+    2              0.000013   let opts = copy(a:opts)
+    2              0.000004   let options = ''
+    2              0.000007   if has_key(opts, 'options')
+    2              0.000018     let options = type(opts.options) == s:TYPE.list ? join(opts.options) : opts.options
+    2              0.000005   endif
+    2              0.000020   if options !~ '--expect' && has_key(opts, 'sink*')
+                                let Sink = remove(opts, 'sink*')
+                                let wrapped = fzf#wrap(a:name, opts, a:bang)
+                                let wrapped['sink*'] = Sink
+    2              0.000001   else
+    2   0.006198   0.000073     let wrapped = fzf#wrap(a:name, opts, a:bang)
+    2              0.000002   endif
+    2              0.000003   return wrapped
 
-FUNCTION  <SNR>141_on_stdout_vim()
-Called 20 times
-Total time:   0.000187
- Self time:   0.000187
-
-count  total (s)   self (s)
-   20              0.000173   call add(self.stdoutbuffer, a:data)
-
-FUNCTION  gitgutter#hunk#hunks()
+FUNCTION  <SNR>78_execute()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:574
 Called 2 times
-Total time:   0.000042
- Self time:   0.000021
+Total time:   1.951239
+ Self time:   0.008074
 
 count  total (s)   self (s)
-    2   0.000040   0.000019   return gitgutter#utility#getbufvar(a:bufnr, 'hunks', [])
-
-FUNCTION  gitgutter#hunk#increment_lines_modified()
-Called 6 times
-Total time:   0.000358
- Self time:   0.000103
-
-count  total (s)   self (s)
-    6   0.000159   0.000036   let summary = gitgutter#hunk#summary(a:bufnr)
-    6              0.000013   let summary[1] += a:count
-    6   0.000178   0.000046   call gitgutter#utility#setbufvar(a:bufnr, 'summary', summary)
-
-FUNCTION  <SNR>145_upsert_new_gitgutter_signs()
-Called 2 times
-Total time:   0.001462
- Self time:   0.001226
-
-count  total (s)   self (s)
-    2   0.000038   0.000017   let other_signs         = gitgutter#utility#getbufvar(a:bufnr, 'other_signs')
-    2   0.000031   0.000015   let old_gitgutter_signs = gitgutter#utility#getbufvar(a:bufnr, 'gitgutter_signs')
-                            
-                              " Handle special case where the first line is the site of two hunks:
-                              " lines deleted above at the start of the file, and lines deleted
-                              " immediately below.
-    2              0.000013   if a:modified_lines[0:1] == [[1, 'removed_first_line'], [1, 'removed']]
-                                let modified_lines = [[1, 'removed_above_and_below']] + a:modified_lines[2:]
+    2   0.000890   0.000045   call s:pushd(a:dict)
+    2              0.000007   if has('unix') && !a:use_height
+                                silent! !clear 2> /dev/null
+    2              0.000002   endif
+    2              0.000013   let escaped = (a:use_height || s:is_win) ? a:command : escape(substitute(a:command, '\n', '\\n', 'g'), '%#!')
+    2              0.000008   if has('gui_running')
+                                let Launcher = get(a:dict, 'launcher', get(g:, 'Fzf_launcher', get(g:, 'fzf_launcher', s:launcher)))
+                                let fmt = type(Launcher) == 2 ? call(Launcher, []) : Launcher
+                                if has('unix')
+                                  let escaped = "'".substitute(escaped, "'", "'\"'\"'", 'g')."'"
+                                endif
+                                let command = printf(fmt, escaped)
+    2              0.000001   else
+    2              0.000004     let command = escaped
+    2              0.000002   endif
+    2              0.000002   if s:is_win
+                                let batchfile = s:fzf_tempname().'.bat'
+                                call writefile(s:wrap_cmds(command), batchfile)
+                                let command = batchfile
+                                let a:temps.batchfile = batchfile
+                                if has('nvim')
+                                  let fzf = {}
+                                  let fzf.dict = a:dict
+                                  let fzf.temps = a:temps
+                                  function! fzf.on_exit(job_id, exit_status, event) dict
+                                    call s:pushd(self.dict)
+                                    let lines = s:collect(self.temps)
+                                    call s:callback(self.dict, lines)
+                                  endfunction
+                                  let cmd = 'start /wait cmd /c '.command
+                                  call jobstart(cmd, fzf)
+                                  return []
+                                endif
+    2              0.000009   elseif has('win32unix') && $TERM !=# 'cygwin'
+                                let shellscript = s:fzf_tempname()
+                                call writefile([command], shellscript)
+                                let command = 'cmd.exe /C '.fzf#shellescape('set "TERM=" & start /WAIT sh -c '.shellscript)
+                                let a:temps.shellscript = shellscript
+    2              0.000002   endif
+    2              0.000002   if a:use_height
+    2              0.000007     let stdin = has_key(a:dict, 'source') ? '' : '< /dev/tty'
+    2   1.942869   0.000570     call system(printf('tput cup %d > /dev/tty; tput cnorm > /dev/tty; %s %s 2> /dev/tty', &lines, command, stdin))
                               else
-    2              0.000003     let modified_lines = a:modified_lines
+                                execute 'silent !'.command
+    2              0.000002   endif
+    2              0.000014   let exit_status = v:shell_error
+    2              0.007146   redraw!
+    2   0.000119   0.000098   return s:exit_handler(exit_status, command) ? s:collect(a:temps) : []
+
+FUNCTION  <SNR>119_extend_opts()
+    Defined: ~/.vim/vim-plug/fzf.vim/autoload/fzf/vim.vim:49
+Called 2 times
+Total time:   0.000024
+ Self time:   0.000024
+
+count  total (s)   self (s)
+    2              0.000019   if empty(a:eopts)
+    2              0.000004     return
+                              endif
+                              if has_key(a:dict, 'options')
+                                if type(a:dict.options) == s:TYPE.list && type(a:eopts) == s:TYPE.list
+                                  if a:prepend
+                                    let a:dict.options = extend(copy(a:eopts), a:dict.options)
+                                  else
+                                    call extend(a:dict.options, a:eopts)
+                                  endif
+                                else
+                                  let all_opts = a:prepend ? [a:eopts, a:dict.options] : [a:dict.options, a:eopts]
+                                  let a:dict.options = join(map(all_opts, 'type(v:val) == s:TYPE.list ? join(map(copy(v:val), "fzf#shellescape(v:val)")) : v:val'))
+                                endif
+                              else
+                                let a:dict.options = a:eopts
+                              endif
+
+FUNCTION  <SNR>78_get_color()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:277
+Called 26 times
+Total time:   0.003079
+ Self time:   0.003079
+
+count  total (s)   self (s)
+   26              0.000545   let gui = !s:is_win && !has('win32unix') && has('termguicolors') && &termguicolors
+   26              0.000063   let fam = gui ? 'gui' : 'cterm'
+   26              0.000050   let pat = gui ? '^#[a-f0-9]\+' : '^[0-9]\+$'
+   30              0.000123   for group in a:000
+   30              0.001335     let code = synIDattr(synIDtrans(hlID(group)), a:attr, fam)
+   30              0.000614     if code =~? pat
+   26              0.000049       return code
+    4              0.000018     endif
+    4              0.000012   endfor
+                              return ''
+
+FUNCTION  lightline#mode()
+    Defined: ~/.vim/vim-plug/lightline.vim/autoload/lightline.vim:212
+Called 22 times
+Total time:   0.000265
+ Self time:   0.000265
+
+count  total (s)   self (s)
+   22              0.000238   return get(s:lightline.mode_map, mode(), '')
+
+FUNCTION  <SNR>78_dopopd()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:515
+Called 2 times
+Total time:   0.000531
+ Self time:   0.000457
+
+count  total (s)   self (s)
+    2              0.000009   if !exists('w:fzf_pushd')
+                                return
     2              0.000001   endif
                             
-   42              0.000049   for line in modified_lines
-   40              0.000069     let line_number = line[0]  " <number>
-   40              0.000079     if index(other_signs, line_number) == -1  " don't clobber others' signs
-   40   0.000525   0.000326       let name = s:highlight_name_for_change(line[1])
-   40              0.000095       if !has_key(old_gitgutter_signs, line_number)  " insert
-                                    let id = s:next_sign_id()
-                                    execute "sign place" id "line=" . line_number "name=" . name "buffer=" . a:bufnr
-                                  else  " update if sign has changed
-   40              0.000088         let old_sign = old_gitgutter_signs[line_number]
-   40              0.000071         if old_sign.name !=# name
-                                      execute "sign place" old_sign.id "name=" . name "buffer=" . a:bufnr
-                                    end
-   40              0.000023       endif
-   40              0.000019     endif
-   40              0.000024   endfor
-                              " At this point b:gitgutter_gitgutter_signs is out of date.
+                              " FIXME: We temporarily change the working directory to 'dir' entry
+                              " of options dictionary (set to the current working directory if not given)
+                              " before running fzf.
+                              "
+                              " e.g. call fzf#run({'dir': '/tmp', 'source': 'ls', 'sink': 'e'})
+                              "
+                              " After processing the sink function, we have to restore the current working
+                              " directory. But doing so may not be desirable if the function changed the
+                              " working directory on purpose.
+                              "
+                              " So how can we tell if we should do it or not? A simple heuristic we use
+                              " here is that we change directory only if the current working directory
+                              " matches 'dir' entry. However, it is possible that the sink function did
+                              " change the directory to 'dir'. In that case, the user will have an
+                              " unexpected result.
+    2   0.000102   0.000047   if s:fzf_getcwd() ==# w:fzf_pushd.dir && (!&autochdir || w:fzf_pushd.bufname ==# bufname(''))
+    2   0.000376   0.000357     execute w:fzf_pushd.command s:escape(w:fzf_pushd.origin)
+    2              0.000004   endif
+    2              0.000018   unlet w:fzf_pushd
 
-FUNCTION  <SNR>164_StopCursorTimer()
+FUNCTION  <SNR>78_common_sink()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:239
 Called 2 times
-Total time:   0.000034
- Self time:   0.000034
+Total time:   0.000017
+ Self time:   0.000017
 
 count  total (s)   self (s)
-    2              0.000011     if s:cursor_timer != -1
-                                    call timer_stop(s:cursor_timer)
-                                    let s:cursor_timer = -1
-                                endif
-
-FUNCTION  gitgutter#diff#parse_hunk()
-Called 20 times
-Total time:   0.000792
- Self time:   0.000792
-
-count  total (s)   self (s)
-   20              0.000381   let matches = matchlist(a:line, s:hunk_re)
-   20              0.000046   if len(matches) > 0
-   20              0.000066     let from_line  = str2nr(matches[1])
-   20              0.000076     let from_count = (matches[2] == '') ? 1 : str2nr(matches[2])
-   20              0.000055     let to_line    = str2nr(matches[3])
-   20              0.000068     let to_count   = (matches[4] == '') ? 1 : str2nr(matches[4])
-   20              0.000053     return [from_line, from_count, to_line, to_count]
-                              else
-                                return []
-                              end
-
-FUNCTION  <SNR>143_is_added()
-Called 20 times
-Total time:   0.000064
- Self time:   0.000064
-
-count  total (s)   self (s)
-   20              0.000051   return a:from_count == 0 && a:to_count > 0
+    2              0.000012   if len(a:lines) < 2
+    2              0.000003     return
+                              endif
+                              let key = remove(a:lines, 0)
+                              let Cmd = get(a:action, key, 'e')
+                              if type(Cmd) == type(function('call'))
+                                return Cmd(a:lines)
+                              endif
+                              if len(a:lines) > 1
+                                augroup fzf_swap
+                                  autocmd SwapExists * let v:swapchoice='o'| call s:warn('fzf: E325: swap file exists: '.s:fzf_expand('<afile>'))
+                                augroup END
+                              endif
+                              try
+                                let empty = empty(s:fzf_expand('%')) && line('$') == 1 && empty(getline(1)) && !&modified
+                                let autochdir = &autochdir
+                                set noautochdir
+                                for item in a:lines
+                                  if empty
+                                    execute 'e' s:escape(item)
+                                    let empty = 0
+                                  else
+                                    call s:open(Cmd, item)
+                                  endif
+                                  if !has('patch-8.0.0177') && !has('nvim-0.2') && exists('#BufEnter') && isdirectory(item)
+                                    doautocmd BufEnter
+                                  endif
+                                endfor
+                              catch /^Vim:Interrupt$/
+                              finally
+                                let &autochdir = autochdir
+                                silent! autocmd! fzf_swap
+                              endtry
 
 FUNCTION  LightlineFilename()
-Called 16 times
-Total time:   0.001411
- Self time:   0.001241
+    Defined: ~/.vim/conf/lightline.vim:151
+Called 22 times
+Total time:   0.002802
+ Self time:   0.002128
 
 count  total (s)   self (s)
-   16              0.000092   let fname = expand('%:t')
-   16   0.001290   0.001120   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item : fname == '__Tagbar__' ? g:lightline.fname : fname =~ '__Gundo\|NERD_tree' ? '' : &ft == 'vimfiler' ? vimfiler#get_status_string() : &ft == 'unite' ? unite#get_status_string() : &ft == 'vimshell' ? vimshell#get_status_string() : ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') . ('' != fname ? (winwidth(0) > 140 ? expand('%') : expand('%:t')) : '[No Name]') . ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+   22              0.000129   let fname = expand('%:t')
+   22   0.002625   0.001951   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item : fname == '__Tagbar__' ? g:lightline.fname : fname =~ '__Gundo\|NERD_tree' ? '' : &ft == 'vimfiler' ? vimfiler#get_status_string() : &ft == 'unite' ? unite#get_status_string() : &ft == 'vimshell' ? vimshell#get_status_string() : ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') . ('' != fname ? (winwidth(0) > 115 ? expand('%') : expand('%:t')) : '[No Name]') . ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 
-FUNCTION  fugitive#ReloadStatus()
+FUNCTION  <SNR>78_calc_size()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:639
 Called 2 times
-Total time:   0.002310
- Self time:   0.002310
+Total time:   0.000234
+ Self time:   0.000210
 
 count  total (s)   self (s)
-    2              0.000018   if exists('s:reloading_status')
-                                return
+    2              0.000027   let val = substitute(a:val, '^\~', '', '')
+    2              0.000009   if val =~ '%$'
+    2              0.000020     let size = a:max * str2nr(val[:-2]) / 100
+                              else
+                                let size = min([a:max, str2nr(val)])
+    2              0.000002   endif
+                            
+    2              0.000003   let srcsz = -1
+    2              0.000015   if type(get(a:dict, 'source', 0)) == type([])
+                                let srcsz = len(a:dict.source)
+    2              0.000001   endif
+                            
+    2   0.000091   0.000067   let opts = $FZF_DEFAULT_OPTS.' '.s:evaluate_opts(get(a:dict, 'options', ''))
+    2              0.000012   let margin = stridx(opts, '--inline-info') > stridx(opts, '--no-inline-info') ? 1 : 2
+    2              0.000011   let margin += stridx(opts, '--border') > stridx(opts, '--no-border') ? 2 : 0
+    2              0.000008   let margin += stridx(opts, '--header') > stridx(opts, '--no-header')
+    2              0.000006   return srcsz >= 0 ? min([srcsz + margin, size]) : size
+
+FUNCTION  fzf#wrap()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:312
+Called 2 times
+Total time:   0.006125
+ Self time:   0.001096
+
+count  total (s)   self (s)
+    2              0.000035   let args = ['', {}, 0]
+    2              0.000109   let expects = map(copy(args), 'type(v:val)')
+    2              0.000033   let tidx = 0
+    8              0.000091   for arg in copy(a:000)
+    6              0.000045     let tidx = index(expects, type(arg), tidx)
+    6              0.000016     if tidx < 0
+                                  throw 'Invalid arguments (expected: [name string] [opts dict] [fullscreen boolean])'
+    6              0.000011     endif
+    6              0.000035     let args[tidx] = arg
+    6              0.000020     let tidx += 1
+    6              0.000015     unlet arg
+    8              0.000011   endfor
+    2              0.000008   let [name, opts, bang] = args
+                            
+    2              0.000007   if len(name)
+    2              0.000006     let opts.name = name
+    2              0.000002   end
+                            
+                              " Layout: g:fzf_layout (and deprecated g:fzf_height)
+    2              0.000001   if bang
+                                for key in s:layout_keys
+                                  if has_key(opts, key)
+                                    call remove(opts, key)
+                                  endif
+                                endfor
+    2   0.000197   0.000094   elseif !s:has_any(opts, s:layout_keys)
+    2              0.000015     if !exists('g:fzf_layout') && exists('g:fzf_height')
+                                  let opts.down = g:fzf_height
+    2              0.000002     else
+    2   0.000126   0.000073       let opts = extend(opts, s:validate_layout(get(g:, 'fzf_layout', s:default_layout)))
+    2              0.000002     endif
+    2              0.000000   endif
+                            
+                              " Colors: g:fzf_colors
+    2   0.004933   0.000136   let opts.options = s:defaults() .' '. s:evaluate_opts(get(opts, 'options', ''))
+                            
+                              " History: g:fzf_history_dir
+    2              0.000019   if len(name) && len(get(g:, 'fzf_history_dir', ''))
+                                let dir = s:fzf_expand(g:fzf_history_dir)
+                                if !isdirectory(dir)
+                                  call mkdir(dir, 'p')
+                                endif
+                                let history = fzf#shellescape(dir.'/'.name)
+                                let opts.options = join(['--history', history, opts.options])
+    2              0.000001   endif
+                            
+                              " Action: g:fzf_action
+    2   0.000127   0.000051   if !s:has_any(opts, ['sink', 'sink*'])
+    2              0.000030     let opts._action = get(g:, 'fzf_action', s:default_action)
+    2              0.000026     let opts.options .= ' --expect='.join(keys(opts._action), ',')
+    2              0.000008     function! opts.sink(lines) abort
+                                  return s:common_sink(self._action, a:lines)
+                                endfunction
+    2              0.000017     let opts['sink*'] = remove(opts, 'sink')
+    2              0.000003   endif
+                            
+    2              0.000003   return opts
+
+FUNCTION  fzf#shellescape()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:94
+Called 4 times
+Total time:   0.000264
+ Self time:   0.000222
+
+count  total (s)   self (s)
+    4              0.000042   let shell = get(a:000, 0, s:is_win ? 'cmd.exe' : 'sh')
+    4              0.000032   if shell =~# 'cmd.exe$'
+                                return s:shellesc_cmd(a:arg)
+    4              0.000004   endif
+    4   0.000163   0.000121   return s:fzf_call('shellescape', a:arg)
+
+FUNCTION  LightlineAle()
+    Defined: ~/.vim/conf/lightline.vim:144
+Called 11 times
+Total time:   0.001900
+ Self time:   0.000536
+
+count  total (s)   self (s)
+   11   0.001741   0.000377   let counts = ale#statusline#Count(bufnr(''))
+   11              0.000048   let errors = counts.error > 0 ? 'E:'.counts.error : ''
+   11              0.000047   let warnings = counts.warning > 0 ? (errors !=# '' ? ' W:'.counts.warning : 'W:'.counts.warning) : ''
+   11              0.000038   return errors.warnings
+
+FUNCTION  <SNR>78_fzf_call()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:73
+Called 12 times
+Total time:   0.000293
+ Self time:   0.000293
+
+count  total (s)   self (s)
+   12              0.000284     return call(a:fn, a:000)
+
+FUNCTION  LightlineFiletype()
+    Defined: ~/.vim/conf/lightline.vim:132
+Called 22 times
+Total time:   0.000156
+ Self time:   0.000156
+
+count  total (s)   self (s)
+   22              0.000136   return winwidth(0) > 160 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+
+FUNCTION  <SNR>78_escape()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:191
+Called 4 times
+Total time:   0.000048
+ Self time:   0.000048
+
+count  total (s)   self (s)
+    4              0.000027   let path = fnameescape(a:path)
+    4              0.000015   return s:is_win ? escape(path, '$') : path
+
+FUNCTION  <SNR>78_pushd()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:493
+Called 2 times
+Total time:   0.000845
+ Self time:   0.000498
+
+count  total (s)   self (s)
+    2   0.000133   0.000094   if s:present(a:dict, 'dir')
+    2   0.000269   0.000040     let cwd = s:fzf_getcwd()
+    2              0.000041     let w:fzf_pushd = {   'command': haslocaldir() ? 'lcd' : (exists(':tcd') && haslocaldir(-1) ? 'tcd' : 'cd'),   'origin': cwd,   'bufname': bufname('') }
+    2   0.000280   0.000251     execute 'lcd' s:escape(a:dict.dir)
+    2   0.000100   0.000050     let cwd = s:fzf_getcwd()
+    2              0.000005     let w:fzf_pushd.dir = cwd
+    2              0.000006     let a:dict.pushd = w:fzf_pushd
+    2              0.000002     return cwd
                               endif
-    2              0.000002   try
-    2              0.000022     let s:reloading_status = 1
-    2              0.000009     let mytab = tabpagenr()
-   22              0.000173     for tab in [mytab] + range(1,tabpagenr('$'))
-   46              0.000167       for winnr in range(1,tabpagewinnr(tab,'$'))
-   26              0.000258         if getbufvar(tabpagebuflist(tab)[winnr-1],'fugitive_type') ==# 'index'
-                                      execute 'tabnext '.tab
-                                      if winnr != winnr()
-                                        execute winnr.'wincmd w'
-                                        let restorewinnr = 1
-                                      endif
-                                      try
-                                        if !&modified
-                                          call fugitive#BufReadStatus()
-                                        endif
-                                      finally
-                                        if exists('restorewinnr')
-                                          wincmd p
-                                        endif
-                                        execute 'tabnext '.mytab
-                                      endtry
-                                    endif
-   26              0.000033       endfor
-   20              0.000032     endfor
-    2              0.000015   finally
-    2              0.000008     unlet! s:reloading_status
-    2              0.000003   endtry
+                              return ''
 
-FUNCTION  <SNR>143_process_modified()
-Called 2 times
+FUNCTION  sy#repo#get_stats()
+    Defined: ~/.vim/vim-plug/vim-signify/autoload/sy/repo.vim:232
+Called 22 times
+Total time:   0.000450
+ Self time:   0.000450
+
+count  total (s)   self (s)
+   22              0.000304   let sy = getbufvar(a:0 ? a:1 : bufnr(''), 'sy')
+   22              0.000126   return empty(sy) ? [-1, -1, -1] : sy.stats
+
+FUNCTION  <SNR>78_evaluate_opts()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:306
+Called 6 times
 Total time:   0.000078
  Self time:   0.000078
 
 count  total (s)   self (s)
-    2              0.000002   let offset = 0
-    6              0.000009   while offset < a:to_count
-    4              0.000008     let line_number = a:to_line + offset
-    4              0.000024     call add(a:modifications, [line_number, 'modified'])
-    4              0.000011     let offset += 1
-    4              0.000004   endwhile
+    6              0.000069   return type(a:options) == type([]) ? join(map(copy(a:options), 'fzf#shellescape(v:val)')) : a:options
 
-FUNCTION  <SNR>80_exists_file()
-Called 6 times
-Total time:   0.002473
- Self time:   0.000451
+FUNCTION  <SNR>105_CreateCountDict()
+    Defined: ~/.vim/vim-plug/ale/autoload/ale/statusline.vim:5
+Called 11 times
+Total time:   0.000168
+ Self time:   0.000168
 
 count  total (s)   self (s)
-    6   0.002469   0.000447   return filereadable(s:abs_path(a:bufnr, 0))
-
-FUNCTION  LightlineAle()
-Called 8 times
-Total time:   0.000742
- Self time:   0.000237
-
-count  total (s)   self (s)
-    8   0.000633   0.000128   let counts = ale#statusline#Count(bufnr(''))
-    8              0.000028   let errors = counts.error > 0 ? 'E:'.counts.error : ''
-    8              0.000028   let warnings = counts.warning > 0 ? (errors !=# '' ? ' W:'.counts.warning : 'W:'.counts.warning) : ''
-    8              0.000023   return errors.warnings
-
-FUNCTION  gitgutter#init_buffer()
-Called 2 times
-Total time:   0.002613
- Self time:   0.000215
-
-count  total (s)   self (s)
-    2   0.002144   0.000032   if gitgutter#utility#is_active(a:bufnr)
-    2   0.000391   0.000105     let p = gitgutter#utility#repo_path(a:bufnr, 0)
-    2              0.000033     if type(p) != s:t_string || empty(p)
-                                  call gitgutter#utility#set_repo_path(a:bufnr)
-                                  call s:setup_maps()
-                                endif
-    2              0.000002   endif
-
-FUNCTION  gitgutter#diff#run_diff()
-Called 2 times
-Total time:   0.029392
- Self time:   0.002276
-
-count  total (s)   self (s)
-    2   0.000099   0.000024   while gitgutter#utility#repo_path(a:bufnr, 0) == -1
-                                sleep 5m
-                              endwhile
-                            
-    2   0.000074   0.000020   if gitgutter#utility#repo_path(a:bufnr, 0) == -2
-                                throw 'gitgutter not tracked'
-                              endif
-                            
-                              " Wrap compound commands in parentheses to make Windows happy.
-                              " bash doesn't mind the parentheses.
-    2              0.000002   let cmd = '('
-                            
-                              " Append buffer number to temp filenames to avoid race conditions between
-                              " writing and reading the files when asynchronously processing multiple
-                              " buffers.
-                            
-                              " Without the buffer number, buff_file would have a race between the
-                              " second gitgutter#process_buffer() writing the file (synchronously, below)
-                              " and the first gitgutter#process_buffer()'s async job reading it (with
-                              " git-diff).
-    2              0.000010   let buff_file = s:temp_buffer.'.'.a:bufnr
-                            
-    2   0.000285   0.000018   let extension = gitgutter#utility#extension(a:bufnr)
-    2              0.000005   if !empty(extension)
-    2              0.000007     let buff_file .= '.'.extension
-    2              0.000001   endif
-                            
-                              " Write buffer to temporary file.
-                              " Note: this is synchronous.
-    2   0.002916   0.000273   call s:write_buffer(a:bufnr, buff_file)
-                            
-    2              0.000069   if a:from ==# 'index'
-                                " Without the buffer number, from_file would have a race in the shell
-                                " between the second process writing it (with git-show) and the first
-                                " reading it (with git-diff).
-    2              0.000048     let from_file = s:temp_from.'.'.a:bufnr
-                            
-    2              0.000031     if !empty(extension)
-    2              0.000010       let from_file .= '.'.extension
-    2              0.000005     endif
-                            
-                                " Write file from index to temporary file.
-    2   0.001075   0.000094     let index_name = g:gitgutter_diff_base.':'.gitgutter#utility#repo_path(a:bufnr, 1)
-    2              0.000037     let cmd .= g:gitgutter_git_executable.' --no-pager show '.index_name.' > '.from_file.' && '
-                            
-    2              0.000005   elseif a:from ==# 'working_tree'
-                                let from_file = gitgutter#utility#repo_path(a:bufnr, 1)
-                              endif
-                            
-                              " Call git-diff.
-    2              0.000020   let cmd .= g:gitgutter_git_executable.' --no-pager '.g:gitgutter_git_args
-    2              0.000005   if s:c_flag
-    2              0.000135     let cmd .= ' -c "diff.autorefreshindex=0"'
-    2              0.000073     let cmd .= ' -c "diff.noprefix=false"'
-    2              0.000041     let cmd .= ' -c "core.safecrlf=false"'
-    2              0.000007   endif
-    2              0.000107   let cmd .= ' diff --no-ext-diff --no-color -U0 '.g:gitgutter_diff_args.' -- '.from_file.' '.buff_file
-                            
-                              " Pipe git-diff output into grep.
-    2              0.000030   if !a:preserve_full_diff && !empty(g:gitgutter_grep)
-    2   0.000425   0.000263     let cmd .= ' | '.g:gitgutter_grep.' '.gitgutter#utility#shellescape('^@@ ')
-    2              0.000007   endif
-                            
-                              " grep exits with 1 when no matches are found; git-diff exits with 1 when
-                              " differences are found.  However we want to treat non-matches and
-                              " differences as non-erroneous behaviour; so we OR the command with one
-                              " which always exits with success (0).
-    2              0.000048   let cmd .= ' || exit 0'
-                            
-    2              0.000009   let cmd .= ')'
-                            
-    2   0.001832   0.000057   let cmd = gitgutter#utility#cd_cmd(a:bufnr, cmd)
-                            
-    2   0.000052   0.000037   if g:gitgutter_async && gitgutter#async#available()
-    2   0.021622   0.000478     call gitgutter#async#execute(cmd, a:bufnr, {   'out': function('gitgutter#diff#handler'),   'err': function('gitgutter#hunk#reset'), })
-    2              0.000063     return 'async'
-                            
-                              else
-                                let diff = gitgutter#utility#system(cmd)
-                            
-                                if v:shell_error
-                                  call gitgutter#debug#log(diff)
-                                  throw 'gitgutter diff failed'
-                                endif
-                            
-                                return diff
-                              endif
-
-FUNCTION  gitgutter#hunk#increment_lines_removed()
-Called 4 times
-Total time:   0.000268
- Self time:   0.000076
-
-count  total (s)   self (s)
-    4   0.000167   0.000032   let summary = gitgutter#hunk#summary(a:bufnr)
-    4              0.000010   let summary[2] += a:count
-    4   0.000088   0.000031   call gitgutter#utility#setbufvar(a:bufnr, 'summary', summary)
-
-FUNCTION  <SNR>107_reset_tick()
-Called 116 times
-Total time:   0.018706
- Self time:   0.006177
-
-count  total (s)   self (s)
-  116   0.018162   0.005633   call gitgutter#utility#setbufvar(a:bufnr, 'tick', 0)
-
-FUNCTION  <SNR>80_dir()
-Called 8 times
-Total time:   0.004662
- Self time:   0.002463
-
-count  total (s)   self (s)
-    8   0.004654   0.002455   return gitgutter#utility#shellescape(fnamemodify(s:abs_path(a:bufnr, 0), ':h'))
-
-FUNCTION  gitgutter#utility#is_active()
-Called 6 times
-Total time:   0.007414
- Self time:   0.000433
-
-count  total (s)   self (s)
-    6   0.007395   0.000414   return g:gitgutter_enabled && !pumvisible() && s:is_file_buffer(a:bufnr) && s:exists_file(a:bufnr) && s:not_git_dir(a:bufnr)
+                                " Keys 0 and 1 are for backwards compatibility.
+                                " The count object used to be a List of [error_count, warning_count].
+   11              0.000140     return {   '0': 0,   '1': 0,   'error': 0,   'warning': 0,   'info': 0,   'style_error': 0,   'style_warning': 0,   'total': 0,}
 
 FUNCTION  LightlineMode()
-Called 16 times
-Total time:   0.001028
- Self time:   0.000852
+    Defined: ~/.vim/conf/lightline.vim:103
+Called 22 times
+Total time:   0.001872
+ Self time:   0.001607
 
 count  total (s)   self (s)
-   16              0.000124   let fname = expand('%:t')
-   16   0.000863   0.000687   return fname == '__Tagbar__' ? 'Tagbar' : fname == 'ControlP' ? 'CtrlP' : fname == '__Gundo__' ? 'Gundo' : fname == '__Gundo_Preview__' ? 'Gundo Preview' : fname =~ 'NERD_tree' ? 'NERDTree' : &ft == 'unite' ? 'Unite' : &ft == 'vimfiler' ? 'VimFiler' : &ft == 'vimshell' ? 'VimShell' : winwidth(0) > 60 ? lightline#mode() : ''
+   22              0.000145   let fname = expand('%:t')
+   22   0.001689   0.001424   return fname == '__Tagbar__' ? 'Tagbar' : fname == 'ControlP' ? 'CtrlP' : fname == '__Gundo__' ? 'Gundo' : fname == '__Gundo_Preview__' ? 'Gundo Preview' : fname =~ 'NERD_tree' ? 'NERDTree' : &ft == 'unite' ? 'Unite' : &ft == 'vimfiler' ? 'VimFiler' : &ft == 'vimshell' ? 'VimShell' : winwidth(0) > 60 ? lightline#mode() : ''
 
-FUNCTION  <SNR>80_winshell()
+FUNCTION  <SNR>78_defaults()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:290
 Called 2 times
-Total time:   0.000039
- Self time:   0.000039
+Total time:   0.004764
+ Self time:   0.001508
 
 count  total (s)   self (s)
-    2              0.000038   return &shell =~? 'cmd' || exists('+shellslash') && !&shellslash
+    2              0.000027   let rules = copy(get(g:, 'fzf_colors', {}))
+    2   0.004506   0.001427   let colors = join(map(items(filter(map(rules, 'call("s:get_color", v:val)'), '!empty(v:val)')), 'join(v:val, ":")'), ',')
+    2   0.000229   0.000052   return empty(colors) ? '' : fzf#shellescape('--color='.colors)
 
-FUNCTION  fugitive#head()
-Called 24 times
-Total time:   0.004953
- Self time:   0.000646
-
-count  total (s)   self (s)
-   24              0.000125   if !exists('b:git_dir')
-                                return ''
-                              endif
-                            
-   24   0.004602   0.000295   return fugitive#Head(a:0 ? a:1 : 0)
-
-FUNCTION  gitgutter#utility#getbufvar()
-Called 58 times
-Total time:   0.001466
- Self time:   0.001466
-
-count  total (s)   self (s)
-   58              0.000882   let dict = get(getbufvar(a:buffer, ''), 'gitgutter', {})
-   58              0.000260   if has_key(dict, a:varname)
-   58              0.000145     return dict[a:varname]
-                              else
-                                if a:0
-                                  return a:1
-                                endif
-                              endif
-
-FUNCTION  ale#cursor#EchoCursorWarningWithDelay()
+FUNCTION  <SNR>78_fzf_exec()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:158
 Called 2 times
-Total time:   0.000386
- Self time:   0.000352
+Total time:   0.000153
+ Self time:   0.000066
 
 count  total (s)   self (s)
-    2              0.000029     let l:buffer = bufnr('')
-                            
-    2              0.000014     if !g:ale_echo_cursor && !g:ale_cursor_detail
-                                    return
-                                endif
-                            
-                                " Only echo the warnings in normal mode, otherwise we will get problems.
-    2              0.000020     if mode(1) isnot# 'n'
-                                    return
-                                endif
-                            
-    2   0.000156   0.000122     call s:StopCursorTimer()
-                            
-    2              0.000031     let l:pos = getcurpos()[0:2]
-                            
-                                " Check the current buffer, line, and column number against the last
-                                " recorded position. If the position has actually changed, *then*
-                                " we should echo something. Otherwise we can end up doing processing
-                                " the echo message far too frequently.
-    2              0.000010     if l:pos != s:last_pos
-                                    let l:delay = ale#Var(l:buffer, 'echo_delay')
-                            
-                                    let s:last_pos = l:pos
-                                    let s:cursor_timer = timer_start(   l:delay,   function('ale#cursor#EchoCursorWarning'))
-                                endif
-
-FUNCTION  <SNR>145_obsolete_gitgutter_signs_to_remove()
-Called 2 times
-Total time:   0.000561
- Self time:   0.000533
-
-count  total (s)   self (s)
-    2              0.000004   let signs_to_remove = []  " list of [<id (number)>, ...]
-    2              0.000003   let remove_all_signs = 1
-    2   0.000046   0.000018   let old_gitgutter_signs = gitgutter#utility#getbufvar(a:bufnr, 'gitgutter_signs')
-   42              0.000114   for line_number in keys(old_gitgutter_signs)
-   40              0.000146     if index(a:new_gitgutter_signs_line_numbers, str2nr(line_number)) == -1
-                                  call add(signs_to_remove, old_gitgutter_signs[line_number].id)
+    2              0.000007   if !exists('s:exec')
+                                if executable(s:fzf_go)
+                                  let s:exec = s:fzf_go
+                                elseif executable('fzf')
+                                  let s:exec = 'fzf'
+                                elseif s:download_bin()
+                                  return s:fzf_exec()
                                 else
-   40              0.000046       let remove_all_signs = 0
-   40              0.000029     endif
-   40              0.000025   endfor
-    2              0.000004   let s:remove_all_old_signs = remove_all_signs
-    2              0.000002   return signs_to_remove
-
-FUNCTION  <SNR>143_write_buffer()
-Called 2 times
-Total time:   0.002643
- Self time:   0.002643
-
-count  total (s)   self (s)
-    2              0.000083   let bufcontents = getbufline(a:bufnr, 1, '$')
-                            
-    2              0.000009   if getbufvar(a:bufnr, '&fileformat') ==# 'dos'
-                                call map(bufcontents, 'v:val."\r"')
-                              endif
-                            
-    2              0.000006   let fenc = getbufvar(a:bufnr, '&fileencoding')
-    2              0.000004   if fenc !=# &encoding
-                                call map(bufcontents, 'iconv(v:val, &encoding, "'.fenc.'")')
-                              endif
-                            
-    2              0.000005   if getbufvar(a:bufnr, '&bomb')
-                                let bufcontents[0]='﻿'.bufcontents[0]
-                              endif
-                            
-    2              0.002505   call writefile(bufcontents, a:file)
-
-FUNCTION  gitgutter#hunk#set_hunks()
-Called 2 times
-Total time:   0.000307
- Self time:   0.000041
-
-count  total (s)   self (s)
-    2   0.000220   0.000019   call gitgutter#utility#setbufvar(a:bufnr, 'hunks', a:hunks)
-    2   0.000084   0.000019   call s:reset_summary(a:bufnr)
-
-FUNCTION  <SNR>80_not_git_dir()
-Called 6 times
-Total time:   0.004410
- Self time:   0.000299
-
-count  total (s)   self (s)
-    6   0.004404   0.000293   return s:dir(a:bufnr) !~ '[/\\]\.git\($\|[/\\]\)'
-
-FUNCTION  <SNR>143_process_removed()
-Called 4 times
-Total time:   0.000040
- Self time:   0.000040
-
-count  total (s)   self (s)
-    4              0.000005   if a:to_line == 0
-                                call add(a:modifications, [1, 'removed_first_line'])
-                              else
-    4              0.000011     call add(a:modifications, [a:to_line, 'removed'])
-    4              0.000002   endif
-
-FUNCTION  LightlineGitGutterHunks()
-Called 16 times
-Total time:   0.002820
- Self time:   0.001456
-
-count  total (s)   self (s)
-   16              0.000219   if ! exists('*GitGutterGetHunkSummary') || ! get(g:, 'gitgutter_enabled', 0) || winwidth('.') <= 90
-                                return ''
-                              endif
-   16              0.000056   let symbols = ['+', '~', '-']
-   16   0.001613   0.000249   let hunks = GitGutterGetHunkSummary()
-   16              0.000031   let ret = []
-   64              0.000176   for i in [0, 1, 2]
-                                " if hunks[i] > 0
-   48              0.000298       call add(ret, symbols[i] . hunks[i])
-                                " endif
-   48              0.000046   endfor
-   16              0.000094   return winwidth(0) > 70 ? join(ret, ' ') : ''
-
-FUNCTION  LightlineReadonly()
-Called 16 times
-Total time:   0.000072
- Self time:   0.000072
-
-count  total (s)   self (s)
-   16              0.000046   return &readonly ? '' : ''
-
-FUNCTION  LightlineFugitive()
-Called 24 times
-Total time:   0.006640
- Self time:   0.001687
-
-count  total (s)   self (s)
-   24              0.000046   try
-   24              0.001084     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-   24              0.000065       let mark = ''  " edit here for cool mark
-   24   0.005196   0.000243       let branch = fugitive#head()
-   24              0.000107       return branch !=# '' ? mark.branch : ''
+                                  redraw
+                                  throw 'fzf executable not found'
                                 endif
-                              catch
-                              endtry
-                              return ''
+    2              0.000002   endif
+    2   0.000115   0.000028   return fzf#shellescape(s:exec)
 
-FUNCTION  LightlineFileencoding()
-Called 16 times
-Total time:   0.000210
- Self time:   0.000210
-
-count  total (s)   self (s)
-   16              0.000186   return winwidth(0) > 160 ? (&fenc !=# '' ? &fenc : &enc) : ''
-
-FUNCTION  gitgutter#async#available()
-Called 2 times
-Total time:   0.000015
- Self time:   0.000015
-
-count  total (s)   self (s)
-    2              0.000005   return s:available
-
-FUNCTION  <SNR>143_process_added()
-Called 10 times
-Total time:   0.000548
- Self time:   0.000548
-
-count  total (s)   self (s)
-   10              0.000025   let offset = 0
-   24              0.000061   while offset < a:to_count
-   14              0.000049     let line_number = a:to_line + offset
-   14              0.000237     call add(a:modifications, [line_number, 'added'])
-   14              0.000035     let offset += 1
-   14              0.000015   endwhile
-
-FUNCTION  lightline#link()
-Called 8 times
-Total time:   0.000253
- Self time:   0.000253
-
-count  total (s)   self (s)
-    8              0.000171   let mode = get(s:lightline._mode_, a:0 ? a:1 : mode(), 'normal')
-    8              0.000039   if s:mode == mode
-    8              0.000015     return ''
-                              endif
-                              let s:mode = mode
-                              if !has_key(s:highlight, mode)
-                                call lightline#highlight(mode)
-                              endif
-                              let types = map(s:uniq(sort(filter(values(s:lightline.component_type), 'v:val !=# "raw"'))), '[v:val, 1]')
-                              for [p, l] in [['Left', len(s:lightline.active.left)], ['Right', len(s:lightline.active.right)]]
-                                for [i, t] in map(range(0, l), '[v:val, 0]') + types
-                                  if i != l
-                                    exec printf('hi link Lightline%s_active_%s Lightline%s_%s_%s', p, i, p, mode, i)
-                                  endif
-                                  for [j, s] in map(range(0, l), '[v:val, 0]') + types
-                                    if i + 1 == j || t || s && i != l
-                                      exec printf('hi link Lightline%s_active_%s_%s Lightline%s_%s_%s_%s', p, i, j, p, mode, i, j)
-                                    endif
-                                  endfor
-                                endfor
-                              endfor
-                              exec printf('hi link LightlineMiddle_active LightlineMiddle_%s', mode)
-                              return ''
-
-FUNCTION  <SNR>145_highlight_name_for_change()
-Called 40 times
-Total time:   0.000199
- Self time:   0.000199
-
-count  total (s)   self (s)
-   40              0.000065   if a:text ==# 'added'
-   28              0.000031     return 'GitGutterLineAdded'
-                              elseif a:text ==# 'removed'
-    4              0.000005     return 'GitGutterLineRemoved'
-                              elseif a:text ==# 'removed_first_line'
-                                return 'GitGutterLineRemovedFirstLine'
-                              elseif a:text ==# 'modified'
-    8              0.000008     return 'GitGutterLineModified'
-                              elseif a:text ==# 'modified_removed'
-                                return 'GitGutterLineModifiedRemoved'
-                              elseif a:text ==# 'removed_above_and_below'
-                                return 'GitGutterLineRemovedAboveAndBelow'
-                              endif
-
-FUNCTION  gitgutter#diff#process_hunks()
-Called 2 times
-Total time:   0.005721
- Self time:   0.000322
-
-count  total (s)   self (s)
-    2              0.000003   let modified_lines = []
-   22              0.000031   for hunk in a:hunks
-   20   0.005643   0.000244     call extend(modified_lines, s:process_hunk(a:bufnr, hunk))
-   20              0.000018   endfor
-    2              0.000002   return modified_lines
-
-FUNCTION  <SNR>143_is_modified()
-Called 6 times
-Total time:   0.000018
- Self time:   0.000018
-
-count  total (s)   self (s)
-    6              0.000018   return a:from_count > 0 && a:to_count > 0 && a:from_count == a:to_count
-
-FUNCTION  gitgutter#debug#log()
-Called 4 times
-Total time:   0.000215
- Self time:   0.000215
-
-count  total (s)   self (s)
-    4              0.000018   if g:gitgutter_log
-                                if s:new_log_session && gitgutter#async#available()
-                                  if exists('*ch_logfile')
-                                    call ch_logfile(s:channel_log, 'w')
-                                  endif
-                                endif
-                            
-                                execute 'redir >> '.s:log_file
-                                  if s:new_log_session
-                                    let s:start = reltime()
-                                    silent echo "\n==== start log session ===="
-                                  endif
-                            
-                                  let elapsed = reltimestr(reltime(s:start)).' '
-                                  silent echo ''
-                                  " callers excluding this function
-                                  silent echo elapsed.expand('<sfile>')[:-22].':'
-                                  silent echo elapsed.s:format_for_log(a:message)
-                                  if a:0 && !empty(a:1)
-                                    for msg in a:000
-                                      silent echo elapsed.s:format_for_log(msg)
-                                    endfor
-                                  endif
-                                redir END
-                            
-                                let s:new_log_session = 0
-                              endif
-
-FUNCTION  <SNR>143_process_hunk()
-Called 20 times
-Total time:   0.005399
- Self time:   0.002028
-
-count  total (s)   self (s)
-   20              0.000074   let modifications = []
-   20              0.000057   let from_line  = a:hunk[0]
-   20              0.000043   let from_count = a:hunk[1]
-   20              0.000036   let to_line    = a:hunk[2]
-   20              0.000042   let to_count   = a:hunk[3]
-                            
-   20   0.000338   0.000274   if s:is_added(from_count, to_count)
-   10   0.000712   0.000164     call s:process_added(modifications, from_count, to_count, to_line)
-   10   0.001015   0.000149     call gitgutter#hunk#increment_lines_added(a:bufnr, to_count)
-                            
-   10              0.000026   elseif s:is_removed(from_count, to_count)
-    4   0.000073   0.000033     call s:process_removed(modifications, from_count, to_count, to_line)
-    4   0.000310   0.000042     call gitgutter#hunk#increment_lines_removed(a:bufnr, from_count)
-                            
-    4              0.000009   elseif s:is_modified(from_count, to_count)
-    2   0.000095   0.000017     call s:process_modified(modifications, from_count, to_count, to_line)
-    2   0.000133   0.000017     call gitgutter#hunk#increment_lines_modified(a:bufnr, to_count)
-                            
-    2              0.000004   elseif s:is_modified_and_added(from_count, to_count)
-    4   0.000708   0.000072     call s:process_modified_and_added(modifications, from_count, to_count, to_line)
-    4   0.000497   0.000045     call gitgutter#hunk#increment_lines_added(a:bufnr, to_count - from_count)
-    4   0.000274   0.000032     call gitgutter#hunk#increment_lines_modified(a:bufnr, from_count)
-                            
-    4              0.000015   elseif s:is_modified_and_removed(from_count, to_count)
-                                call s:process_modified_and_removed(modifications, from_count, to_count, to_line)
-                                call gitgutter#hunk#increment_lines_modified(a:bufnr, to_count)
-                                call gitgutter#hunk#increment_lines_removed(a:bufnr, from_count - to_count)
-                            
-                              endif
-   20              0.000023   return modifications
-
-FUNCTION  <SNR>143_process_modified_and_added()
-Called 4 times
-Total time:   0.000636
- Self time:   0.000636
-
-count  total (s)   self (s)
-    4              0.000012   let offset = 0
-    8              0.000016   while offset < a:from_count
-    4              0.000012     let line_number = a:to_line + offset
-    4              0.000019     call add(a:modifications, [line_number, 'modified'])
-    4              0.000007     let offset += 1
-    4              0.000004   endwhile
-   18              0.000029   while offset < a:to_count
-   14              0.000040     let line_number = a:to_line + offset
-   14              0.000372     call add(a:modifications, [line_number, 'added'])
-   14              0.000049     let offset += 1
-   14              0.000017   endwhile
-
-FUNCTION  gitgutter#all()
-Called 2 times
-Total time:   0.125461
- Self time:   0.072763
-
-count  total (s)   self (s)
-    2              0.000033   let visible = tabpagebuflist()
-                            
- 1378              0.006756   for bufnr in range(1, bufnr('$') + 1)
- 1376              0.004436     if buflisted(bufnr)
-  124              0.024050       let file = expand('#'.bufnr.':p')
-  124              0.000959       if !empty(file)
-  118              0.000859         if index(visible, bufnr) != -1
-    2   0.002659   0.000046           call gitgutter#init_buffer(bufnr)
-    2   0.031683   0.000304           call gitgutter#process_buffer(bufnr, a:force)
-    2              0.000010         elseif a:force
-  116   0.023076   0.004370           call s:reset_tick(bufnr)
-  116              0.000175         endif
-  118              0.000106       endif
-  124              0.000119     endif
- 1376              0.001552   endfor
-
-FUNCTION  gitgutter#utility#shellescape()
-Called 12 times
-Total time:   0.001024
- Self time:   0.000985
-
-count  total (s)   self (s)
-   12              0.000815   if a:arg =~ '^[A-Za-z0-9_/.-]\+$'
-   10              0.000071     return a:arg
-                              elseif s:winshell()
-                                return '"' . substitute(substitute(a:arg, '"', '""', 'g'), '%', '"%"', 'g') . '"'
-                              else
-    2              0.000008     return shellescape(a:arg)
-                              endif
-
-FUNCTION  lightline#mode()
-Called 16 times
+FUNCTION  <SNR>105_BufferCacheExists()
+    Defined: ~/.vim/vim-plug/ale/autoload/ale/statusline.vim:88
+Called 11 times
 Total time:   0.000176
  Self time:   0.000176
 
 count  total (s)   self (s)
-   16              0.000140   return get(s:lightline.mode_map, mode(), '')
+   11              0.000133     if !exists('g:ale_buffer_info') || !has_key(g:ale_buffer_info, a:buffer)
+   11              0.000021         return 0
+                                endif
+                            
+                                return 1
 
-FUNCTION  fugitive#Head()
-Called 24 times
-Total time:   0.004307
- Self time:   0.004307
+FUNCTION  <SNR>78_fzf_getcwd()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:102
+Called 6 times
+Total time:   0.000334
+ Self time:   0.000112
 
 count  total (s)   self (s)
-   24              0.000342   let dir = a:0 > 1 ? a:2 : get(b:, 'git_dir', '')
-   24              0.001638   if empty(dir) || !filereadable(dir . '/HEAD')
-                                return ''
-                              endif
-   24              0.001248   let head = readfile(dir . '/HEAD')[0]
-   24              0.000339   if head =~# '^ref: '
-   24              0.000581     return substitute(head, '\C^ref: \%(refs/\%(heads/\|remotes/\|tags/\)\=\)\=', '', '')
-                              elseif head =~# '^\x\{40\}$'
-                                let len = a:0 ? a:1 : 0
-                                return len < 0 ? head : len ? head[0:len-1] : ''
-                              else
-                                return ''
-                              endif
+    6   0.000332   0.000110   return s:fzf_call('getcwd')
 
-FUNCTION  gitgutter#sign#update_signs()
+FUNCTION  LightlineReadonly()
+    Defined: ~/.vim/conf/lightline.vim:57
+Called 22 times
+Total time:   0.000406
+ Self time:   0.000406
+
+count  total (s)   self (s)
+   22              0.000389   return &readonly ? '' : ''
+
+FUNCTION  LightlineModified()
+    Defined: ~/.vim/conf/lightline.vim:140
+Called 22 times
+Total time:   0.000268
+ Self time:   0.000268
+
+count  total (s)   self (s)
+   22              0.000145   return winwidth(0) > 70 ? (&modified > 0 ? '[+]' : '') : ''
+
+FUNCTION  fzf#vim#gitfiles()
+    Defined: ~/.vim/vim-plug/fzf.vim/autoload/fzf/vim.vim:536
 Called 2 times
-Total time:   0.006709
- Self time:   0.000230
+Total time:   2.007770
+ Self time:   0.000252
 
 count  total (s)   self (s)
-    2   0.004465   0.000048   call s:find_current_signs(a:bufnr)
-                            
-    2              0.000067   let new_gitgutter_signs_line_numbers = map(copy(a:modified_lines), 'v:val[0]')
-    2   0.000590   0.000029   let obsolete_signs = s:obsolete_gitgutter_signs_to_remove(a:bufnr, new_gitgutter_signs_line_numbers)
-                            
-    2              0.000006   let flicker_possible = s:remove_all_old_signs && !empty(a:modified_lines)
-    2              0.000002   if flicker_possible
-                                call s:add_dummy_sign(a:bufnr)
+    2   0.046192   0.000090   let root = s:get_git_root()
+    2              0.000008   if empty(root)
+                                return s:warn('Not in git repo')
+    2              0.000002   endif
+    2              0.000007   if a:args != '?'
+    2   1.961542   0.000126     return s:fzf('gfiles', { 'source':  'git ls-files '.a:args.(s:is_win ? '' : ' | uniq'), 'dir':     root, 'options': '-m --prompt "GitFiles> "'}, a:000)
                               endif
                             
-    2   0.000058   0.000019   call s:remove_signs(a:bufnr, obsolete_signs, s:remove_all_old_signs)
-    2   0.001490   0.000028   call s:upsert_new_gitgutter_signs(a:bufnr, a:modified_lines)
-                            
-    2              0.000002   if flicker_possible
-                                call gitgutter#sign#remove_dummy_sign(a:bufnr, 0)
+                              " Here be dragons!
+                              " We're trying to access the common sink function that fzf#wrap injects to
+                              " the options dictionary.
+                              let wrapped = fzf#wrap({ 'source':  'git -c color.status=always status --short --untracked-files=all', 'dir':     root, 'options': ['--ansi', '--multi', '--nth', '2..,..', '--tiebreak=index', '--prompt', 'GitFiles?> ', '--preview', 'sh -c "(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500"']})
+                              call s:remove_layout(wrapped)
+                              let wrapped.common_sink = remove(wrapped, 'sink*')
+                              function! wrapped.newsink(lines)
+                                let lines = extend(a:lines[0:0], map(a:lines[1:], 'substitute(v:val[3:], ".* -> ", "", "")'))
+                                return self.common_sink(lines)
+                              endfunction
+                              let wrapped['sink*'] = remove(wrapped, 'newsink')
+                              return s:fzf('gfiles-diff', wrapped, a:000)
+
+FUNCTION  <SNR>78_exit_handler()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:557
+Called 2 times
+Total time:   0.000021
+ Self time:   0.000021
+
+count  total (s)   self (s)
+    2              0.000011   if a:code == 130
+    2              0.000003     return 0
+                              elseif has('nvim') && a:code == 129
+                                " When deleting the terminal buffer while fzf is still running,
+                                " Nvim sends SIGHUP.
+                                return 0
+                              elseif a:code > 1
+                                call s:error('Error running ' . a:command)
+                                if !empty(a:000)
+                                  sleep
+                                endif
+                                return 0
                               endif
+                              return 1
 
-FUNCTION  gitgutter#utility#setbufvar()
-Called 152 times
-Total time:   0.013604
- Self time:   0.013604
-
-count  total (s)   self (s)
-  152              0.000727   let buffer = +a:buffer
-  152              0.006915   let dict = get(getbufvar(buffer, '', {}), 'gitgutter', {})
-  152              0.000869   let needs_setting = empty(dict)
-  152              0.003092   let dict[a:varname] = a:val
-  152              0.000309   if needs_setting
-                                call setbufvar(buffer, 'gitgutter', dict)
-                              endif
-
-FUNCTION  <SNR>143_is_removed()
-Called 10 times
-Total time:   0.000029
- Self time:   0.000029
+FUNCTION  <SNR>78_callback()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:795
+Called 2 times
+Total time:   0.000921
+ Self time:   0.000294
 
 count  total (s)   self (s)
-   10              0.000025   return a:from_count > 0 && a:to_count == 0
-
-FUNCTION  gitgutter#process_buffer()
-Called 4 times
-Total time:   0.035688
- Self time:   0.000891
-
-count  total (s)   self (s)
-                              " NOTE a:bufnr is not necessarily the current buffer.
+    2              0.000021   let popd = has_key(a:dict, 'pushd')
+    2              0.000004   if popd
+    2              0.000013     let w:fzf_pushd = a:dict.pushd
+    2              0.000066   endif
                             
-    4   0.005380   0.000078   if gitgutter#utility#is_active(a:bufnr)
-    4   0.000156   0.000053     if a:force || s:has_fresh_changes(a:bufnr)
-                            
-    2              0.000004       let diff = ''
-    2              0.000003       try
-    2   0.029916   0.000524         let diff = gitgutter#diff#run_diff(a:bufnr, 'index', 0)
-    2              0.000034       catch /gitgutter not tracked/
-                                    call gitgutter#debug#log('Not tracked: '.gitgutter#utility#file(a:bufnr))
-                                  catch /gitgutter diff failed/
-                                    call gitgutter#debug#log('Diff failed: '.gitgutter#utility#file(a:bufnr))
-                                    call gitgutter#hunk#reset(a:bufnr)
-                                  endtry
-                            
-    2              0.000007       if diff != 'async'
-                                    call gitgutter#diff#handler(a:bufnr, diff)
-                                  endif
-                            
+    2              0.000004   try
+    2              0.000016     if has_key(a:dict, 'sink')
+                                  for line in a:lines
+                                    if type(a:dict.sink) == 2
+                                      call a:dict.sink(line)
+                                    else
+                                      execute a:dict.sink s:escape(line)
+                                    endif
+                                  endfor
+    2              0.000002     endif
+    2              0.000007     if has_key(a:dict, 'sink*')
+    2   0.000125   0.000029       call a:dict['sink*'](a:lines)
     2              0.000001     endif
-    4              0.000003   endif
+                              catch
+                                if stridx(v:exception, ':E325:') < 0
+                                  echoerr v:exception
+                                endif
+    2              0.000005   endtry
+                            
+                              " We may have opened a new window or tab
+    2              0.000004   if popd
+    2              0.000007     let w:fzf_pushd = a:dict.pushd
+    2   0.000566   0.000035     call s:dopopd()
+    2              0.000004   endif
 
-FUNCTION  gitgutter#utility#repo_path()
-Called 8 times
-Total time:   0.001396
- Self time:   0.000662
-
-count  total (s)   self (s)
-    8   0.000965   0.000554   let p = gitgutter#utility#getbufvar(a:bufnr, 'path')
-    8   0.000407   0.000084   return a:shellesc ? gitgutter#utility#shellescape(p) : p
-
-FUNCTION  gitgutter#utility#windows()
+FUNCTION  <SNR>78_fzf_tempname()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:114
 Called 2 times
-Total time:   0.000043
- Self time:   0.000043
+Total time:   0.000065
+ Self time:   0.000036
 
 count  total (s)   self (s)
-    2              0.000041   return has('win64') || has('win32') || has('win16')
+    2   0.000063   0.000034   return s:fzf_call('tempname')
 
-FUNCTION  gitgutter#hunk#summary()
-Called 40 times
-Total time:   0.001857
- Self time:   0.000941
+FUNCTION  fzf#run()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:385
+Called 2 times
+Total time:   1.954599
+ Self time:   0.001687
 
 count  total (s)   self (s)
-   40   0.001802   0.000886   return gitgutter#utility#getbufvar(a:bufnr, 'summary', [0,0,0])
+    2              0.000004 try
+    2   0.000170   0.000052   let [shell, shellslash, shellcmdflag, shellxquote] = s:use_sh()
+                            
+    2   0.000164   0.000085   let dict   = exists('a:1') ? s:upgrade(a:1) : {}
+    2   0.000134   0.000069   let temps  = { 'result': s:fzf_tempname() }
+    2   0.000066   0.000045   let optstr = s:evaluate_opts(get(dict, 'options', ''))
+    2              0.000002   try
+    2   0.000190   0.000037     let fzf_exec = s:fzf_exec()
+                              catch
+                                throw v:exception
+    2              0.000002   endtry
+                            
+    2              0.000007   if !has_key(dict, 'dir')
+                                let dict.dir = s:fzf_getcwd()
+    2              0.000001   endif
+    2              0.000012   if has('win32unix') && has_key(dict, 'dir')
+                                let dict.dir = fnamemodify(dict.dir, ':p')
+    2              0.000002   endif
+                            
+    2              0.000009   if !has_key(dict, 'source') && !empty($FZF_DEFAULT_COMMAND) && !s:is_win
+                                let temps.source = s:fzf_tempname()
+                                call writefile(s:wrap_cmds(split($FZF_DEFAULT_COMMAND, "\n")), temps.source)
+                                let dict.source = (empty($SHELL) ? &shell : $SHELL).' '.fzf#shellescape(temps.source)
+    2              0.000002   endif
+                            
+    2              0.000005   if has_key(dict, 'source')
+    2              0.000004     let source = dict.source
+    2              0.000005     let type = type(source)
+    2              0.000003     if type == 1
+    2              0.000005       let prefix = '( '.source.' )|'
+                                elseif type == 3
+                                  let temps.input = s:fzf_tempname()
+                                  call writefile(map(source, '<SID>enc_to_cp(v:val)'), temps.input)
+                                  let prefix = (s:is_win ? 'type ' : 'cat ').fzf#shellescape(temps.input).'|'
+                                else
+                                  throw 'Invalid source type'
+    2              0.000001     endif
+                              else
+                                let prefix = ''
+    2              0.000000   endif
+                            
+    2              0.000006   let prefer_tmux = get(g:, 'fzf_prefer_tmux', 0)
+    2   0.000723   0.000641   let use_height = has_key(dict, 'down') && !has('gui_running') && !(has('nvim') || s:is_win || has('win32unix') || s:present(dict, 'up', 'left', 'right', 'window')) && executable('tput') && filereadable('/dev/tty')
+    2              0.000037   let has_vim8_term = has('terminal') && has('patch-8.0.995')
+    2              0.000038   let has_nvim_term = has('nvim-0.2.1') || has('nvim') && !s:is_win
+    2              0.000042   let use_term = has_nvim_term || has_vim8_term && !has('win32unix') && (has('gui_running') || s:is_win || !use_height && s:present(dict, 'down', 'up', 'left', 'right', 'window'))
+    2              0.000017   let use_tmux = (!use_height && !use_term || prefer_tmux) && !has('win32unix') && s:tmux_enabled() && s:splittable(dict)
+    2              0.000004   if prefer_tmux && use_tmux
+                                let use_height = 0
+                                let use_term = 0
+    2              0.000003   endif
+    2              0.000002   if use_height
+    2   0.000319   0.000085     let height = s:calc_size(&lines, dict.down, dict)
+    2              0.000009     let optstr .= ' --height='.height
+                              elseif use_term
+                                let optstr .= ' --no-height'
+    2              0.000002   endif
+    2              0.000020   let command = prefix.(use_tmux ? s:fzf_tmux(dict) : fzf_exec).' '.optstr.' > '.temps.result
+                            
+    2              0.000003   if use_term
+                                return s:execute_term(dict, command, temps)
+    2              0.000002   endif
+                            
+    2   1.951356   0.000117   let lines = use_tmux ? s:execute_tmux(dict, command, temps) : s:execute(dict, command, use_height, temps)
+    2   0.001008   0.000087   call s:callback(dict, lines)
+    2              0.000006   return lines
+    2              0.000010 finally
+    2              0.000064   let [&shell, &shellslash, &shellcmdflag, &shellxquote] = [shell, shellslash, shellcmdflag, shellxquote]
+    2              0.000005 endtry
 
-FUNCTION  LightlineFiletype()
-Called 16 times
+FUNCTION  <SNR>78_use_sh()
+    Defined: ~/.vim/vim-plug/fzf/plugin/fzf.vim:372
+Called 2 times
 Total time:   0.000118
  Self time:   0.000118
 
 count  total (s)   self (s)
-   16              0.000096   return winwidth(0) > 160 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-
-FUNCTION  GitGutterGetHunkSummary()
-Called 16 times
-Total time:   0.001364
- Self time:   0.000544
-
-count  total (s)   self (s)
-   16   0.001334   0.000514   return gitgutter#hunk#summary(winbufnr(0))
-
-FUNCTION  LightLineGitversion()
-Called 16 times
-Total time:   0.000585
- Self time:   0.000585
-
-count  total (s)   self (s)
-   16              0.000079   let fullname = expand('%')
-   16              0.000029   let gitversion = ''
-   16              0.000127   if fullname =~? 'fugitive://.*/\.git//0/.*'
-                                let gitversion = 'git index'
-                              elseif fullname =~? 'fugitive://.*/\.git//2/.*'
-                                let gitversion = 'git target'
-                              elseif fullname =~? 'fugitive://.*/\.git//3/.*'
-                                let gitversion = 'git merge'
-                              elseif &diff == 1
-                                let gitversion = 'working copy'
-                              endif
-   16              0.000022   return gitversion
-
-FUNCTION  <SNR>80_abs_path()
-Called 18 times
-Total time:   0.004921
- Self time:   0.004921
-
-count  total (s)   self (s)
-   18              0.004707   let p = resolve(expand('#'.a:bufnr.':p'))
-   18              0.000172   return a:shellesc ? gitgutter#utility#shellescape(p) : p
-
-FUNCTION  gitgutter#async#execute()
-Called 2 times
-Total time:   0.021144
- Self time:   0.021009
-
-count  total (s)   self (s)
-    2   0.000143   0.000042   call gitgutter#debug#log('[async] '.a:cmd)
-                            
-    2              0.000078   let options = {   'stdoutbuffer': [],   'buffer': a:bufnr,   'handler': a:handler }
-    2   0.000059   0.000025   let command = s:build_command(a:cmd)
-                            
-    2              0.000010   if has('nvim')
-                                call jobstart(command, extend(options, {   'on_stdout': function('s:on_stdout_nvim'),   'on_stderr': function('s:on_stderr_nvim'),   'on_exit':   function('s:on_exit_nvim') }))
-                              else
-    2              0.020722     call job_start(command, {   'out_cb':   function('s:on_stdout_vim', options),   'err_cb':   function('s:on_stderr_vim', options),   'close_cb': function('s:on_exit_vim', options) })
-    2              0.000047   endif
-
-FUNCTION  gitgutter#diff#handler()
-Called 2 times
-Total time:   0.014499
- Self time:   0.000253
-
-count  total (s)   self (s)
-    2   0.000152   0.000038   call gitgutter#debug#log(a:diff)
-                            
-    2              0.000009   if !bufexists(a:bufnr)
-                                return
-                              endif
-                            
-    2   0.001648   0.000045   call gitgutter#hunk#set_hunks(a:bufnr, gitgutter#diff#parse_diff(a:diff))
-    2   0.005796   0.000033   let modified_lines = gitgutter#diff#process_hunks(a:bufnr, gitgutter#hunk#hunks(a:bufnr))
-                            
-    2              0.000004   let signs_count = len(modified_lines)
-    2              0.000006   if signs_count > g:gitgutter_max_signs
-                                call gitgutter#utility#warn_once(a:bufnr, printf( 'exceeded maximum number of signs (%d > %d, configured by g:gitgutter_max_signs).', signs_count, g:gitgutter_max_signs), 'max_signs')
-                                call gitgutter#sign#clear_signs(a:bufnr)
-                            
-                              else
-    2              0.000004     if g:gitgutter_signs || g:gitgutter_highlight_lines
-    2   0.006746   0.000037       call gitgutter#sign#update_signs(a:bufnr, modified_lines)
-    2              0.000000     endif
-    2              0.000002   endif
-                            
-    2   0.000074   0.000017   call s:save_last_seen_change(a:bufnr)
-    2              0.000015   if exists('#User#GitGutter')
-                                let g:gitgutter_hook_context = {'bufnr': a:bufnr}
-                                execute 'doautocmd' s:nomodeline 'User GitGutter'
-                                unlet g:gitgutter_hook_context
-                              endif
-
-FUNCTION  <lambda>1()
-Called 63 times
-Total time:   0.001110
- Self time:   0.001110
-
-count  total (s)   self (s)
-   63              0.000838 return 0
-
-FUNCTION  <SNR>141_on_exit_vim()
-Called 2 times
-Total time:   0.014621
- Self time:   0.000122
-
-count  total (s)   self (s)
-    2   0.014619   0.000120   call self.handler.out(self.buffer, join(self.stdoutbuffer, "\n"))
-
-FUNCTION  CtrlPMark()
-Called 16 times
-Total time:   0.000320
- Self time:   0.000320
-
-count  total (s)   self (s)
-   16              0.000151   if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-                                call lightline#link('iR'[g:lightline.ctrlp_regex])
-                                return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item , g:lightline.ctrlp_next], 0)
-                              else
-   16              0.000012     return ''
-                              endif
-
-FUNCTION  <SNR>80_unc_path()
-Called 2 times
-Total time:   0.001066
- Self time:   0.000072
-
-count  total (s)   self (s)
-    2   0.001063   0.000069   return s:abs_path(a:bufnr, 0) =~ '^\\\\'
-
-FUNCTION  LightlineModified()
-Called 16 times
-Total time:   0.000098
- Self time:   0.000098
-
-count  total (s)   self (s)
-   16              0.000083   return winwidth(0) > 70 ? (&modified > 0 ? '[+]' : '') : ''
-
-FUNCTION  <SNR>80_is_file_buffer()
-Called 6 times
-Total time:   0.000098
- Self time:   0.000098
-
-count  total (s)   self (s)
-    6              0.000087   return empty(getbufvar(a:bufnr, '&buftype'))
-
-FUNCTION  <SNR>145_find_current_signs()
-Called 2 times
-Total time:   0.004417
- Self time:   0.004043
-
-count  total (s)   self (s)
-    2              0.000007   let gitgutter_signs = {}  " <line_number (string)>: {'id': <id (number)>, 'name': <name (string)>}
-    2              0.000004   let other_signs = []      " [<line_number (number),...]
-    2              0.000003   let dummy_sign_placed = 0
-                            
-    2              0.000007   redir => signs
-    2              0.000067     silent execute "sign place buffer=" . a:bufnr
-    2              0.000007   redir END
-                            
-   42              0.000601   for sign_line in filter(split(signs, '\n')[2:], 'v:val =~# "="')
-                                " Typical sign line:  line=88 id=1234 name=GitGutterLineAdded
-                                " We assume splitting is faster than a regexp.
-   40              0.000608     let components  = split(sign_line)
-   40              0.000491     let name        = split(components[2], '=')[1]
-   40              0.000265     if name =~# 'GitGutterDummy'
-                                  let dummy_sign_placed = 1
-                                else
-   40              0.000359       let line_number = str2nr(split(components[0], '=')[1])
-   40              0.000157       if name =~# 'GitGutter'
-   40              0.000287         let id = str2nr(split(components[1], '=')[1])
-                                    " Remove orphaned signs (signs placed on lines which have been deleted).
-                                    " (When a line is deleted its sign lingers.  Subsequent lines' signs'
-                                    " line numbers are decremented appropriately.)
-   40              0.000138         if has_key(gitgutter_signs, line_number)
-                                      execute "sign unplace" gitgutter_signs[line_number].id
-                                    endif
-   40              0.000306         let gitgutter_signs[line_number] = {'id': id, 'name': name}
-   40              0.000036       else
-                                    call add(other_signs, line_number)
-                                  endif
-   40              0.000029     end
-   40              0.000026   endfor
-                            
-    2   0.000069   0.000025   call gitgutter#utility#setbufvar(a:bufnr, 'dummy_sign', dummy_sign_placed)
-    2   0.000319   0.000018   call gitgutter#utility#setbufvar(a:bufnr, 'gitgutter_signs', gitgutter_signs)
-    2   0.000045   0.000016   call gitgutter#utility#setbufvar(a:bufnr, 'other_signs', other_signs)
-
-FUNCTION  <SNR>145_remove_signs()
-Called 2 times
-Total time:   0.000039
- Self time:   0.000039
-
-count  total (s)   self (s)
-    2              0.000008   if a:all_signs && s:supports_star && empty(gitgutter#utility#getbufvar(a:bufnr, 'other_signs'))
-                                let dummy_sign_present = gitgutter#utility#getbufvar(a:bufnr, 'dummy_sign')
-                                execute "sign unplace * buffer=" . a:bufnr
-                                if dummy_sign_present
-                                  execute "sign place" s:dummy_sign_id "line=" . 9999 "name=GitGutterDummy buffer=" . a:bufnr
-                                endif
-                              else
-    2              0.000003     for id in a:sign_ids
-                                  execute "sign unplace" id
-                                endfor
-    2              0.000001   endif
+    2              0.000019   let [shell, shellslash, shellcmdflag, shellxquote] = [&shell, &shellslash, &shellcmdflag, &shellxquote]
+    2              0.000003   if s:is_win
+                                set shell=cmd.exe
+                                set noshellslash
+                                let &shellcmdflag = has('nvim') ? '/s /c' : '/c'
+                                let &shellxquote = has('nvim') ? '"' : '('
+    2              0.000003   else
+    2              0.000058     set shell=sh
+    2              0.000005   endif
+    2              0.000009   return [shell, shellslash, shellcmdflag, shellxquote]
 
 FUNCTIONS SORTED ON TOTAL TIME
 count  total (s)   self (s)  function
-    2   0.125461   0.072763  gitgutter#all()
-    4   0.035688   0.000891  gitgutter#process_buffer()
-    2   0.029392   0.002276  gitgutter#diff#run_diff()
-    2   0.021144   0.021009  gitgutter#async#execute()
-  116   0.018706   0.006177  <SNR>107_reset_tick()
-    2   0.014621   0.000122  <SNR>141_on_exit_vim()
-    2   0.014499   0.000253  gitgutter#diff#handler()
-  152   0.013604             gitgutter#utility#setbufvar()
-    6   0.007414   0.000433  gitgutter#utility#is_active()
-    2   0.006709   0.000230  gitgutter#sign#update_signs()
-   24   0.006640   0.001687  LightlineFugitive()
-    2   0.005721   0.000322  gitgutter#diff#process_hunks()
-   20   0.005399   0.002028  <SNR>143_process_hunk()
-   24   0.004953   0.000646  fugitive#head()
-   18   0.004921             <SNR>80_abs_path()
-    8   0.004662   0.002463  <SNR>80_dir()
-    2   0.004417   0.004043  <SNR>145_find_current_signs()
-    6   0.004410   0.000299  <SNR>80_not_git_dir()
-   24   0.004307             fugitive#Head()
-   16   0.002820   0.001456  LightlineGitGutterHunks()
+    2   2.007770   0.000252  fzf#vim#gitfiles()
+    2   1.961416   0.000406  <SNR>119_fzf()
+    2   1.954599   0.001687  fzf#run()
+    2   1.951239   0.008074  <SNR>78_execute()
+    2   0.046102   0.000822  <SNR>119_get_git_root()
+    2   0.006305   0.000180  <SNR>119_wrap()
+    2   0.006125   0.001096  fzf#wrap()
+    2   0.004764   0.001508  <SNR>78_defaults()
+   26   0.003079             <SNR>78_get_color()
+   22   0.002802   0.002128  LightlineFilename()
+   22   0.002171   0.001721  LightlineHunks()
+   11   0.001900   0.000536  LightlineAle()
+   22   0.001872   0.001607  LightlineMode()
+    3   0.001640   0.000539  sy#start()
+   11   0.001364   0.000419  ale#statusline#Count()
+   11   0.001357             lightline#link()
+   11   0.000945   0.000601  <SNR>105_GetCounts()
+    2   0.000921   0.000294  <SNR>78_callback()
+    2   0.000845   0.000498  <SNR>78_pushd()
+    3   0.000783             <SNR>109_get_path()
 
 FUNCTIONS SORTED ON SELF TIME
 count  total (s)   self (s)  function
-    2   0.125461   0.072763  gitgutter#all()
-    2   0.021144   0.021009  gitgutter#async#execute()
-  152              0.013604  gitgutter#utility#setbufvar()
-  116   0.018706   0.006177  <SNR>107_reset_tick()
-   18              0.004921  <SNR>80_abs_path()
-   24              0.004307  fugitive#Head()
-    2   0.004417   0.004043  <SNR>145_find_current_signs()
-    2              0.002643  <SNR>143_write_buffer()
-    8   0.004662   0.002463  <SNR>80_dir()
-    2              0.002310  fugitive#ReloadStatus()
-    2   0.029392   0.002276  gitgutter#diff#run_diff()
-   20   0.005399   0.002028  <SNR>143_process_hunk()
-   24   0.006640   0.001687  LightlineFugitive()
-   58              0.001466  gitgutter#utility#getbufvar()
-   16   0.002820   0.001456  LightlineGitGutterHunks()
-   16   0.001411   0.001241  LightlineFilename()
-    2   0.001462   0.001226  <SNR>145_upsert_new_gitgutter_signs()
-   63              0.001110  <lambda>1()
-   12   0.001024   0.000985  gitgutter#utility#shellescape()
-   40   0.001857   0.000941  gitgutter#hunk#summary()
+    2   1.951239   0.008074  <SNR>78_execute()
+   26              0.003079  <SNR>78_get_color()
+   22   0.002802   0.002128  LightlineFilename()
+   22   0.002171   0.001721  LightlineHunks()
+    2   1.954599   0.001687  fzf#run()
+   22   0.001872   0.001607  LightlineMode()
+    2   0.004764   0.001508  <SNR>78_defaults()
+   11              0.001357  lightline#link()
+    2   0.006125   0.001096  fzf#wrap()
+    2   0.046102   0.000822  <SNR>119_get_git_root()
+    3              0.000783  <SNR>109_get_path()
+   11   0.000945   0.000601  <SNR>105_GetCounts()
+    3   0.001640   0.000539  sy#start()
+   11   0.001900   0.000536  LightlineAle()
+    2   0.000845   0.000498  <SNR>78_pushd()
+    2   0.000531   0.000457  <SNR>78_dopopd()
+   22              0.000450  sy#repo#get_stats()
+   11   0.001364   0.000419  ale#statusline#Count()
+    2   1.961416   0.000406  <SNR>119_fzf()
+   22              0.000406  LightlineReadonly()
 

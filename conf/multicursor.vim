@@ -4,11 +4,14 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-s>'
 let g:multi_cursor_quit_key='<Esc>'
 
-func g:Multiple_cursors_before()
+function! Multiple_cursors_before()
     ALEToggle
-    call deoplete#custom#buffer_option('auto_complete', v:false)
+    let s:old_ycm_whitelist = g:ycm_filetype_whitelist
+    let g:ycm_filetype_whitelist = {}
+    " call deoplete#custom#buffer_option('auto_complete', v:false)
 endfunc
-func g:Multiple_cursors_after()
+function! Multiple_cursors_after()
     ALEToggle
-    call deoplete#custom#buffer_option('auto_complete', v:true)
+    let g:ycm_filetype_whitelist = s:old_ycm_whitelist
+    " call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunc

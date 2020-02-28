@@ -2,7 +2,7 @@ let g:lightline = {
       \ 'colorscheme': 'gotham',
       \  'active': {
       \    'left': [ [ 'mode', 'paste' ],
-      \              [ 'githunks', 'fugitive', 'gitversion' ],
+      \              [ 'fugitive', 'githunks', 'gitversion' ],
       \              [ 'filename', 'ctrlpmark' ] ],
       \    'right': [ [ 'ale' ], [ 'lineinfo' ], ['percent'],
       \               [ 'filetype', 'fileformat', 'fileencoding' ] ]
@@ -18,7 +18,8 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \  'fugitive': 'LightlineFugitive',
-      \  'githunks': 'LightlineGitGutterHunks',
+      \  'githunks': 'LightlineHunks',
+      \  'gitversion': 'LightLineGitversion',
       \  'ctrlpmark': 'CtrlPMark',
       \  'mode': 'LightlineMode',
       \  'filename': 'LightlineFilename',
@@ -27,13 +28,13 @@ let g:lightline = {
       \  'fileencoding': 'LightlineFileencoding',
       \  'filetype': 'LightlineFiletype',
       \  'modified': 'LightlineModified',
-      \  'gitversion': 'LightLineGitversion',
       \ },
       \  'separator': { 'left': '', 'right': '' },
       \  'subseparator': { 'left': '', 'right': '' },
       \  'tabline_separator': { 'left': '', 'right': '' },
       \  'tabline_subseparator': { 'left': '', 'right': '' }
       \ }
+
 
 let g:lightline.mode_map = {
       \ 'n' : 'N',
@@ -58,16 +59,13 @@ function! LightlineReadonly()
 endfunction
 
 function! LightlineFugitive()
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = ''  " edit here for cool mark
-      let branch = fugitive#head()
-      return branch !=# '' ? mark.branch : ''
-    endif
-  catch
-  endtry
+  if exists('*FugitiveHead')
+    let branch = FugitiveHead()
+    return branch !=# '' && winwidth(0) > 60 ? ' '.branch : ''
+  endif
   return ''
 endfunction
+
 
 function! LightLineGitversion()
   let fullname = expand('%')
@@ -160,41 +158,21 @@ function! LightlineFilename()
         \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
 
-" function! LightlineHunks()
-  " let symbols = ['+', '-', '~']
-  " let [added, modified, removed] = sy#repo#get_stats()
-  " let stats = [added, removed, modified]  " reorder
-  " let hunkline = ''
+function! LightlineHunks()
+  let symbols = ['+', '-', '~']
+  let [added, modified, removed] = sy#repo#get_stats()
+  let stats = [added, removed, modified]  " reorder
+  let hunkline = ''
 
-  " for i in range(3)
-    " let hunkline .= printf('%s%s ', symbols[i], stats[i])
-  " endfor
-
-  " if !empty(hunkline)
-    " let hunkline = printf('%s', hunkline[:-2])
-  " endif
-
-  " return winwidth(0) > 70 ? (hunkline) : ''
-" endfunction
-
-function! LightlineGitGutterHunks()
-  if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
-    return ''
+  if stats != [-1, -1, -1]
+    for i in range(3)
+      let hunkline .= printf('%s%s ', symbols[i], stats[i])
+    endfor
+    return winwidth(0) > 70 ? (hunkline) : ''
   endif
-  let symbols = ['+', '~', '-']
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    " if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    " endif
-  endfor
-  return winwidth(0) > 70 ? join(ret, ' ') : ''
-endfunction
 
-autocmd User Flags call Hoist('buffer', function('s:sy_stats_wrapper'))
+  return ''
+endfunction
 
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0

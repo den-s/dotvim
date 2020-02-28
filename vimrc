@@ -14,8 +14,9 @@ filetype plugin on
 filetype indent on
 
 " 1 tab == 2 spaces
-set tabstop=4
+set tabstop=2
 set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Be smart when using tabs ;)
@@ -81,7 +82,6 @@ set tm=500
 " Add a bit extra margin to the left
 set foldmethod=syntax
 set foldcolumn=3
-let javaScript_fold=1
 
 nnoremap <space> za
 nnoremap <s-space> zA
@@ -109,7 +109,12 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :wa!<cr>
 
-:set numberwidth=4
+set numberwidth=4
+
+nmap <leader>sr :set spell spelllang=ru_RU<cr>
+nmap <leader>se :set spell spelllang=en_us<cr>
+nmap <leader>ss :set spell<cr>
+nmap <leader>sd :set nospell<cr>
 
 nmap <leader>6 :diffget LOCAL<cr>
 nmap <leader>7 :diffget BASE<cr>
@@ -125,11 +130,14 @@ if has("gui_running")
   set guioptions-=b
   set guitablabel=%M\ %t
   set guifont=Menlo:h14
+  set macligatures
   if has('mac')
     if system("osascript -e 'tell application \"Finder\" to get bounds of window of desktop' | cut -d ' ' -f 4") > 900
-      set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h17
+      " set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h17
+      set guifont=Victor\ Mono\ Medium:h17
     else
-      set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
+      " set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
+      set guifont=Victor\ Mono\ Medium:h14
     endif
   endif
 endif
@@ -139,7 +147,8 @@ colorscheme gotham
 
 set ambiwidth="double"
 
-set t_Co=256
+" set t_Co=256
+set termguicolors
 
 syntax enable
 
@@ -170,7 +179,6 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
-set softtabstop=3
 " set mousehide
 set laststatus=2
 
@@ -249,7 +257,7 @@ nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 " nmap <leader>a :tab split<CR>:GrepperRg ""<left>
 " nmap <leader>A :tab split<CR>:GrepperRg <C-r><C-w><CR>
 
-let g:jsx_ext_required = 0
+" let g:jsx_ext_required = 0
 
 " For conceal markers.
 if has('conceal')
@@ -268,10 +276,13 @@ let g:vrc_show_command = 1
 
 call plug#begin('~/.vim/vim-plug')
 
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'suy/vim-context-commentstring'
+Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'tpope/vim-unimpaired'
@@ -280,10 +291,9 @@ Plug 'w0ng/vim-hybrid'
 Plug 'easymotion/vim-easymotion'
 Plug 'mileszs/ack.vim'
 Plug 'groenewege/vim-less'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'diepm/vim-rest-console'
 Plug 'hesselbom/vim-hsftp'
-Plug 'tpope/vim-repeat'
 Plug 'Raimondi/delimitMate'
 Plug 'whatyouhide/vim-gotham'
 Plug 'pangloss/vim-javascript'
@@ -297,10 +307,13 @@ Plug 'Shougo/vimproc.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf'
 Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'maxmellon/vim-jsx-pretty'
 " Plug 'python-mode/python-mode'
 Plug 'ap/vim-css-color'
 " Plug 'luochen1990/rainbow'
@@ -310,14 +323,26 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'Yggdroot/indentLine'
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'tmhedberg/SimpylFold'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+" if has('nvim')
+  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+  " Plug 'Shougo/deoplete.nvim'
+  " Plug 'roxma/nvim-yarp'
+  " Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" let g:deoplete#enable_at_startup = 1
+"
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
 call plug#end()
 
@@ -335,8 +360,6 @@ source ~/.vim/conf/youcompleteme.vim
 
 source ~/.vim/conf/surround.vim
 
-source ~/.vim/conf/delimmate.vim
-
 source ~/.vim/conf/multicursor.vim
 
 source ~/.vim/conf/vim-javascript.vim
@@ -352,3 +375,5 @@ source ~/.vim/conf/fzf.vim
 source ~/.vim/conf/nerdcommenter.vim
 
 source ~/.vim/conf/deoplete.vim
+
+source ~/.vim/conf/delimmate.vim
