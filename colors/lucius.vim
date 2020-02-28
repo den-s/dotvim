@@ -1,1 +1,1 @@
-../vim-plug/vim-lucius/colors/lucius.vim
+../plugins/vim-lucius/colors/lucius.vim
