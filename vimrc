@@ -274,7 +274,7 @@ let g:vrc_show_command = 1
 
 " set pyxversion=3
 
-call plug#begin('~/.vim/vim-plug')
+call plug#begin('~/.vim/plugins')
 
 " Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
